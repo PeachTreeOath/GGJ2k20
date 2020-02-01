@@ -7,7 +7,7 @@ public class RoundPhaseBuy : RoundPhase
     {
         if (phaseAlive)
         {
-            Debug.Log("In Buy Phase, current time: " + currentRoundTime);
+           // Debug.Log("In Buy Phase, current time: " + currentRoundTime);
             currentRoundTime -= Time.deltaTime;
             if (currentRoundTime < 0)
             {
