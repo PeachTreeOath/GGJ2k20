@@ -21,5 +21,12 @@ public class RoundPhaseBuy : RoundPhase
 
     public override void BeforePhaseStartPrep()
     {
+        GameManager.instance.debugText.text = "BUY PHASE";
     }
+
+    public override void EndPhase()
+    {
+        // do nothing for now i guess
+    }
+
 }
