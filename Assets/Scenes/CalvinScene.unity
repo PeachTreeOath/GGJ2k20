@@ -338,11 +338,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: BattlePhase
       objectReference: {fileID: 0}
-    - target: {fileID: 8052040122256104110, guid: 47db14f0670363a448d34403d23f9641,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 47db14f0670363a448d34403d23f9641, type: 3}
 --- !u!1 &1866710656

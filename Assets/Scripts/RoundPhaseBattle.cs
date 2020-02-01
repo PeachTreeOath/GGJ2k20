@@ -5,12 +5,28 @@ public class RoundPhaseBattle : RoundPhase
 {
     public GameObject battlePhasePlatform;
 
+    public int startingScale;
+
+    public int endingScale;
+
+    private float scaleDeltaPerSecond;
+
+    private float currentScale;
+
+    private void Start()
+    {
+        currentScale = startingScale;
+        float scaleDeltaPerPhase = (startingScale - endingScale) / GameManager.instance.numberOfRounds;
+        scaleDeltaPerSecond = scaleDeltaPerPhase / roundTime;
+    }
+
     void Update()
     {
         if (phaseAlive)
         {
             currentRoundTime -= Time.deltaTime;
-            battlePhasePlatform.transform.localScale = new Vector3(currentRoundTime, currentRoundTime, currentRoundTime);
+            currentScale -= scaleDeltaPerSecond * Time.deltaTime;
+            battlePhasePlatform.transform.localScale = new Vector3(currentScale, currentScale, currentScale);
             if (currentRoundTime < 0)
             {
                 AirConsole.instance.Message(AirConsole.instance.GetControllerDeviceIds()[0], "view:dead_view");
@@ -23,6 +39,6 @@ public class RoundPhaseBattle : RoundPhase
 
     public override void BeforePhaseStartPrep()
     {
-        battlePhasePlatform.transform.localScale = new Vector3(10, 10, 10);
+        // battlePhasePlatform.transform.localScale = new Vector3(10, 10, 10);
     }
 }
