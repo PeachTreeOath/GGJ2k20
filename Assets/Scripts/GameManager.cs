@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
@@ -8,9 +9,11 @@ public class GameManager : Singleton<GameManager>
     public int currentRound = 1;
     public List<RoundPhase> roundPhases = new List<RoundPhase>();
     public int currentPhaseIndex = 0;
+    public TextMeshProUGUI debugText;
 
-    // Start is called before the first frame update
-    void Start()
+    private List<GameObject> beyblades = new List<GameObject>();
+
+    public void StartGame()
     {
         if (roundPhases.Count <= 0)
         {
@@ -25,6 +28,8 @@ public class GameManager : Singleton<GameManager>
 
     public void CurrentPhaseOver()
     {
+        roundPhases[currentPhaseIndex].EndPhase();
+
         currentPhaseIndex++;
         if (currentPhaseIndex >= roundPhases.Count)
         {
@@ -51,6 +56,7 @@ public class GameManager : Singleton<GameManager>
         Debug.Log("END GAME");
     }
 
+
     // Factory for beyblade spawning
     public void SpawnBeyblades()
     {
@@ -63,6 +69,14 @@ public class GameManager : Singleton<GameManager>
             GameObject bbObj = Instantiate(ResourceLoader.instance.beybladePrefab, pos, rot);
             CalvinBeyblade beyblade = bbObj.GetComponent<CalvinBeyblade>();
             beyblade.playerName.text = player.nickname;
+        }
+    }
+
+    public void DespawnBeyblades()
+    {
+        foreach (GameObject bb in beyblades)
+        {
+            Destroy(bb);
         }
     }
 

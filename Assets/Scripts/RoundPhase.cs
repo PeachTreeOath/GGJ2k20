@@ -21,4 +21,6 @@ public abstract class RoundPhase : MonoBehaviour
     }
 
     public abstract void BeforePhaseStartPrep();
+
+    public abstract void EndPhase();
 }
