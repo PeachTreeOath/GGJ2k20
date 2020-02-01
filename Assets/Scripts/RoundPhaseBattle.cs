@@ -3,6 +3,10 @@ using UnityEngine;
 
 public class RoundPhaseBattle : RoundPhase
 {
+    public float timeUntilShrinkStarts;
+
+    public float timeUntilPhaseEndAfterShrink;
+
     public GameObject battlePhasePlatform;
 
     public int startingScale;
@@ -15,9 +19,18 @@ public class RoundPhaseBattle : RoundPhase
 
     private void Start()
     {
+        // Setup current scale
         currentScale = startingScale;
+        battlePhasePlatform.transform.localScale = new Vector3(currentScale, currentScale, currentScale);
+
+        // Determine scaling rate
         float scaleDeltaPerPhase = (startingScale - endingScale) / GameManager.instance.numberOfRounds;
-        scaleDeltaPerSecond = scaleDeltaPerPhase / roundTime;
+        float shrinkingTime = roundTime - timeUntilShrinkStarts - timeUntilPhaseEndAfterShrink;
+        if (shrinkingTime <= 0)
+        {
+            Debug.LogWarning("SHRINKING TIME IS ZERO OR LESS. Look at timeUntilX fields");
+        }
+        scaleDeltaPerSecond = scaleDeltaPerPhase / shrinkingTime;
     }
 
     void Update()
@@ -25,8 +38,11 @@ public class RoundPhaseBattle : RoundPhase
         if (phaseAlive)
         {
             currentRoundTime -= Time.deltaTime;
-            currentScale -= scaleDeltaPerSecond * Time.deltaTime;
-            battlePhasePlatform.transform.localScale = new Vector3(currentScale, currentScale, currentScale);
+            if (roundTime - currentRoundTime >= timeUntilShrinkStarts && currentRoundTime > timeUntilPhaseEndAfterShrink)
+            {
+                currentScale -= scaleDeltaPerSecond * Time.deltaTime;
+                battlePhasePlatform.transform.localScale = new Vector3(currentScale, currentScale, currentScale);
+            }
             if (currentRoundTime < 0)
             {
                 AirConsole.instance.Message(AirConsole.instance.GetControllerDeviceIds()[0], "view:dead_view");

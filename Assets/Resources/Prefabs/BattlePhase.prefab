@@ -139,6 +139,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roundTime: 9.959999
   phaseName: Battle
+  timeUntilShrinkStarts: 2
+  timeUntilPhaseEndAfterShrink: 2
   battlePhasePlatform: {fileID: 7990559838074645506}
   startingScale: 10
   endingScale: 2
