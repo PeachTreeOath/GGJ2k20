@@ -57,13 +57,12 @@ public class RoundPhaseBattle : RoundPhase
     {
         GameManager.instance.debugText.text = "BATTLE PHASE";
         GameManager.instance.SpawnBeyblades();
+        AirConsole.instance.Broadcast("view:alive_view");
         // battlePhasePlatform.transform.localScale = new Vector3(10, 10, 10);
     }
 
     public override void EndPhase()
     {
-        GameManager.instance.debugText.text = "BATTLE PHASE";
         GameManager.instance.DespawnBeyblades();
-        // battlePhasePlatform.transform.localScale = new Vector3(10, 10, 10);
     }
 }
