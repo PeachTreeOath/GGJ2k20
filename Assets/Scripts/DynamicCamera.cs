@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BotPartBase : MonoBehaviour
+[RequireComponent(typeof(Camera))]
+public class DynamicCamera : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()

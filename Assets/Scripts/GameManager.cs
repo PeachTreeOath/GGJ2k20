@@ -1,30 +1,92 @@
-﻿using NDream.AirConsole;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
 {
+    public int numberOfRounds;
+    public int currentRound = 1;
+    public List<RoundPhase> roundPhases = new List<RoundPhase>();
+    public int currentPhaseIndex = 0;
+    public TextMeshProUGUI debugText;
 
-    private GameObject testObj;
-    private float timeLeft = 10f;
-    private bool isDone;
+    private List<GameObject> beyblades = new List<GameObject>();
 
-    // Start is called before the first frame update
-    void Start()
+    public void StartGame()
     {
-        testObj = GameObject.Find("Sphere");
+        if (roundPhases.Count <= 0)
+        {
+            Debug.Log("NO ROUND PHASES SELECTED.");
+        }
+        else
+        {
+            Debug.Log("STRT GAME. ROUND: " + currentRound + " PHASE: " + currentPhaseIndex);
+            roundPhases[currentPhaseIndex].StartPhase();
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void CurrentPhaseOver()
     {
-        timeLeft -= Time.deltaTime;
-        testObj.transform.localScale = new Vector3(timeLeft, timeLeft, timeLeft);
-        if (timeLeft < 0 && !isDone)
+        roundPhases[currentPhaseIndex].EndPhase();
+
+        currentPhaseIndex++;
+        if (currentPhaseIndex >= roundPhases.Count)
         {
-            isDone = true;
-            AirConsole.instance.Message(AirConsole.instance.GetControllerDeviceIds()[0], "view:dead_view");
+            // Next round
+            currentRound++;
+            if (currentRound > numberOfRounds)
+            {
+                this.EndGame();
+            }
+            else
+            {
+                currentPhaseIndex = 0;
+            }
         }
+        if (currentRound <= numberOfRounds && currentPhaseIndex < roundPhases.Count)
+        {
+            Debug.Log("ROUND: " + currentRound + " PHASE: " + currentPhaseIndex);
+            roundPhases[currentPhaseIndex].StartPhase();
+        }
+    }
+
+    public void EndGame()
+    {
+        Debug.Log("END GAME");
+    }
+
+
+    // Factory for beyblade spawning
+    public void SpawnBeyblades()
+    {
+        Vector3 center = transform.position;
+
+        foreach (PlayerController player in ControllerManager.instance.players.Values)
+        {
+            Vector3 pos = RandomCircle(center, 5.0f);
+            Quaternion rot = Quaternion.FromToRotation(Vector3.forward, center - pos);
+            GameObject bbObj = Instantiate(ResourceLoader.instance.beybladePrefab, pos, rot);
+            CalvinBeyblade beyblade = bbObj.GetComponent<CalvinBeyblade>();
+            beyblade.playerName.text = player.nickname;
+        }
+    }
+
+    public void DespawnBeyblades()
+    {
+        foreach (GameObject bb in beyblades)
+        {
+            Destroy(bb);
+        }
+    }
+
+    private Vector3 RandomCircle(Vector3 center, float radius)
+    {
+        float ang = Random.value * 360;
+        Vector3 pos;
+        pos.x = center.x + radius * Mathf.Sin(ang * Mathf.Deg2Rad);
+        pos.y = center.y + radius * Mathf.Cos(ang * Mathf.Deg2Rad);
+        pos.z = center.z;
+        return pos;
     }
 }
