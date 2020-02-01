@@ -1,0 +1,39 @@
+
+http://2a087801.ngrok.io
+http://www.airconsole.com/?http=1#http://2a087801.ngrok.io/?unity-editor-websocket-port=7843&unity-plugin-version=2.0
+
+
+Setting up AirConsole in Unity:
+1. In the main unit scene, select the AirConsole object.
+2. In the inspector under Air Console, Under Browser Start Mode, select Normal
+
+
+Set up ngrok:
+1. Download ngrok from https://dashboard.ngrok.com/get-started
+ -Default is for Windows, make sure to get the Mac one if you are on a mac.
+1. Create an account on https://dashboard.ngrok.com/get-started
+2. Once logged in, select 3. Connect your account
+3. Copy the ngrok authtoken YOUR_TOKEN line
+4. From a cmd/terminal window navigate to your unity workspace location and into the ngrok folder for your, e.g. D:\unity_workspace\GGJ2k19\Assets\ngrok\win
+5. Paste the ngrok authtoken line from earlier, removing the "./" if necessary
+6. Run ngrok with the command: 
+ ngrok http 7842
+7. Copy the first forwarding line, e.g. http://2a087801.ngrok.io
+
+Running the game from unity first time:
+1. When the browser window pops up, do not join with any phones yet.
+2. Modify the URL in the browser, from http://www.airconsole.com/?http=1#http://10.96.20.13:7842/?unity-editor-websocket-port=7843&unity-plugin-version=2.0
+replacing the URL after the # with the one from step 7 of Set up ngrok
+E.G. http://www.airconsole.com/?http=1#http://2a087801.ngrok.io/?unity-editor-websocket-port=7843&unity-plugin-version=2.0
+3. Reload the page with this URL and ppl should be able to join.
+4. Keep this browser tab open, subsequent runs can be done without the url replace above, with the steps below.
+5. You can stop the game from unity.
+
+Running the game, after you have an inital browser session:
+1. In the main unit scene, select the AirConsole object.
+2. In the inspector under Air Console, Under Browser Start Mode, select No Browser Start
+3. Start the game from unity.
+4. Refresh the browser tab from earlier and reconnect players.
+
+
+
