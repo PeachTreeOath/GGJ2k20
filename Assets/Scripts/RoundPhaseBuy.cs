@@ -7,7 +7,7 @@ public class RoundPhaseBuy : RoundPhase
     {
         if (phaseAlive)
         {
-            Debug.Log("In Buy Phase, current time: " + currentRoundTime);
+           // Debug.Log("In Buy Phase, current time: " + currentRoundTime);
             currentRoundTime -= Time.deltaTime;
             if (currentRoundTime < 0)
             {
@@ -21,5 +21,12 @@ public class RoundPhaseBuy : RoundPhase
 
     public override void BeforePhaseStartPrep()
     {
+        GameManager.instance.debugText.text = "BUY PHASE";
     }
+
+    public override void EndPhase()
+    {
+        // do nothing for now i guess
+    }
+
 }
