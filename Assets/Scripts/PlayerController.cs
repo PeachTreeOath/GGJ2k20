@@ -1,6 +1,33 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+public enum WeaponType
+{
+	Flamethrower,
+	Knife,
+	Nuke
+}
+
+public enum RepairType
+{
+
+}
+
+public enum Result
+{
+	Success,
+	NotEnoughMoney,
+	NotAllowed,
+	Error
+}
+
+public class WeaponUpgradeEventArgs : EventArgs
+{
+	public WeaponType Weapon { get; set; }
+	public int Level { get; set; }
+}
 
 public class PlayerController : MonoBehaviour
 {
@@ -11,6 +38,10 @@ public class PlayerController : MonoBehaviour
     private int cash; // Use AddRemoveCash
     private int hp;
 
+	public event EventHandler<WeaponUpgradeEventArgs> WeaponUpgraded;
+
+	private Dictionary<WeaponType, int> weaponLevel = new Dictionary<WeaponType, int>();
+
     public void AddRemoveCash(int changedCash)
     {
         cash += changedCash;
@@ -18,17 +49,37 @@ public class PlayerController : MonoBehaviour
         // todo Send airconsole messages to update phones
     }
 
-    public void ButtonInput(string input)
+	// needs reference to what weapons this has
+
+	private void AddWeapon(WeaponType weapon)
+	{
+		if (new List<WeaponType>(weaponLevel.Keys).Contains(weapon))
+		{
+			weaponLevel[weapon] += 1;
+			WeaponUpgraded?.Invoke(this, new WeaponUpgradeEventArgs() { Weapon = weapon, Level = weaponLevel[weapon] });
+		}
+		else
+		{
+			weaponLevel.Add(weapon, 1);
+			WeaponUpgraded?.Invoke(this, new WeaponUpgradeEventArgs() { Weapon = weapon, Level = 1 });
+		}
+	}
+
+    public Result ButtonInput(string input)
     {
         switch (input)
         {
-            case "buy":
-                if (cash > 100)
+            case "buy_flamethrower":
+                if (cash >= Constants.WeaponCost[WeaponType.Flamethrower][weaponLevel[WeaponType.Flamethrower]])
                 {
-                    cash -= 100;
-                    Debug.Log("GUN BOUGHT");
+                    cash -= Constants.WeaponCost[WeaponType.Flamethrower][weaponLevel[WeaponType.Flamethrower]];
+					AddWeapon(WeaponType.Flamethrower);
+                    Debug.Log("FLAMETHROWER BOUGHT");
+					return Result.Success;
                 }
-                break;
+				return Result.NotEnoughMoney;
+			default:
+				return Result.Error;
                 /*
                     case "right":
                         anim.SetBool("isRunning", true);

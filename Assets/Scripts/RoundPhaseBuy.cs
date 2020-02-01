@@ -22,11 +22,11 @@ public class RoundPhaseBuy : RoundPhase
     public override void BeforePhaseStartPrep()
     {
         GameManager.instance.debugText.text = "BUY PHASE";
+        AirConsole.instance.Broadcast("view:shop_view");
     }
 
     public override void EndPhase()
     {
         // do nothing for now i guess
     }
-
 }
