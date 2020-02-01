@@ -5,10 +5,8 @@ using NDream.AirConsole;
 using Newtonsoft.Json.Linq;
 
 
-public class ControllerManager : MonoBehaviour
+public class ControllerManager : Singleton<ControllerManager>
 {
-    public GameObject playerPrefab;
-
     public Dictionary<int, PlayerController> players = new Dictionary<int, PlayerController>();
 
     private List<Color> playerColorsList = new List<Color>
@@ -50,8 +48,6 @@ public class ControllerManager : MonoBehaviour
    };
 
     private int playerSpawnNumber = 0;
-
-    public float spawnHeight = 2f;
 
     void Awake()
     {

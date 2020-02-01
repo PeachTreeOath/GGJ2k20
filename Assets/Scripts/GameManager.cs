@@ -50,4 +50,29 @@ public class GameManager : Singleton<GameManager>
     {
         Debug.Log("END GAME");
     }
+
+    // Factory for beyblade spawning
+    public void SpawnBeyblades()
+    {
+        Vector3 center = transform.position;
+
+        foreach (PlayerController player in ControllerManager.instance.players.Values)
+        {
+            Vector3 pos = RandomCircle(center, 5.0f);
+            Quaternion rot = Quaternion.FromToRotation(Vector3.forward, center - pos);
+            GameObject bbObj = Instantiate(ResourceLoader.instance.beybladePrefab, pos, rot);
+            CalvinBeyblade beyblade = bbObj.GetComponent<CalvinBeyblade>();
+            beyblade.playerName.text = player.nickname;
+        }
+    }
+
+    private Vector3 RandomCircle(Vector3 center, float radius)
+    {
+        float ang = Random.value * 360;
+        Vector3 pos;
+        pos.x = center.x + radius * Mathf.Sin(ang * Mathf.Deg2Rad);
+        pos.y = center.y + radius * Mathf.Cos(ang * Mathf.Deg2Rad);
+        pos.z = center.z;
+        return pos;
+    }
 }
