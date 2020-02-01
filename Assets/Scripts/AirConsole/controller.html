@@ -120,7 +120,7 @@
 
       me.airconsole = new AirConsole({"orientation": "landscape", "synchronize_time" : "true"});
 
-	  showView("alive_view");
+	  showView("ready_view");
 
 	  me.airconsole.onMessage = function(from, data) {
         console.log("onMessage", from, data);
@@ -243,6 +243,9 @@
 
   </div>
 
+  <div id="ready_view" class="view">
+    <img src="ready.png">
+  </div>
   <div id="victory_view" class="view">
     <img src="Victory.png">
   </div>
