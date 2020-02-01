@@ -49,8 +49,9 @@ public class ControllerManager : Singleton<ControllerManager>
 
     private int playerSpawnNumber = 0;
 
-    void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         AirConsole.instance.onMessage += OnMessage;
         AirConsole.instance.onReady += OnReady;
         AirConsole.instance.onConnect += OnConnect;

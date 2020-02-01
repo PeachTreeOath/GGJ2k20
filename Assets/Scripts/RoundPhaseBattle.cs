@@ -55,7 +55,15 @@ public class RoundPhaseBattle : RoundPhase
 
     public override void BeforePhaseStartPrep()
     {
+        GameManager.instance.debugText.text = "BATTLE PHASE";
         GameManager.instance.SpawnBeyblades();
+        // battlePhasePlatform.transform.localScale = new Vector3(10, 10, 10);
+    }
+
+    public override void EndPhase()
+    {
+        GameManager.instance.debugText.text = "BATTLE PHASE";
+        GameManager.instance.DespawnBeyblades();
         // battlePhasePlatform.transform.localScale = new Vector3(10, 10, 10);
     }
 }
