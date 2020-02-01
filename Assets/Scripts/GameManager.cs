@@ -1,30 +1,53 @@
-﻿using NDream.AirConsole;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
 {
-
-    private GameObject testObj;
-    private float timeLeft = 10f;
-    private bool isDone;
+    public int numberOfRounds;
+    public int currentRound = 1;
+    public List<RoundPhase> roundPhases = new List<RoundPhase>();
+    public int currentPhaseIndex = 0;
 
     // Start is called before the first frame update
     void Start()
     {
-        testObj = GameObject.Find("Sphere");
+        if (roundPhases.Count <= 0)
+        {
+            Debug.Log("NO ROUND PHASES SELECTED.");
+        }
+        else
+        {
+            Debug.Log("STRT GAME. ROUND: " + currentRound + " PHASE: " + currentPhaseIndex);
+            roundPhases[currentPhaseIndex].StartPhase();
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void CurrentPhaseOver()
     {
-        timeLeft -= Time.deltaTime;
-        testObj.transform.localScale = new Vector3(timeLeft, timeLeft, timeLeft);
-        if (timeLeft < 0 && !isDone)
+        currentPhaseIndex++;
+        if (currentPhaseIndex >= roundPhases.Count)
         {
-            isDone = true;
-            AirConsole.instance.Message(AirConsole.instance.GetControllerDeviceIds()[0], "view:dead_view");
+            // Next round
+            currentRound++;
+            if (currentRound > numberOfRounds)
+            {
+                this.EndGame();
+            }
+            else
+            {
+                currentPhaseIndex = 0;
+            }
         }
+        if (currentRound <= numberOfRounds && currentPhaseIndex < roundPhases.Count)
+        {
+            Debug.Log("ROUND: " + currentRound + " PHASE: " + currentPhaseIndex);
+            roundPhases[currentPhaseIndex].StartPhase();
+        }
+    }
+
+    public void EndGame()
+    {
+        Debug.Log("END GAME");
     }
 }
