@@ -45,7 +45,7 @@ public class RoundPhaseBattle : RoundPhase
             }
             if (currentRoundTime < 0)
             {
-                AirConsole.instance.Message(AirConsole.instance.GetControllerDeviceIds()[0], "view:dead_view");
+                //AirConsole.instance.Message(AirConsole.instance.GetControllerDeviceIds()[0], "view:dead_view");
                 GameManager.instance.CurrentPhaseOver();
                 phaseAlive = false;
                 this.gameObject.SetActive(false);
