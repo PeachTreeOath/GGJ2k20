@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 4326140320757087303}
   - component: {fileID: 8095800730835098288}
   - component: {fileID: 8398746073739457529}
-  m_Layer: 9
+  - component: {fileID: 4286583448882706308}
+  m_Layer: 0
   m_Name: Shuriken
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -76,6 +77,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.4, y: 0.1, z: 0.4}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4286583448882706308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2225425695050665073}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca8f92d06d9e348bda18a2b2abe94bf8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  time: 8
 --- !u!1001 &148262859529720778
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -152,11 +166,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: shuriken
-      objectReference: {fileID: 0}
-    - target: {fileID: 2451555233188551520, guid: 1e6189393b3624bc385cbbd82af41805,
-        type: 3}
-      propertyPath: m_Layer
-      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e6189393b3624bc385cbbd82af41805, type: 3}
