@@ -38,6 +38,14 @@ public class BotBase: MonoBehaviour
         StartCoroutine(UpdatePersonalTarget());
     }
 
+	public void HealDamage(float healAmount)
+	{
+		healAmount = Mathf.Max(0f, healAmount);
+		healAmount *= (HealthPercentage - 0.01f);
+		CurrentHealth += healAmount;
+		CurrentHealth = Mathf.Clamp(CurrentHealth, 0f, StartingHealth);
+	}
+
     public void TakeDamage(float damageAmount, Vector3 contactPoint)
     {
         // not a linear damage mechanic, incoming damage is reduced by current damage taken
@@ -45,7 +53,6 @@ public class BotBase: MonoBehaviour
         damageAmount = Mathf.Min(damageAmount, StartingHealth);
         damageAmount *= (HealthPercentage - 0.01f);
         CurrentHealth -= damageAmount;
-		CurrentHealth = Mathf.Clamp(CurrentHealth, 0f, StartingHealth);
 
         rgbd.AddForceAtPosition((transform.position - contactPoint + Vector3.up) * 5, contactPoint, ForceMode.Impulse);
     }

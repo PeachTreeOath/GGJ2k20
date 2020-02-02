@@ -113,7 +113,7 @@ public class PlayerController : MonoBehaviour
 		if (cash >= Constants.RepairCost[repairType])
 		{
 			cash -= Constants.RepairCost[repairType];
-			Bot.TakeDamage(-10f);
+			Bot.HealDamage(10f);
 			Debug.Log(repairType.ToString() + " BOUGHT");
 			return Result.Success;
 		}
