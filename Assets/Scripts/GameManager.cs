@@ -76,6 +76,7 @@ public class GameManager : Singleton<GameManager>
             beyblades.Add(bbObj);
             BotBase beyblade = bbObj.GetComponent<BotBase>();
             beyblade.playerName.text = player.nickname;
+            beyblade.beybladeModel.material.color = player.playerColor;
 
             // read through playercontroller and spawn weapons onto it
         }

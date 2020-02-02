@@ -731,6 +731,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ArenaPlatform
       objectReference: {fileID: 0}
+    - target: {fileID: 8299445425844620856, guid: e2c8f774914c6794c96a522b98fade45,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e2c8f774914c6794c96a522b98fade45, type: 3}
 --- !u!114 &918073355 stripped
