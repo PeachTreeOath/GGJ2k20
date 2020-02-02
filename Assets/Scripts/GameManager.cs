@@ -73,8 +73,9 @@ public class GameManager : Singleton<GameManager>
             Vector3 pos = RandomCircle(center, 8.0f) + heightAdjust;
             Quaternion rot = Quaternion.FromToRotation(Vector3.forward, center - pos);
             GameObject bbObj = Instantiate(ResourceLoader.instance.beybladePrefab, pos, rot);
-            CalvinBeyblade beyblade = bbObj.GetComponent<CalvinBeyblade>();
-            //beyblade.playerName.text = player.nickname;
+            beyblades.Add(bbObj);
+            BotBase beyblade = bbObj.GetComponent<BotBase>();
+            beyblade.playerName.text = player.nickname;
 
             // read through playercontroller and spawn weapons onto it
         }
