@@ -55,10 +55,11 @@ public class RoundPhaseBattle : RoundPhase
 
     public override void BeforePhaseStartPrep()
     {
-        GameManager.instance.debugText.text = "BATTLE PHASE";
+        GameManager.instance.debugText.text = "BATTLE PHASE RD " + GameManager.instance.currentRound;
         GameManager.instance.SpawnBeyblades();
         AirConsole.instance.Broadcast("view:alive_view");
-        // battlePhasePlatform.transform.localScale = new Vector3(10, 10, 10);
+
+        // todo lower walls in this phase
     }
 
     public override void EndPhase()
