@@ -43,6 +43,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d1661a71644efe488acb9d6ac8ce34f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TypeOfWeapon: 5
+  damage: 10
+  startingDurability: 100
+  numShurikensToSpawn: 3
   projectilePrefabToLaunch: {fileID: 2225425695050665073, guid: 74b808a3345ac0849840ba2a948ae4cf,
     type: 3}
   secsToFire: 2
+  speed: 8

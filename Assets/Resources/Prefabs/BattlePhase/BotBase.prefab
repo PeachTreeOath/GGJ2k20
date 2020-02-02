@@ -374,6 +374,7 @@ MonoBehaviour:
   MaxKnockbackFactor: 4
   MinKnockbackFactor: 0.25
   Targets: []
+  rgbd: {fileID: 0}
   playerName: {fileID: 7113682404996646102}
   beybodyModel: {fileID: 4879481671921699880}
   beybladeModels:

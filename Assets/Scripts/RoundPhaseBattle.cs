@@ -1,4 +1,5 @@
-﻿using NDream.AirConsole;
+﻿using System.Collections.Generic;
+using NDream.AirConsole;
 using UnityEngine;
 
 public class RoundPhaseBattle : RoundPhase
@@ -37,7 +38,7 @@ public class RoundPhaseBattle : RoundPhase
 
     void Update()
     {
-        if (phaseAlive)
+        if (phaseAlive && GameManager.instance.currentRound < 5)
         {
             currentRoundTime -= Time.deltaTime;
             if (roundTime - currentRoundTime >= timeUntilShrinkStarts && currentRoundTime > timeUntilPhaseEndAfterShrink)
@@ -51,6 +52,23 @@ public class RoundPhaseBattle : RoundPhase
                 GameManager.instance.CurrentPhaseOver();
                 phaseAlive = false;
                 this.gameObject.SetActive(false);
+            }
+        }
+        else
+        {
+            List<BotBase> bots = new List<BotBase>();
+            foreach(BotBase bot in FindObjectsOfType<BotBase>())
+            {
+                if(!bot.IsDead) bots.Add(bot);
+            }
+            if(bots.Count < 2)
+            {
+                //Send a message to the player's phone indicating that he/she won the game, then either return to the main menu, reload the scene, or quit.
+                foreach(PlayerController player in FindObjectsOfType<PlayerController>())
+                {
+                    if (player.nickname.Equals(bots[0].playerName)) AirConsole.instance.Message(player.deviceID, "view:victory_view");
+                    //TODO action after the victory message.
+                }
             }
         }
     }

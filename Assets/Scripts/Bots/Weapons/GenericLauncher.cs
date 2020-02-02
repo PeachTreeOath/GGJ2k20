@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// WARNING THIS IS TUNED AS A CANNON
 public class GenericLauncher : MonoBehaviour
 {
     public GameObject projectilePrefabToLaunch;
     public float secsToFire;
 
-    private float timeSinceFire;
+    protected float timeSinceFire;
 
     void Update()
     {
@@ -19,7 +20,8 @@ public class GenericLauncher : MonoBehaviour
 
             GameObject spawnedObj = Instantiate(projectilePrefabToLaunch, transform.position, projectilePrefabToLaunch.transform.rotation);
 
-            spawnedObj.GetComponent<Projectile>().Fire(transform.forward);
+            spawnedObj.GetComponent<ExampleBullet>().Fire(spawnedObj.transform.forward);
         }
     }
+
 }
