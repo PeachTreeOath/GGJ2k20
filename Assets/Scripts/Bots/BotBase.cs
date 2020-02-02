@@ -29,7 +29,7 @@ public class BotBase: MonoBehaviour
     public float CurrentHealth { get; private set; }
     public bool IsDead { get; set; }
 
-	public Action DamageTaken = delegate { };
+	public Action ReleaseCam = delegate { };
 
     public List<Transform> Targets = new List<Transform>();
 
@@ -76,7 +76,7 @@ public class BotBase: MonoBehaviour
         rgbd.AddForceAtPosition((transform.position - contactPoint + Vector3.up) * 5, contactPoint, ForceMode.Impulse);
         ApplyWeaponDurabilityDamage(damageAmount);
 
-		DamageTaken?.Invoke();
+		ReleaseCam?.Invoke();
     }
 
     private void ApplyWeaponDurabilityDamage(float damageAmount)
