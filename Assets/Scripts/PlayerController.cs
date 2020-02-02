@@ -17,25 +17,15 @@ public class PlayerController : MonoBehaviour
     public int deviceID = -1;
     public Color playerColor;
 
-    private int cash; // Use AddRemoveCash
     public float HP => Bot.HealthPercentage;
 
     public BotBase Bot { get; set; }
 
     public event EventHandler<WeaponUpgradeEventArgs> WeaponUpgraded;
 
-	//public List<Weapon> WeaponList = new List<Weapon>();
     public Dictionary<WeaponType, Weapon> WeaponLevel { get; set; } = new Dictionary<WeaponType, Weapon>();
 
-    public void AddRemoveCash(int changedCash)
-    {
-        cash += changedCash;
-
-        // todo Send airconsole messages to update phones
-    }
-
     // needs reference to what weapons this has
-
     public void AddWeapon(WeaponType weapon)
     {
         if (WeaponLevel.Keys.Any(x => x == weapon))
@@ -122,14 +112,9 @@ public class PlayerController : MonoBehaviour
 
     private Result BuyWeapon(WeaponType weaponType)
     {
-        if (cash >= Constants.WeaponCost[weaponType][WeaponLevel[weaponType].Level + 1])
-        {
-            cash -= Constants.WeaponCost[weaponType][WeaponLevel[weaponType].Level + 1];
-            AddWeapon(weaponType);
-            Debug.Log(weaponType.ToString() + " BOUGHT");
-            return Result.Success;
-        }
-        return Result.NotEnoughMoney;
+        AddWeapon(weaponType);
+        Debug.Log(weaponType.ToString() + " BOUGHT");
+        return Result.Success;
     }
 
     private Result BuyRepair(WeaponType repairType)
