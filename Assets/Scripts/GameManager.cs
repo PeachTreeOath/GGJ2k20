@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -13,6 +14,9 @@ public class GameManager : Singleton<GameManager>
     public TextMeshProUGUI debugText;
 
     private List<GameObject> beyblades = new List<GameObject>();
+
+    public Canvas victoryCanvas;
+    public TextMeshProUGUI winnersText;
 
     private void Update()
     {
@@ -30,7 +34,6 @@ public class GameManager : Singleton<GameManager>
         }
         else
         {
-            Debug.Log("STRT GAME. ROUND: " + currentRound + " PHASE: " + currentPhaseIndex);
             roundPhases[currentPhaseIndex].StartPhase();
         }
     }
@@ -55,14 +58,33 @@ public class GameManager : Singleton<GameManager>
         }
         if (currentRound <= numberOfRounds && currentPhaseIndex < roundPhases.Count)
         {
-            Debug.Log("ROUND: " + currentRound + " PHASE: " + currentPhaseIndex);
             roundPhases[currentPhaseIndex].StartPhase();
         }
     }
 
     public void EndGame()
     {
-        Debug.Log("END GAME");
+        victoryCanvas.gameObject.SetActive(true);
+        string text = "";
+        List<GameObject> beybladesNoNull = beyblades.Where(item => item != null).ToList();
+        if (beybladesNoNull.Count == 1)
+        {
+            text = "Winner:\n";
+        }
+        else if (beybladesNoNull.Count > 1)
+        {
+            text = "Winners:\n";
+        }
+        else
+        {
+            text = "No Winners :(";
+        }
+        foreach (GameObject beyblade in beybladesNoNull)
+        {
+            BotBase botBase = beyblade.GetComponent<BotBase>();
+            text += botBase.playerName.text + "\n";
+        }
+        winnersText.text = text;
     }
 
     private Vector3 heightAdjust = new Vector3(0, 30, 0);
@@ -74,7 +96,7 @@ public class GameManager : Singleton<GameManager>
 
         foreach (PlayerController player in ControllerManager.instance.players.Values)
         {
-            Vector3 pos = RandomCircle(center, 8.0f) + heightAdjust;
+            Vector3 pos = RandomCircle(center, 7.0f) + heightAdjust;
             Quaternion rot = Quaternion.FromToRotation(Vector3.forward, center - pos);
             GameObject bbObj = Instantiate(ResourceLoader.instance.beybladePrefab, pos, rot);
             beyblades.Add(bbObj);
@@ -96,6 +118,7 @@ public class GameManager : Singleton<GameManager>
         {
             Destroy(bb);
         }
+        beyblades = new List<GameObject>();
     }
 
     private Vector3 RandomCircle(Vector3 center, float radius)

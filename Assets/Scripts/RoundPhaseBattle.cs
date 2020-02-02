@@ -40,7 +40,7 @@ public class RoundPhaseBattle : RoundPhase
 
     void Update()
     {
-        if (phaseAlive && GameManager.instance.currentRound < 5)
+        if (phaseAlive && GameManager.instance.currentRound <= GameManager.instance.numberOfRounds)
         {
             currentRoundTime -= Time.deltaTime;
             timerText.text = "Time: " + (int) currentRoundTime + "s";
@@ -102,6 +102,9 @@ public class RoundPhaseBattle : RoundPhase
 
     public override void EndPhase()
     {
-        GameManager.instance.DespawnBeyblades();
+        if (GameManager.instance.currentRound != GameManager.instance.numberOfRounds)
+        {
+            GameManager.instance.DespawnBeyblades();
+        }
     }
 }

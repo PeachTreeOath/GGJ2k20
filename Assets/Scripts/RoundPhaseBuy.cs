@@ -1,8 +1,11 @@
 ﻿using NDream.AirConsole;
 using UnityEngine;
+using TMPro;
 
 public class RoundPhaseBuy : RoundPhase
 {
+    public GameObject buyGUI;
+
     void Update()
     {
         if (phaseAlive)
@@ -24,10 +27,12 @@ public class RoundPhaseBuy : RoundPhase
     {
         GameManager.instance.debugText.text = "ROUND " + GameManager.instance.currentRound + " / " + GameManager.instance.numberOfRounds + "\nbuy phase";
         AirConsole.instance.Broadcast("view:shop_view");
+        buyGUI.SetActive(true);
+        buyGUI.GetComponentInChildren<TextMeshProUGUI>().enabled = true;
     }
 
     public override void EndPhase()
     {
-        // do nothing for now i guess
+        buyGUI.SetActive(false);
     }
 }

@@ -48,6 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 0}
   beybladePrefab: {fileID: 0}
+  rocketExplosion: {fileID: 0}
 --- !u!114 &2779703624551848340
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -67,6 +68,8 @@ MonoBehaviour:
   - {fileID: 0}
   currentPhaseIndex: 0
   debugText: {fileID: 0}
+  victoryCanvas: {fileID: 0}
+  winnersText: {fileID: 0}
 --- !u!114 &2779703624551848342
 MonoBehaviour:
   m_ObjectHideFlags: 0
