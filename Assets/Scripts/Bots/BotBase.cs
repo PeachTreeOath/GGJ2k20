@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -66,11 +65,15 @@ public class BotBase: MonoBehaviour
         CurrentHealth -= damageAmount;
 
         rgbd.AddForceAtPosition((transform.position - contactPoint + Vector3.up) * 5, contactPoint, ForceMode.Impulse);
+        ApplyWeaponDurabilityDamage(damageAmount);
+    }
 
+    private void ApplyWeaponDurabilityDamage(float damageAmount)
+    {
         var weaponDurabilityPercentage = (damageAmount / StartingHealth);
-        foreach(var weapon in activeWeapons)
+        foreach (var weapon in activeWeapons)
         {
-            weapon.CurrentDurability -= (weapon.startingDurability * weaponDurabilityPercentage * WeaponDurabilityDamageFactor) / activeWeapons.Count;
+            weapon.CurrentDurability -= weapon.startingDurability * weaponDurabilityPercentage * WeaponDurabilityDamageFactor * Random.Range(.85f, 1.15f);
             weapon.CurrentDurability = Mathf.Max(weapon.CurrentDurability, 0);
         }
     }
