@@ -433,6 +433,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.1, y: 0.3, z: 0.1}
   m_Center: {x: 0, y: -0.45, z: 0}
+--- !u!65 &8638989414377106190
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7921283811946143005}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 4, z: 0.25}
+  m_Center: {x: 0, y: 1.6, z: 0}
 --- !u!1001 &2256466778762319242
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -500,11 +513,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9219592313268219674, guid: 777769b2b4495a945b5bd366075ba747,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: dab19f79885b684488cdc29daacd585e, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 777769b2b4495a945b5bd366075ba747, type: 3}
 --- !u!4 &8008321588765447056 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8103051715096200730, guid: 777769b2b4495a945b5bd366075ba747,
+    type: 3}
+  m_PrefabInstance: {fileID: 2256466778762319242}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7921283811946143005 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8268214453095565463, guid: 777769b2b4495a945b5bd366075ba747,
     type: 3}
   m_PrefabInstance: {fileID: 2256466778762319242}
   m_PrefabAsset: {fileID: 0}
@@ -515,15 +539,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5395079994012906377}
     m_Modifications:
+    - target: {fileID: 3347898167427629738, guid: 83cce627468824c928d3576248114b11,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: bb2cda22861824c908515dea9863c963, type: 2}
+    - target: {fileID: 4247274190976376589, guid: 83cce627468824c928d3576248114b11,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: bb2cda22861824c908515dea9863c963, type: 2}
     - target: {fileID: 4637518270658701808, guid: 83cce627468824c928d3576248114b11,
         type: 3}
       propertyPath: m_Name
       value: CanonLauncher
       objectReference: {fileID: 0}
-    - target: {fileID: 4637518270658701808, guid: 83cce627468824c928d3576248114b11,
+    - target: {fileID: 4637518270658701809, guid: 83cce627468824c928d3576248114b11,
         type: 3}
-      propertyPath: m_IsActive
-      value: 1
+      propertyPath: speed
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4637518270658701814, guid: 83cce627468824c928d3576248114b11,
         type: 3}

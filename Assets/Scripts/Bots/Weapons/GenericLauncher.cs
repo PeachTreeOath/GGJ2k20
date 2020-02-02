@@ -7,6 +7,8 @@ public class GenericLauncher : MonoBehaviour
 {
     public GameObject projectilePrefabToLaunch;
     public float secsToFire;
+    public GameObject fireTransformGameObject;
+    public float speed;
 
     protected float timeSinceFire;
 
@@ -18,9 +20,10 @@ public class GenericLauncher : MonoBehaviour
         {
             timeSinceFire -= secsToFire;
 
-            GameObject spawnedObj = Instantiate(projectilePrefabToLaunch, transform.position, projectilePrefabToLaunch.transform.rotation);
-
-            spawnedObj.GetComponent<ExampleBullet>().Fire(transform.forward);
+            Quaternion rotation = GetComponentInParent<BotBase>().transform.rotation;
+            rotation *= Quaternion.Euler(15, 0, 0);
+            GameObject spawnedObj = Instantiate(projectilePrefabToLaunch, fireTransformGameObject.transform.position, rotation);
+            spawnedObj.GetComponent<ExampleBullet>().Fire(spawnedObj.transform.forward * speed);
         }
     }
 

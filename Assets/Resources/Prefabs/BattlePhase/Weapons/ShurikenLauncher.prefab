@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TypeOfWeapon: 5
-  damage: 10
+  damage: 5
   startingDurability: 100
   numShurikensToSpawn: 3
   projectilePrefabToLaunch: {fileID: 2225425695050665073, guid: 74b808a3345ac0849840ba2a948ae4cf,

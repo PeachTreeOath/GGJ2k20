@@ -66,9 +66,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd8d7b574c9b71f4cb2fb9059308fff4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 10
+  radius: 3
   myCollider: {fileID: 371503261271528020}
-  damageAmount: 30
+  damageAmount: 20
   botLayer:
     serializedVersion: 2
     m_Bits: 0

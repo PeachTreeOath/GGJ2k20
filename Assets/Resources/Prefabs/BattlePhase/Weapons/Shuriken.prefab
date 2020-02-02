@@ -167,6 +167,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: shuriken
       objectReference: {fileID: 0}
+    - target: {fileID: 4195519159274450876, guid: 1e6189393b3624bc385cbbd82af41805,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 46cdb8c6fdadcc14bb5fa07d6d0f6c8d, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e6189393b3624bc385cbbd82af41805, type: 3}
 --- !u!4 &1607866357972859577 stripped
