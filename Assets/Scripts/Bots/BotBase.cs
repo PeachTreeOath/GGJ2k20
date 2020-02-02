@@ -26,6 +26,7 @@ public class BotBase: MonoBehaviour
 
     public float HealthPercentage => CurrentHealth / StartingHealth;
     public float CurrentHealth { get; private set; }
+    public bool IsDead { get; set; }
 
     public List<Transform> Targets = new List<Transform>();
 

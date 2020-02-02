@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class ExampleBullet : Projectile
 {
+    public Rigidbody rigidbody;
+
     public override void Fire(Vector3 direction)
     {
-        body.velocity = direction;
+        rigidbody.velocity = direction;
     }
 }
