@@ -12,6 +12,8 @@ This game was created at Global Game Jam 2020.
 
 ## Team
 
+![Team](/Assets/Static/team.jpg)
+
 - [Calvin](https://github.com/PeachTreeOath)
 - [Krystal](https://github.com/Krevlee)
 - [Ryan Fonger](https://github.com/Fangor)

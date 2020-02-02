@@ -29,9 +29,22 @@ public class BotBase: MonoBehaviour
 
     public float HealthPercentage => CurrentHealth / StartingHealth;
     public float CurrentHealth { get; private set; }
-    public bool IsDead { get; set; }
+
+	private bool isDead = false;
+    public bool IsDead
+	{
+		get { return isDead; }
+		set
+		{ if (!isDead && value)
+			{
+				isDead = true;
+				Death?.Invoke(this);
+			}
+		}
+	}
 
 	public Action DamageTaken = delegate { };
+	public Action<BotBase> Death = delegate { };
 
     public Rigidbody rgbd;
 
@@ -88,8 +101,8 @@ public class BotBase: MonoBehaviour
         ApplyWeaponDurabilityDamage(damageAmount);
 
 		DamageTaken?.Invoke();
-        
-        analyticsBoi.recordDamageDealt(damageAmount);
+
+		analyticsBoi.recordDamageDealt(damageAmount);
     }
 
     private void ApplyWeaponDurabilityDamage(float damageAmount)
