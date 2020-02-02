@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 0
-  dropTimeFrequency: 4
+  dropTimeFrequency: 3
   currentCountdownTime: 0
   minePrefab: {fileID: 2266861900396113646, guid: fb15b747f5772448aa49f01396173886,
     type: 3}
