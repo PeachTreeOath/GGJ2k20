@@ -14,6 +14,8 @@ public class GameManager : Singleton<GameManager>
     public int currentPhaseIndex = 0;
     public TextMeshProUGUI debugText;
 
+	public List<BotBase> ActiveBots = new List<BotBase>();
+
     public List<GameObject> beyblades = new List<GameObject>();
 
     public Canvas victoryCanvas;
@@ -125,9 +127,21 @@ public class GameManager : Singleton<GameManager>
                 beyMesh.material.color = player.playerColor;
             }
 
+			ActiveBots.Add(beyblade);
+			beyblade.Death += OnBotDeath;
+
             // read through playercontroller and spawn weapons onto it
         }
     }
+
+	private void OnBotDeath(BotBase botThatDied)
+	{
+		ActiveBots.Remove(botThatDied);
+		if (ActiveBots.Count < 2)
+		{
+			EndGame();
+		}
+	}
 
     public void DespawnBeyblade(GameObject bb)
     {

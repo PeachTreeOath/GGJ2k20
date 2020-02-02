@@ -13,7 +13,6 @@ public class BotBase: MonoBehaviour
     public float TurnRateDegPerSecond = 120f;
     public bool UpdatePersonalTargetPos = true;
     public float PersonalTargetUpdateDelay = 1f;
-    public Transform PersonalRandomTarget;
 
     [Header("Health Attributes")]
     public float StartingHealth = 100f;
@@ -30,11 +29,22 @@ public class BotBase: MonoBehaviour
 
     public float HealthPercentage => CurrentHealth / StartingHealth;
     public float CurrentHealth { get; private set; }
-    public bool IsDead { get; set; }
+
+	private bool isDead = false;
+    public bool IsDead
+	{
+		get { return isDead; }
+		set
+		{ if (!isDead && value)
+			{
+				isDead = true;
+				Death?.Invoke(this);
+			}
+		}
+	}
 
 	public Action DamageTaken = delegate { };
-
-    public List<Transform> Targets = new List<Transform>();
+	public Action<BotBase> Death = delegate { };
 
     public Rigidbody rgbd;
 
@@ -43,14 +53,15 @@ public class BotBase: MonoBehaviour
     public List<MeshRenderer> beybladeModels;
 
     private List<Weapon> activeWeapons;
+    private Transform arenaPlatform;
+    private Vector3 targetPosition;
     
     private AnalyticsBoi analyticsBoi = new AnalyticsBoi();
 
     private void Awake()
     {
         CurrentHealth = StartingHealth;
-        Targets.Add(GameObject.Find("ArenaPlatform").transform);
-        Targets.Add(PersonalRandomTarget);
+        arenaPlatform = GameObject.Find("ArenaPlatform").transform;
         rgbd = GetComponent<Rigidbody>();
 
         activeWeapons = GetComponentsInChildren<Weapon>().Where(w => w.gameObject.activeSelf).ToList();
@@ -90,8 +101,8 @@ public class BotBase: MonoBehaviour
         ApplyWeaponDurabilityDamage(damageAmount);
 
 		DamageTaken?.Invoke();
-        
-        analyticsBoi.recordDamageDealt(damageAmount);
+
+		analyticsBoi.recordDamageDealt(damageAmount);
     }
 
     private void ApplyWeaponDurabilityDamage(float damageAmount)
@@ -106,21 +117,19 @@ public class BotBase: MonoBehaviour
 
     private void Update()
     {
-        if (Targets.Count > 0)
+        var turnLimit = TurnRateDegPerSecond * Time.deltaTime;
+        var targetPos = arenaPlatform.position + targetPosition / 2f;
+        Debug.DrawLine(targetPos, targetPos + Vector3.up, Color.green, .1f);
+
+        transform.forward = Vector3.RotateTowards(
+            transform.forward.GetXZ(), 
+            targetPos - transform.position.GetXZ(), 
+            turnLimit * Mathf.Deg2Rad, 
+            0f);
+
+        if (IsOnGround())
         {
-            var turnLimit = TurnRateDegPerSecond * Time.deltaTime;
-            var targetPos = Targets.Aggregate(Vector3.zero, (tAcc, t) => tAcc + t.localPosition).GetXZ() / Targets.Count;
-
-            transform.forward = Vector3.RotateTowards(
-                transform.forward.GetXZ(), 
-                targetPos - transform.position.GetXZ(), 
-                turnLimit * Mathf.Deg2Rad, 
-                0f);
-
-            if (IsOnGround())
-            {
-                rgbd.velocity = transform.forward * MoveSpeed + Vector3.up * rgbd.velocity.y;
-            }
+            rgbd.velocity = transform.forward * MoveSpeed + Vector3.up * rgbd.velocity.y;
         }
     }
 
@@ -146,7 +155,7 @@ public class BotBase: MonoBehaviour
             if (UpdatePersonalTargetPos)
             {
                 var newPos = UnityEngine.Random.insideUnitCircle * PersonalTargetArenaRadius;
-                PersonalRandomTarget.position = new Vector3(newPos.x, 0, newPos.y);
+                targetPosition = new Vector3(newPos.x, 0, newPos.y);
             }
         }
     }
