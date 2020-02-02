@@ -27,7 +27,8 @@ public class BotBase: MonoBehaviour
     private Rigidbody rgbd;
 
     public TextMeshProUGUI playerName;
-    public MeshRenderer beybladeModel;
+    public MeshRenderer beybodyModel;
+    public List<MeshRenderer> beybladeModels;
 
     private void Awake()
     {

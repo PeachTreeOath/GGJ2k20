@@ -9297,6 +9297,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: cannon
       objectReference: {fileID: 0}
+    - target: {fileID: 2569446086343167738, guid: c9a0ea422824648b4855ac5968aaa3cc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4053142943866483254, guid: c9a0ea422824648b4855ac5968aaa3cc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -9351,6 +9356,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 1.327
+      objectReference: {fileID: 0}
+    - target: {fileID: 4997866274311836681, guid: c9a0ea422824648b4855ac5968aaa3cc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5925904454818424521, guid: c9a0ea422824648b4855ac5968aaa3cc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7265239815565153209, guid: c9a0ea422824648b4855ac5968aaa3cc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c9a0ea422824648b4855ac5968aaa3cc, type: 3}
