@@ -14,6 +14,10 @@ public class DynamicCamera : MonoBehaviour
 	[SerializeField] float arenaSize;
 
 	[SerializeField] float thresholdOfInterest = 0.11f;
+	[SerializeField] float reassessmentInterval = 5f;
+	[SerializeField] float followedBotInterestHandicap = 0.02f;
+
+	float timeSinceLastReassessment = 0f;
 
 	Coroutine runningRoutine = null;
 	bool coroutineIsRunning = false;
@@ -28,16 +32,28 @@ public class DynamicCamera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (followingCam.Follow == null && !coroutineIsRunning && GameManager.instance.currentPhaseIndex != 0)
+        if (!coroutineIsRunning && GameManager.instance.currentPhaseIndex != 0)
 		{
-			runningRoutine = StartCoroutine(AssessPotentialHighlights());
-			coroutineIsRunning = true;
+			if (followingCam.Follow == null)
+			{
+				runningRoutine = StartCoroutine(AssessPotentialHighlights());
+				coroutineIsRunning = true;
+			}
+			else if (timeSinceLastReassessment >= reassessmentInterval)
+			{
+				runningRoutine = StartCoroutine(AssessPotentialHighlights());
+				coroutineIsRunning = true;
+			}
+
+			timeSinceLastReassessment += Time.deltaTime;
 		}
     }
 
 	private IEnumerator AssessPotentialHighlights()
 	{
 		Debug.Log("RUNNING ASSESSMENT");
+
+		timeSinceLastReassessment = 0f;
 
 		yield return new WaitForSeconds(3);
 
@@ -60,6 +76,11 @@ public class DynamicCamera : MonoBehaviour
 			foreach (BotBase otherBots in potentialBots.Where(x => x != bot))
 			{
 				determination += 1f / Mathf.Clamp((bot.transform.position - otherBots.transform.position).sqrMagnitude * 20f, 1f, float.MaxValue); 
+			}
+
+			if (followingCam.Follow != null && bot == followingCam.Follow.gameObject.GetComponent<BotBase>())
+			{
+				determination -= followedBotInterestHandicap;
 			}
 
 			sortedBots.Add(new KeyValuePair<float, BotBase>(determination, bot));
@@ -148,7 +169,10 @@ public class DynamicCamera : MonoBehaviour
 
 	private void ReassessHighlights()
 	{
-		runningRoutine = StartCoroutine(AssessPotentialHighlights());
-		coroutineIsRunning = true;
+		if (!coroutineIsRunning)
+		{
+			runningRoutine = StartCoroutine(AssessPotentialHighlights());
+			coroutineIsRunning = true;
+		}
 	}
 }
