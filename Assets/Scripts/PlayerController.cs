@@ -46,8 +46,6 @@ public class PlayerController : MonoBehaviour
                 return BuyWeapon(WeaponType.Flamethrower);
             case "buy_sword":
                 return BuyWeapon(WeaponType.Sword);
-            //case "buy_boxglove":
-            //    return BuyWeapon(WeaponType.BoxGlove);
             case "buy_cannon":
                 return BuyWeapon(WeaponType.Cannon);
             case "buy_landmine":
@@ -59,8 +57,6 @@ public class PlayerController : MonoBehaviour
                 return BuyRepair(WeaponType.Flamethrower);
             case "repair_sword":
                 return BuyRepair(WeaponType.Sword);
-            //case "repair_boxglove":
-            //    return BuyRepair(WeaponType.BoxGlove);
             case "repair_cannon":
                 return BuyRepair(WeaponType.Cannon);
             case "repair_mines":
