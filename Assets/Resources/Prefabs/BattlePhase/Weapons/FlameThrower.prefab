@@ -162,8 +162,8 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 2
-      minScalar: 0.1
+      scalar: 4
+      minScalar: 2
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -197,7 +197,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 2
+      scalar: 3
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -703,7 +703,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 0.03394866
+      value: 1
       mode: 0
       spread: 0
       speed:
@@ -4817,7 +4817,7 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 1
+  moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
   randomSeed: 0
@@ -4827,7 +4827,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 2
+      scalar: 3
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -4978,7 +4978,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 1
+      scalar: 0.8
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -5323,7 +5323,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 0.3
+      value: 0.01
       mode: 0
       spread: 0
       speed:
@@ -9311,12 +9311,12 @@ PrefabInstance:
     - target: {fileID: 4053142943866483254, guid: c9a0ea422824648b4855ac5968aaa3cc,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.41
+      value: -0.26
       objectReference: {fileID: 0}
     - target: {fileID: 4053142943866483254, guid: c9a0ea422824648b4855ac5968aaa3cc,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.99
+      value: -0.96
       objectReference: {fileID: 0}
     - target: {fileID: 4053142943866483254, guid: c9a0ea422824648b4855ac5968aaa3cc,
         type: 3}
@@ -9357,6 +9357,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 1.327
+      objectReference: {fileID: 0}
+    - target: {fileID: 4053142943866483254, guid: c9a0ea422824648b4855ac5968aaa3cc,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4053142943866483254, guid: c9a0ea422824648b4855ac5968aaa3cc,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 4851866835271966947, guid: c9a0ea422824648b4855ac5968aaa3cc,
         type: 3}
