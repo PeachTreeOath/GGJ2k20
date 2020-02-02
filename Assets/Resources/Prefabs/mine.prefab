@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2967550254027431165}
   - component: {fileID: 2266861900396113553}
+  - component: {fileID: -8296600489215287439}
   m_Layer: 0
   m_Name: mine
   m_TagString: Untagged
@@ -52,6 +53,20 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &-8296600489215287439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2266861900396113646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd8d7b574c9b71f4cb2fb9059308fff4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 0
+  aliveTime: 5
 --- !u!1 &3369110760454127338
 GameObject:
   m_ObjectHideFlags: 0
