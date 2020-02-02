@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class WeaponUpgradeEventArgs : EventArgs
@@ -23,7 +24,8 @@ public class PlayerController : MonoBehaviour
 
     public event EventHandler<WeaponUpgradeEventArgs> WeaponUpgraded;
 
-    public Dictionary<WeaponType, int> WeaponLevel { get; set; } = new Dictionary<WeaponType, int>();
+	//public List<Weapon> WeaponList = new List<Weapon>();
+    public Dictionary<WeaponType, Weapon> WeaponLevel { get; set; } = new Dictionary<WeaponType, Weapon>();
 
     public void AddRemoveCash(int changedCash)
     {
@@ -36,14 +38,19 @@ public class PlayerController : MonoBehaviour
 
     private void AddWeapon(WeaponType weapon)
     {
-        if (new List<WeaponType>(WeaponLevel.Keys).Contains(weapon))
+        if (WeaponLevel.Keys.Any(x => x == weapon))
         {
-            WeaponLevel[weapon] += 1;
-            WeaponUpgraded?.Invoke(this, new WeaponUpgradeEventArgs() { Weapon = weapon, Level = WeaponLevel[weapon] });
+            WeaponLevel[weapon].Level += 1;
+            WeaponUpgraded?.Invoke(this, new WeaponUpgradeEventArgs()
+			{
+				Weapon = weapon, Level = WeaponLevel[weapon].Level
+			});
         }
         else
         {
-            WeaponLevel.Add(weapon, 1);
+			// TODO: figure out how to add a weapon component as child of BotBase dynamically
+			// Apparently this means finding the first instance of a child prefab that matches WeaponType
+			GetComponentsInChildren<Weapon>(true).First(x => x.TypeOfWeapon == weapon)?.gameObject.SetActive(true);
             WeaponUpgraded?.Invoke(this, new WeaponUpgradeEventArgs() { Weapon = weapon, Level = 1 });
         }
     }
@@ -99,9 +106,9 @@ public class PlayerController : MonoBehaviour
 
     private Result BuyWeapon(WeaponType weaponType)
     {
-        if (cash >= Constants.WeaponCost[weaponType][WeaponLevel[weaponType] + 1])
+        if (cash >= Constants.WeaponCost[weaponType][WeaponLevel[weaponType].Level + 1])
         {
-            cash -= Constants.WeaponCost[weaponType][WeaponLevel[weaponType] + 1];
+            cash -= Constants.WeaponCost[weaponType][WeaponLevel[weaponType].Level + 1];
             AddWeapon(weaponType);
             Debug.Log(weaponType.ToString() + " BOUGHT");
             return Result.Success;
