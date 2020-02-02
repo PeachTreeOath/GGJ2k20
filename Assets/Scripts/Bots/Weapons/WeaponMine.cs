@@ -49,7 +49,6 @@ public class WeaponMine : MonoBehaviour
 
     private void Explode()
     {
-        Instantiate(ResourceLoader.instance.rocketExplosion, transform.position, Quaternion.identity);
         var bots = Physics.SphereCastAll(transform.position, radius, Vector3.up, botLayer);
         foreach (RaycastHit hit in bots)
         {
