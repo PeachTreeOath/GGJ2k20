@@ -34,6 +34,7 @@ public class ExampleBullet : Projectile
 
         if (bot != null && bot.transform == IgnoreTransform)
         {
+            Debug.Log("cannon hit");
             bot.TakeDamage(Damage, transform.position);
 
             Explode();
