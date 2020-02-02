@@ -14,7 +14,7 @@ public class GameManager : Singleton<GameManager>
     public int currentPhaseIndex = 0;
     public TextMeshProUGUI debugText;
 
-	public List<BotBase> ActiveBots = new List<BotBase>();
+    public List<BotBase> ActiveBots = new List<BotBase>();
 
     public List<GameObject> beyblades = new List<GameObject>();
 
@@ -127,25 +127,44 @@ public class GameManager : Singleton<GameManager>
                 beyMesh.material.color = player.playerColor;
             }
 
-			ActiveBots.Add(beyblade);
-			beyblade.Death += OnBotDeath;
+            ActiveBots.Add(beyblade);
+            beyblade.Death += OnBotDeath;
 
             // read through playercontroller and spawn weapons onto it
         }
     }
 
-	private void OnBotDeath(BotBase botThatDied)
-	{
-		ActiveBots.Remove(botThatDied);
-		if (ActiveBots.Count < 2)
-		{
-			EndGame();
-		}
-	}
+    public void ActivateBeyblades()
+    {
+        Vector3 center = transform.position;
+
+        foreach(BotBase bot in ActiveBots)
+        {
+            Vector3 pos = RandomCircle(center, 7.0f) + heightAdjust;
+            Quaternion rot = Quaternion.FromToRotation(Vector3.forward, center - pos);
+
+            Vector3 spawnPoint = spawnLocation.transform.position;
+            Vector3 spawnBounds = spawnLocation.transform.localScale;
+            Vector3 randomPosition = new Vector3(spawnPoint.x + Random.value * spawnBounds.x, spawnPoint.y + Random.value * spawnBounds.y, 0);
+            randomPosition = randomPosition - spawnBounds / 2;
+
+            bot.gameObject.SetActive(true);
+        }
+    }
+
+    private void OnBotDeath(BotBase botThatDied)
+    {
+        ActiveBots.Remove(botThatDied);
+        if (ActiveBots.Count < 2)
+        {
+            EndGame();
+        }
+    }
 
     public void DespawnBeyblade(GameObject bb)
     {
         beyblades.Remove(bb);
+        HideGameObject(bb);
 
 		BotBase beyblade = bb.GetComponent<BotBase>();
 		if (ActiveBots.Contains(beyblade))
@@ -155,7 +174,6 @@ public class GameManager : Singleton<GameManager>
 			beyblade.Death?.Invoke(beyblade);
 		}
 
-		Destroy(bb);
         if (currentRound == numberOfRounds)
         {
             AirConsole.instance.Message(1, "view:dead_view"); // todo only send to the player that died
@@ -166,21 +184,18 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
-    public void DespawnBeyblades()
+    public void HideGameObject(GameObject bb)
+    {
+        bb.SetActive(false);
+    }
+
+    public void HideBeyblades()
     {
         foreach (GameObject bb in beyblades)
         {
-			BotBase beyblade = bb.GetComponent<BotBase>();
-			if (ActiveBots.Contains(beyblade))
-			{
-				ActiveBots.Remove(beyblade);
-				beyblade.Death -= OnBotDeath;
-				beyblade.Death?.Invoke(beyblade);
-			}
-
-			Destroy(bb);
+            HideGameObject(bb);
         }
-        beyblades = new List<GameObject>();
+        //beyblades = new List<GameObject>();
     }
 
     private Vector3 RandomCircle(Vector3 center, float radius)
