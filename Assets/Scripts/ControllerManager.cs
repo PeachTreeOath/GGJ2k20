@@ -129,7 +129,6 @@ public class ControllerManager : Singleton<ControllerManager>
             foreach (var request in data["requests"])
             {
                 if (request["request"].ToString() == "playerData") {
-                    players[from].ButtonInput("buy_flamethrower");
                     GetPlayerData(
                         null,
                         null,
