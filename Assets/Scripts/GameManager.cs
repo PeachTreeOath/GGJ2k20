@@ -119,6 +119,7 @@ public class GameManager : Singleton<GameManager>
             BotBase beyblade = bbObj.GetComponent<BotBase>();
             beyblade.playerName.text = player.nickname;
             beyblade.beybodyModel.material.color = Color.Lerp(player.playerColor, Color.white, .5f);
+            player.Bot = beyblade;
             foreach (MeshRenderer beyMesh in beyblade.beybladeModels)
             {
                 beyMesh.material.color = player.playerColor;

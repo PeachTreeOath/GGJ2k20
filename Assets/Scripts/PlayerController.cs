@@ -12,37 +12,31 @@ public class WeaponUpgradeEventArgs : EventArgs
 
 public class PlayerController : MonoBehaviour
 {
-    public class WeaponStats
-    {
-        public WeaponType Type;
-        public int Level;
-        public float Durability;
-    }
-
     public string nickname = "";
     public int deviceID = -1;
     public Color playerColor;
 
     public float HP => Bot.HealthPercentage;
 
-    public BotBase Bot { get; set; }
-
-    public Dictionary<WeaponType, WeaponStats> WeaponLevel { get; set; } = new Dictionary<WeaponType, WeaponStats>();
-
-    // needs reference to what weapons this has
-    public void AddWeapon(WeaponType weapon)
+    private BotBase bot;
+    public BotBase Bot
     {
-        if (WeaponLevel.ContainsKey(weapon))
+        get { return bot; }
+        set
         {
-            WeaponLevel[weapon].Level += 1;
-        }
-        else
-        {
-			// TODO: figure out how to add a weapon component as child of BotBase dynamically
-			// Apparently this means finding the first instance of a child prefab that matches WeaponType
-			GetComponentsInChildren<Weapon>(true).First(x => x.TypeOfWeapon == weapon)?.gameObject.SetActive(true);
+            bot = value;
+            WeaponTypeMap.Clear();
+            foreach (Weapon w in GetComponentsInChildren<Weapon>(true))
+            {
+                w.CurrentDurability = 100f;
+                w.gameObject.SetActive(false);
+                w.Level = 1;
+                WeaponTypeMap.Add(w.TypeOfWeapon, w);
+            }
         }
     }
+
+    public Dictionary<WeaponType, Weapon> WeaponTypeMap { get; set; } = new Dictionary<WeaponType, Weapon>();
 
     public Result ButtonInput(string input)
     {
@@ -52,8 +46,8 @@ public class PlayerController : MonoBehaviour
                 return BuyWeapon(WeaponType.Flamethrower);
             case "buy_sword":
                 return BuyWeapon(WeaponType.Sword);
-            case "buy_boxglove":
-                return BuyWeapon(WeaponType.BoxGlove);
+            //case "buy_boxglove":
+            //    return BuyWeapon(WeaponType.BoxGlove);
             case "buy_cannon":
                 return BuyWeapon(WeaponType.Cannon);
             case "buy_mines":
@@ -65,8 +59,8 @@ public class PlayerController : MonoBehaviour
                 return BuyRepair(WeaponType.Flamethrower);
             case "repair_sword":
                 return BuyRepair(WeaponType.Sword);
-            case "repair_boxglove":
-                return BuyRepair(WeaponType.BoxGlove);
+            //case "repair_boxglove":
+            //    return BuyRepair(WeaponType.BoxGlove);
             case "repair_cannon":
                 return BuyRepair(WeaponType.Cannon);
             case "repair_mines":
@@ -76,50 +70,34 @@ public class PlayerController : MonoBehaviour
 
             default:
                 return Result.Error;
-                /*
-                    case "right":
-                        anim.SetBool("isRunning", true);
-                        rightButton = true;
-                        spr.flipX = false;
-                        break;
-                    case "left":
-                        anim.SetBool("isRunning", true);
-                        leftButton = true;
-                        spr.flipX = true;
-                        break;
-                    case "right-up":
-                        rightButton = false;
-                        anim.SetBool("isRunning", false);
-                        break;
-                    case "left-up":
-                        leftButton = false;
-                        anim.SetBool("isRunning", false);
-                        break;
-                    case "jump":
-                        jumpButton = true;
-                        anim.SetBool("isJumping", true);
-                        break;
-                    case "jump-up":
-                        jumpButton = false;
-                        break;
-                    case "interact":
-                        interactButton = true;
-                        break;
-                */
         }
     }
 
     private Result BuyWeapon(WeaponType weaponType)
     {
-        AddWeapon(weaponType);
+        if (WeaponTypeMap.ContainsKey(weaponType))
+        {
+            if (WeaponTypeMap[weaponType].gameObject.activeSelf)
+            {
+                WeaponTypeMap[weaponType].Level = WeaponTypeMap[weaponType].Level + 1;
+            }
+            else
+            {
+                WeaponTypeMap[weaponType].gameObject.SetActive(true);
+            }
+        }
+
         Debug.Log(weaponType.ToString() + " BOUGHT");
         return Result.Success;
     }
 
     private Result BuyRepair(WeaponType repairType)
     {
-        Bot.HealDamage(10f);
-        Debug.Log(repairType.ToString() + " BOUGHT");
+        if (WeaponTypeMap.ContainsKey(repairType))
+        {
+            WeaponTypeMap[repairType].CurrentDurability = 100f;
+        }
+        Debug.Log(repairType.ToString() + " REPAIRED");
         return Result.Success;
     }
 }
