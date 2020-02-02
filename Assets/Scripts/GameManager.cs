@@ -56,9 +56,9 @@ public class GameManager : Singleton<GameManager>
         {
             // Next round
             currentRound++;
-            if (currentRound > numberOfRounds)
+            if (currentRound > numberOfRounds || ActiveBots.Count < 2)
             {
-                this.EndGame();
+                EndGame();
             }
             else
             {
@@ -183,9 +183,9 @@ public class GameManager : Singleton<GameManager>
         if (currentRound == numberOfRounds)
         {
             AirConsole.instance.Message(1, "view:dead_view"); // todo only send to the player that died
-            if (beyblades.Count == 1)
+            if (beyblades.Count <= 1)
             {
-                this.EndGame();
+                EndGame();
             }
         }
     }
