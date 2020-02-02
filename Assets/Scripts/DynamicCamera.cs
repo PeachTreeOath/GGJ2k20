@@ -28,7 +28,7 @@ public class DynamicCamera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (followingCam.Follow == null && !coroutineIsRunning)
+        if (followingCam.Follow == null && !coroutineIsRunning && GameManager.instance.currentPhaseIndex != 0)
 		{
 			runningRoutine = StartCoroutine(AssessPotentialHighlights());
 			coroutineIsRunning = true;
@@ -128,10 +128,13 @@ public class DynamicCamera : MonoBehaviour
 		botToFocus.Death += ReleaseCamera;
 	}
 
-	private void ReleaseCamera(BotBase _ = null)
+	public void ReleaseCamera(BotBase _ = null)
 	{
-		followingCam.Follow.gameObject.GetComponent<BotBase>().DamageTaken -= ReassessHighlights;
-		followingCam.Follow.gameObject.GetComponent<BotBase>().Death -= ReleaseCamera;
+		if (followingCam.Follow != null)
+		{
+			followingCam.Follow.gameObject.GetComponent<BotBase>().DamageTaken -= ReassessHighlights;
+			followingCam.Follow.gameObject.GetComponent<BotBase>().Death -= ReleaseCamera;
+		}
 
 		if (coroutineIsRunning)
 		{

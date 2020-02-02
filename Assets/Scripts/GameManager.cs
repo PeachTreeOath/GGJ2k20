@@ -49,6 +49,8 @@ public class GameManager : Singleton<GameManager>
     {
         roundPhases[currentPhaseIndex].EndPhase();
 
+		FindObjectOfType<DynamicCamera>().ReleaseCamera();
+
         currentPhaseIndex++;
         if (currentPhaseIndex >= roundPhases.Count)
         {
