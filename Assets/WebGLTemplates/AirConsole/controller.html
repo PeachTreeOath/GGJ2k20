@@ -23,14 +23,15 @@
         }
 
         .icon {
-            width: 20%;
+            width: 100px;
             height: 100px;
+			padding: 5px;
         }
 
         .iconselected {
-            width: 20%;
-            height: 100px;
-            border: 3px solid white;
+            width: 110px;
+            height: 110px;
+            border: 5px solid yellow;
         }
 
         ul.horizontal-list {
@@ -226,6 +227,7 @@
                 var item = document.createElement("li");
                 var image = document.createElement("img");
                 image.setAttribute("value", data[i]);
+				image.setAttribute("class", "icon-img");
                 image.addEventListener("click", function (e) {
                     repairedWeapon = parseInt(e.target.attributes["value"].value, 10);
                 });
@@ -250,15 +252,15 @@
                 case 0:
                     return "Flamethrower.png";
                 case 1:
-                    return "sword.jpg";
+                    return "sword.png";
                 case 2:
                     return "cannon.png";
                 case 3:
-                    return "landmine.jpg";
+                    return "landmine.png";
                 case 4:
-                    return "gloves.jpg";
-                case 5:
-                    return "shuriken.jpg";
+                    return "shuriken.png";
+                //case 5:
+                //    return "glove.jpg";
             }
         }
 
@@ -276,9 +278,9 @@
                 case 3:
                     return isRepair ? "repair_landmine" : "buy_landmine";
                 case 4:
-                    return isRepair ? "repair_gloves" : "buy_gloves";
-                case 5:
                     return isRepair ? "repair_shuriken" : "buy_shuriken";
+                //case 5:
+                   // return isRepair ? "repair_gloves" : "buy_gloves";
                 default:
                     return "none";
             }
@@ -299,7 +301,7 @@
 <body onload="window.app = new App()">
     <div id="title_view" class="view">
         <button onclick="startShopping()">Launch Shop</button>
-        <div>Waiting for the game to begin...</div>
+        <div>Waiting for Commander to start game...</div>
         <div id="player"></div>
     </div>
     <div id="alive_view" class="view">
@@ -308,17 +310,17 @@
 		</div>
     </div>
     <div id="shop_view" class="view">
-        <div class="button" onclick="finishShopping()" style="color: white; background-color: blue; padding: 5px;">Test</div>
+        <!-- <div class="button" onclick="finishShopping()" style="color: white; background-color: blue; padding: 5px;">Test</div> -->
         <table class="storeTable">
             <tr>
-				<td class="menu-title">Upgrades</td></tr>
+				<center><td class="menu-title">Upgrades</td></tr></center>
             <tr>
-                <td>
-                    <center><ul class="horizontal-list" id="upgradeList"></ul></center>
+				<td>
+					<ul class="horizontal-list" id="upgradeList"></ul>
                 </td>
             </tr>
             <tr>
-			<td class="menu-title">Loadout</td></tr>
+				<center><td class="menu-title">Loadout</td></tr></center>
             <tr>
                 <td>
                     <center><ul class="horizontal-list" id="loadOutList"></ul></center>
