@@ -128,11 +128,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 7990559838074645506, guid: 47db14f0670363a448d34403d23f9641,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8052040122256104096, guid: 47db14f0670363a448d34403d23f9641,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -195,9 +190,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8052040122256104111, guid: 47db14f0670363a448d34403d23f9641,
         type: 3}
-      propertyPath: wallAnimators.Array.size
-      value: 4
-      objectReference: {fileID: 0}
+      propertyPath: timerText
+      value: 
+      objectReference: {fileID: 951129136}
     - target: {fileID: 8052040122256104111, guid: 47db14f0670363a448d34403d23f9641,
         type: 3}
       propertyPath: wallAnimators.Array.data[0]
@@ -419,6 +414,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0b7360e7a0cc9df4cad9d8cdc76f24af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &951129136 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6720047554229706757, guid: 8faabc1fda6ffe84c8682312b4bed713,
+    type: 3}
+  m_PrefabInstance: {fileID: 6720047553819784245}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &963194225
@@ -646,15 +653,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 545496005160066237, guid: 7da088c38b334534eacbe2955e0499d1,
+        type: 3}
+      propertyPath: timerText
+      value: 
+      objectReference: {fileID: 951129136}
     - target: {fileID: 3324886171940612057, guid: 7da088c38b334534eacbe2955e0499d1,
         type: 3}
       propertyPath: m_Name
       value: BuyPhase
-      objectReference: {fileID: 0}
-    - target: {fileID: 3324886171940612057, guid: 7da088c38b334534eacbe2955e0499d1,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8027853972361165837, guid: 7da088c38b334534eacbe2955e0499d1,
         type: 3}

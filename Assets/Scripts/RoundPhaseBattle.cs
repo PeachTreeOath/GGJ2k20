@@ -43,6 +43,7 @@ public class RoundPhaseBattle : RoundPhase
         if (phaseAlive && GameManager.instance.currentRound < 5)
         {
             currentRoundTime -= Time.deltaTime;
+            timerText.text = "Time: " + (int) currentRoundTime + "s";
             if (roundTime - currentRoundTime >= timeUntilShrinkStarts && currentRoundTime > timeUntilPhaseEndAfterShrink)
             {
                 currentScale -= scaleDeltaPerSecond * Time.deltaTime;

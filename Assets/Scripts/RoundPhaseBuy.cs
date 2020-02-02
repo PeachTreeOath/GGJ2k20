@@ -9,6 +9,7 @@ public class RoundPhaseBuy : RoundPhase
         {
            // Debug.Log("In Buy Phase, current time: " + currentRoundTime);
             currentRoundTime -= Time.deltaTime;
+            timerText.text = "Time: " + (int)currentRoundTime + "s";
             if (currentRoundTime < 0)
             {
                 // AirConsole.instance.Message(AirConsole.instance.GetControllerDeviceIds()[0], "view:dead_view");

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public abstract class RoundPhase : MonoBehaviour
 {
@@ -12,10 +13,13 @@ public abstract class RoundPhase : MonoBehaviour
 
     public string phaseName;
 
+    public TextMeshProUGUI timerText;
+
     public void StartPhase()
     {
         phaseAlive = true;
         currentRoundTime = roundTime;
+        timerText.text = "Time: " + (int)currentRoundTime + "s";
         this.BeforePhaseStartPrep();
         this.gameObject.SetActive(true);
     }
