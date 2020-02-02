@@ -28,3 +28,18 @@ This game was created at Global Game Jam 2020.
 ![Start Screen](/Assets/Static/start_screen.png)
 ![Buy Menu](/Assets/Static/buy_menu.png)
 ![Chaos](/Assets/Static/chaos.gif)
+
+## Gameplay
+
+Repair Royale supports any number of players through using each player's phone as thier controller. At the start of the round, each player may either select a new weapon or upgrade an existing weapon from a list of three random weapons.
+
+Bots randomly move around the arena, attempting to knock each other off the edge of the map, whose walls' come down over time. Each bot has its own health, the healthier a bot, the less it gets knocked back when attacked.
+
+Weapons include:
+  - sword
+  - mine layer
+  - flame thrower
+  - cannon
+  - shruiken
+
+All assets and the arena have been created, home grown and cage free. 
