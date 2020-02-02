@@ -13,6 +13,11 @@ public class GameManager : Singleton<GameManager>
 
     private List<GameObject> beyblades = new List<GameObject>();
 
+    private void Update()
+    {
+
+    }
+
     public void StartGame()
     {
         if (roundPhases.Count <= 0)
@@ -69,6 +74,8 @@ public class GameManager : Singleton<GameManager>
             GameObject bbObj = Instantiate(ResourceLoader.instance.beybladePrefab, pos, rot);
             CalvinBeyblade beyblade = bbObj.GetComponent<CalvinBeyblade>();
             beyblade.playerName.text = player.nickname;
+
+            // 
         }
     }
 
