@@ -34,6 +34,8 @@ public class RoundPhaseBattle : RoundPhase
             Debug.LogWarning("SHRINKING TIME IS ZERO OR LESS. Look at timeUntilX fields");
         }
         scaleDeltaPerSecond = scaleDeltaPerPhase / shrinkingTime;
+
+        AudioManager.instance.PlayMusicWithIntro("RepairRoyale-intro", "RepairRoyale-loop");
     }
 
     void Update()
