@@ -1,7 +1,6 @@
-
-http://2a087801.ngrok.io
-http://www.airconsole.com/?http=1#http://2a087801.ngrok.io/?unity-editor-websocket-port=7843&unity-plugin-version=2.0
-
+ngrok authtoken QrxdTF83x5og872SSvKN_4huNmq4wRSWXccnarDfnL
+http://c47de81e.ngrok.io
+http://www.airconsole.com/?http=1#http://ed700f06.ngrok.io?unity-editor-websocket-port=7843&unity-plugin-version=2.0
 
 Setting up AirConsole in Unity:
 1. In the main unit scene, select the AirConsole object.
