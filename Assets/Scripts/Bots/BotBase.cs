@@ -35,13 +35,15 @@ public class BotBase: MonoBehaviour
         StartCoroutine(UpdatePersonalTarget());
     }
 
-    public void TakeDamage(float damageAmount)
+    public void TakeDamage(float damageAmount, Vector3 contactPoint)
     {
         // not a linear damage mechanic, incoming damage is reduced by current damage taken
         // resulting in asymptotic behaviour towards 0
         damageAmount = Mathf.Min(damageAmount, StartingHealth);
         damageAmount *= (HealthPercentage - 0.01f);
         CurrentHealth -= damageAmount;
+
+        rgbd.AddForceAtPosition((transform.position - contactPoint + Vector3.up) * 5, contactPoint, ForceMode.Impulse);
     }
 
     private void Update()
@@ -56,8 +58,11 @@ public class BotBase: MonoBehaviour
                 targetPos - transform.position.GetXZ(), 
                 turnLimit * Mathf.Deg2Rad, 
                 0f);
-            
-            rgbd.velocity = transform.forward * MoveSpeed + Vector3.up * rgbd.velocity.y;
+
+            if (IsOnGround())
+            {
+                rgbd.velocity = transform.forward * MoveSpeed + Vector3.up * rgbd.velocity.y;
+            }
         }
     }
 
@@ -69,9 +74,23 @@ public class BotBase: MonoBehaviour
             if (UpdatePersonalTargetPos)
             {
                 var newPos = Random.insideUnitCircle * 8f;
-                Debug.Log($"picking new position: {newPos}");
                 PersonalRandomTarget.position = new Vector3(newPos.x, 0, newPos.y);
             }
         }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        Weapon weapon = collision.contacts[0].thisCollider.GetComponentInParent<Weapon>();
+        BotBase enemy = collision.collider.GetComponent<BotBase>();
+        if(weapon && enemy)
+        {
+            weapon.OnHitEnemy(collision.contacts[0].point, enemy);
+        }
+    }
+
+    private bool IsOnGround()
+    {
+        return Physics.Raycast(transform.position, Vector3.up * -1, 1f);
     }
 }
