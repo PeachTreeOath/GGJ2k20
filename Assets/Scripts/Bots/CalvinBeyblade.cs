@@ -1,19 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
-public class Weapon : MonoBehaviour
+public class CalvinBeyblade : MonoBehaviour
 {
-    public float damage;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public TextMeshProUGUI playerName;
 
     // Update is called once per frame
     void Update()
     {
+        transform.Rotate(Vector3.up, 10 * Time.deltaTime);
     }
 }
