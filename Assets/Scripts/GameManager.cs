@@ -165,6 +165,15 @@ public class GameManager : Singleton<GameManager>
     {
         beyblades.Remove(bb);
         HideGameObject(bb);
+
+		BotBase beyblade = bb.GetComponent<BotBase>();
+		if (ActiveBots.Contains(beyblade))
+		{
+			ActiveBots.Remove(beyblade);
+			beyblade.Death -= OnBotDeath;
+			beyblade.Death?.Invoke(beyblade);
+		}
+
         if (currentRound == numberOfRounds)
         {
             AirConsole.instance.Message(1, "view:dead_view"); // todo only send to the player that died
@@ -180,7 +189,7 @@ public class GameManager : Singleton<GameManager>
         bb.SetActive(false);
     }
 
-    public void DespawnBeyblades()
+    public void HideBeyblades()
     {
         foreach (GameObject bb in beyblades)
         {
@@ -194,8 +203,8 @@ public class GameManager : Singleton<GameManager>
         float ang = Random.value * 360;
         Vector3 pos;
         pos.x = center.x + radius * Mathf.Sin(ang * Mathf.Deg2Rad);
-        pos.y = center.y + radius * Mathf.Cos(ang * Mathf.Deg2Rad);
-        pos.z = center.z;
+        pos.y = center.y;
+        pos.z = center.z + radius * Mathf.Cos(ang * Mathf.Deg2Rad);
         return pos;
     }
 }

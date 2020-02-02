@@ -114,7 +114,7 @@ public class RoundPhaseBattle : RoundPhase
     {
         if (GameManager.instance.currentRound != GameManager.instance.numberOfRounds)
         {
-            GameManager.instance.DespawnBeyblades();
+            GameManager.instance.HideBeyblades();
             playersLeft.gameObject.SetActive(false);
         }
     }

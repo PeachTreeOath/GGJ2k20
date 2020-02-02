@@ -14,7 +14,6 @@ public class WeaponShuriken : Projectile
         var bot = collision.transform.GetComponent<BotBase>();
         if(bot && bot.transform != IgnoreTransform)
         {
-            Debug.Log("shuriken hit");
             bot.TakeDamage(Damage, transform.position);
 
             Destroy(gameObject, 0);
