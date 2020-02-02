@@ -18,11 +18,6 @@ public class WeaponMine : MonoBehaviour
     void Update()
     {
         aliveTime -= Time.deltaTime;
-        if (aliveTime <= 0)
-        {
-            Instantiate(explosion, transform.position, Quaternion.identity);
-            Destroy(gameObject);
-        }
     }
 
     void Awake()
@@ -59,6 +54,7 @@ public class WeaponMine : MonoBehaviour
             }
         }
 
+        Instantiate(explosion, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 
