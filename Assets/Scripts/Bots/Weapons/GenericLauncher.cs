@@ -20,7 +20,7 @@ public class GenericLauncher : MonoBehaviour
 
             GameObject spawnedObj = Instantiate(projectilePrefabToLaunch, transform.position, projectilePrefabToLaunch.transform.rotation);
 
-            spawnedObj.GetComponent<ExampleBullet>().Fire(spawnedObj.transform.forward);
+            spawnedObj.GetComponent<ExampleBullet>().Fire(transform.forward);
         }
     }
 
