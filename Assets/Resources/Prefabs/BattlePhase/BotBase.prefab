@@ -374,6 +374,7 @@ MonoBehaviour:
   MaxKnockbackFactor: 4
   MinKnockbackFactor: 0.25
   Targets: []
+  rgbd: {fileID: 0}
   playerName: {fileID: 7113682404996646102}
   beybodyModel: {fileID: 4879481671921699880}
   beybladeModels:
@@ -729,11 +730,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5395079994012906377}
     m_Modifications:
-    - target: {fileID: 2303492517563599725, guid: 286943e98411c534198f6648ef2386fe,
-        type: 3}
-      propertyPath: speed
-      value: 8
-      objectReference: {fileID: 0}
     - target: {fileID: 4029020204588028821, guid: 286943e98411c534198f6648ef2386fe,
         type: 3}
       propertyPath: m_LocalPosition.x
