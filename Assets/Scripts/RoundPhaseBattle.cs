@@ -38,7 +38,7 @@ public class RoundPhaseBattle : RoundPhase
 
     void Update()
     {
-        if (phaseAlive && GameManager.instance.currentRound < 4)
+        if (phaseAlive && GameManager.instance.currentRound < 5)
         {
             currentRoundTime -= Time.deltaTime;
             if (roundTime - currentRoundTime >= timeUntilShrinkStarts && currentRoundTime > timeUntilPhaseEndAfterShrink)
