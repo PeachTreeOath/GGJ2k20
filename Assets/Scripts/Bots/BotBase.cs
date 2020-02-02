@@ -67,7 +67,7 @@ public class BotBase: MonoBehaviour
         activeWeapons = GetComponentsInChildren<Weapon>().Where(w => w.gameObject.activeSelf).ToList();
     }
 
-    private void Start()
+    private void OnEnable()
     {
         StartCoroutine(UpdatePersonalTarget());
     }
