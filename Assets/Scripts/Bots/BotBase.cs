@@ -54,6 +54,8 @@ public class BotBase: MonoBehaviour
     public List<MeshRenderer> beybladeModels;
 
     private List<Weapon> activeWeapons;
+    
+    private AnalyticsBoi analyticsBoi = new AnalyticsBoi();
 
     private void Awake()
     {
@@ -91,6 +93,8 @@ public class BotBase: MonoBehaviour
         ApplyWeaponDurabilityDamage(damageAmount);
 
 		ReleaseCam?.Invoke();
+
+		analyticsBoi.recordDamageDealt(damageAmount);
     }
 
     private void ApplyWeaponDurabilityDamage(float damageAmount)

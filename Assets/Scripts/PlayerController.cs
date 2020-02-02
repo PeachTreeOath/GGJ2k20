@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour
 
     // needs reference to what weapons this has
 
-    private void AddWeapon(WeaponType weapon)
+    public void AddWeapon(WeaponType weapon)
     {
         if (WeaponLevel.Keys.Any(x => x == weapon))
         {
