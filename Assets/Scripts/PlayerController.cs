@@ -61,14 +61,30 @@ public class PlayerController : MonoBehaviour
         {
             case "buy_flamethrower":
                 return BuyWeapon(WeaponType.Flamethrower);
-            case "buy_knife":
-                return BuyWeapon(WeaponType.Knife);
-            case "buy_nuke":
-                return BuyWeapon(WeaponType.Nuke);
-            case "repair_shield":
-                return BuyRepair(RepairType.Shield);
-            case "repair_body":
-                return BuyRepair(RepairType.Body);
+            case "buy_sword":
+                return BuyWeapon(WeaponType.Sword);
+            case "buy_boxglove":
+                return BuyWeapon(WeaponType.BoxGlove);
+            case "buy_cannon":
+                return BuyWeapon(WeaponType.Cannon);
+            case "buy_mines":
+                return BuyWeapon(WeaponType.Mines);
+            case "buy_shurikens":
+                return BuyWeapon(WeaponType.Shurikens);
+
+            case "repair_flamethrower":
+                return BuyRepair(WeaponType.Flamethrower);
+            case "repair_sword":
+                return BuyRepair(WeaponType.Sword);
+            case "repair_boxglove":
+                return BuyRepair(WeaponType.BoxGlove);
+            case "repair_cannon":
+                return BuyRepair(WeaponType.Cannon);
+            case "repair_mines":
+                return BuyRepair(WeaponType.Mines);
+            case "repair_shurikens":
+                return BuyRepair(WeaponType.Shurikens);
+
             default:
                 return Result.Error;
                 /*
@@ -116,7 +132,7 @@ public class PlayerController : MonoBehaviour
         return Result.NotEnoughMoney;
     }
 
-    private Result BuyRepair(RepairType repairType)
+    private Result BuyRepair(WeaponType repairType)
     {
         if (cash >= Constants.RepairCost[repairType])
         {

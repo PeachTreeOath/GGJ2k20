@@ -20,6 +20,10 @@ public class BotBase: MonoBehaviour
     public float PersonalTargetArenaRadius = 8f;
     public float WeaponDurabilityDamageFactor = 0.5f;
 
+    [Header("Knockback Attributes")]
+    public float MaxKnockbackFactor = 4f;
+    public float MinKnockbackFactor = .25f;
+
     public float HealthPercentage => CurrentHealth / StartingHealth;
     public float CurrentHealth { get; private set; }
 
@@ -63,6 +67,7 @@ public class BotBase: MonoBehaviour
         damageAmount = Mathf.Min(damageAmount, StartingHealth);
         damageAmount *= (HealthPercentage - 0.01f);
         CurrentHealth -= damageAmount;
+        var knockbackMultiplier = Mathf.Lerp(MaxKnockbackFactor, MinKnockbackFactor, HealthPercentage);
 
         rgbd.AddForceAtPosition((transform.position - contactPoint + Vector3.up) * 5, contactPoint, ForceMode.Impulse);
         ApplyWeaponDurabilityDamage(damageAmount);
