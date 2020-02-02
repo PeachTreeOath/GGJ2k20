@@ -167,6 +167,8 @@ public class BotBase: MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         Weapon weapon = collision.contacts[0].thisCollider.GetComponentInParent<Weapon>();
+		BotBase us = collision.contacts[0].thisCollider.GetComponent<BotBase>();
+
         GameObject obj2 = collision.contacts[0].thisCollider.gameObject;
 
         BotBase enemy = collision.collider.GetComponent<BotBase>();
@@ -174,6 +176,11 @@ public class BotBase: MonoBehaviour
         {
             weapon.OnHitEnemy(collision.contacts[0].point, enemy);
         }
+		else if (us && enemy)
+		{
+			Debug.Log("BOT TO BOT COLLISION");
+			enemy.TakeDamage(1f, collision.contacts[0].point);
+		}
     }
 
     private bool IsOnGround()
