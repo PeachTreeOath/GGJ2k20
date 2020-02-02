@@ -118,14 +118,18 @@ public class BotBase: MonoBehaviour
     private void Update()
     {
         var turnLimit = TurnRateDegPerSecond * Time.deltaTime;
-        var targetPos = arenaPlatform.position + (targetPosition / 2f);
-        Debug.DrawLine(targetPos, targetPos + Vector3.up, Color.green, .1f);
+        var targetPos = arenaPlatform.position.GetXZ() + (targetPosition / 2f);
+        targetPos.y = transform.position.y;
 
         transform.forward = Vector3.RotateTowards(
-            transform.forward.GetXZ(), 
-            targetPos - transform.position.GetXZ(), 
+            transform.forward.GetXZ().normalized, 
+            targetPos - transform.position, 
             turnLimit * Mathf.Deg2Rad, 
             0f);
+
+        Debug.DrawLine(targetPos, targetPos + Vector3.up, Color.green, .1f);
+        Debug.DrawLine(transform.position, transform.position + transform.forward, Color.green, .1f);
+        Debug.DrawLine(transform.position, transform.position + targetPos - transform.position, Color.blue, .1f);
 
         if (IsOnGround())
         {
@@ -175,7 +179,8 @@ public class BotBase: MonoBehaviour
     private bool IsOnGround()
     {
         var onGround = Physics.Raycast(transform.position, Vector3.up * -1, 1f, GroundLayer);
-        Debug.DrawRay(transform.position, Vector3.down, Color.red, 0.25f, false);
+        Debug.DrawRay(transform.position, Vector3.down * 1f, onGround ? Color.white : Color.red, 0.25f, false);
+
         return onGround;
     }
 }
