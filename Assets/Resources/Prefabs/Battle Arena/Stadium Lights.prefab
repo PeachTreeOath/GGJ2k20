@@ -122,10 +122,10 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 0.6509804, a: 1}
-  m_Intensity: 4
-  m_Range: 2000
-  m_SpotAngle: 50
-  m_InnerSpotAngle: 5
+  m_Intensity: 5
+  m_Range: 3000
+  m_SpotAngle: 2
+  m_InnerSpotAngle: 1
   m_CookieSize: 10
   m_Shadows:
     m_Type: 2
@@ -161,13 +161,13 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 1
+  m_Lightmapping: 4
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 1e-45, y: 9.4e-44, z: 0, w: 1.6003105e+20}
+  m_BoundingSphereOverride: {x: 0, y: 2.3510647e-38, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -339,7 +339,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5496940131872827738}
   m_Layer: 0
-  m_Name: Stadium Light 6 (fixed)
+  m_Name: Stadium Light 5 (fixed)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -359,7 +359,7 @@ Transform:
   - {fileID: 5496940132162356988}
   - {fileID: 5496940133166745849}
   m_Father: {fileID: 5496940132535220014}
-  m_RootOrder: 6
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5496940131897289679
 GameObject:
@@ -450,7 +450,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5496940132087000694}
   m_Layer: 0
-  m_Name: Stadium Light 4 (fixed)
+  m_Name: Stadium Light 1 (fixed)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -470,7 +470,7 @@ Transform:
   - {fileID: 5496940132173499228}
   - {fileID: 5496940132845507160}
   m_Father: {fileID: 5496940132535220014}
-  m_RootOrder: 4
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5496940132162356991
 GameObject:
@@ -640,7 +640,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5496940132265173806}
   m_Layer: 0
-  m_Name: Stadium Light 5 (fixed)
+  m_Name: Stadium Light 7 (fixed)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -660,7 +660,7 @@ Transform:
   - {fileID: 5496940132390481054}
   - {fileID: 5496940133610190221}
   m_Father: {fileID: 5496940132535220014}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5496940132304316938
 GameObject:
@@ -672,7 +672,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5496940132304316939}
   m_Layer: 0
-  m_Name: Stadium Light (tracking)
+  m_Name: Stadium Light 4 (tracking)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -692,7 +692,7 @@ Transform:
   - {fileID: 5496940132905266118}
   - {fileID: 5496940132682850604}
   m_Father: {fileID: 5496940132535220014}
-  m_RootOrder: 0
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5496940132325410283
 GameObject:
@@ -816,10 +816,10 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 0.6509804, a: 1}
-  m_Intensity: 4
-  m_Range: 2000
-  m_SpotAngle: 50
-  m_InnerSpotAngle: 5
+  m_Intensity: 5
+  m_Range: 3000
+  m_SpotAngle: 2
+  m_InnerSpotAngle: 1
   m_CookieSize: 10
   m_Shadows:
     m_Type: 2
@@ -855,13 +855,13 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 1
+  m_Lightmapping: 4
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 1e-45, y: 9.4e-44, z: 0, w: 1.6003105e+20}
+  m_BoundingSphereOverride: {x: 0, y: 2.3510647e-38, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -1210,13 +1210,13 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 5496940132304316939}
-  - {fileID: 5496940133727807294}
+  - {fileID: 5496940132087000694}
   - {fileID: 5496940133034241135}
   - {fileID: 5496940133707120911}
-  - {fileID: 5496940132087000694}
-  - {fileID: 5496940132265173806}
+  - {fileID: 5496940132304316939}
   - {fileID: 5496940131872827738}
+  - {fileID: 5496940133727807294}
+  - {fileID: 5496940132265173806}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1349,7 +1349,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 1
+  m_Lightmapping: 4
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -1763,7 +1763,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 1
+  m_Lightmapping: 4
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -1803,7 +1803,7 @@ Transform:
   - {fileID: 5496940131871653203}
   - {fileID: 5496940132903321366}
   m_Father: {fileID: 5496940132535220014}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5496940133148339509
 GameObject:
@@ -2047,7 +2047,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 1
+  m_Lightmapping: 4
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -2139,7 +2139,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 1
+  m_Lightmapping: 4
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -2420,7 +2420,7 @@ Transform:
   - {fileID: 5496940131897289676}
   - {fileID: 5496940133828278833}
   m_Father: {fileID: 5496940132535220014}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5496940133727807281
 GameObject:
@@ -2432,7 +2432,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5496940133727807294}
   m_Layer: 0
-  m_Name: Stadium Light 1 (fixed)
+  m_Name: Stadium Light 6 (fixed)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2452,7 +2452,7 @@ Transform:
   - {fileID: 5496940133619712280}
   - {fileID: 5496940133478663022}
   m_Father: {fileID: 5496940132535220014}
-  m_RootOrder: 1
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5496940133828278832
 GameObject:
@@ -2578,10 +2578,10 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 0.6509804, a: 1}
-  m_Intensity: 4
-  m_Range: 2000
-  m_SpotAngle: 50
-  m_InnerSpotAngle: 5
+  m_Intensity: 5
+  m_Range: 3000
+  m_SpotAngle: 2
+  m_InnerSpotAngle: 2
   m_CookieSize: 10
   m_Shadows:
     m_Type: 2
@@ -2617,7 +2617,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 1
+  m_Lightmapping: 4
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
