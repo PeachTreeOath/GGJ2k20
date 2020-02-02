@@ -842,11 +842,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: ShurikenLauncher
       objectReference: {fileID: 0}
-    - target: {fileID: 4112953728265925706, guid: 286943e98411c534198f6648ef2386fe,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 286943e98411c534198f6648ef2386fe, type: 3}
 --- !u!4 &8677232327782125973 stripped

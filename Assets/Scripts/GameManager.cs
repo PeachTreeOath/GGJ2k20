@@ -93,7 +93,7 @@ public class GameManager : Singleton<GameManager>
             }
             foreach (GameObject beyblade in beybladesNoNull)
             {
-                AirConsole.instance.Message(0, "view:victory_view"); // todo only send to the player that won
+                //AirConsole.instance.Message(0, "view:victory_view"); // todo only send to the player that won
                 BotBase botBase = beyblade.GetComponent<BotBase>();
                 text += botBase.playerName.text + "\n";
             }
@@ -183,7 +183,7 @@ public class GameManager : Singleton<GameManager>
 
         if (currentRound == numberOfRounds)
         {
-            AirConsole.instance.Message(1, "view:dead_view"); // todo only send to the player that died
+            //AirConsole.instance.Message(1, "view:dead_view"); // todo only send to the player that died
             if (beyblades.Count <= 1)
             {
                 EndGame();
