@@ -8,11 +8,21 @@ public class ExampleBullet : Projectile
     public float radius;
     public Collider myCollider;
     public Rigidbody rigidbody;
+    public float damageAmount = 30f;
+    public LayerMask botLayer;
+
+    public float lifetime = 4f;
 
     void Awake()
     {
+        myCollider.enabled = false;
         Invoke("TurnOnCollider", 1f);
         body = GetComponent<Rigidbody>();
+    }
+
+    protected override void Start()
+    {
+        StartCoroutine(DestroyAfterLifetime());
     }
 
     public override void Fire(Vector3 direction)
@@ -22,24 +32,41 @@ public class ExampleBullet : Projectile
 
     private void OnCollisionEnter(Collision collision)
     {
-        BotBase weapon = collision.gameObject.GetComponent<BotBase>();
+        BotBase bot = collision.gameObject.GetComponent<BotBase>();
 
-        if (weapon != null)
+        if (bot != null)
         {
-            BotBase[] botObjs = FindObjectsOfType<BotBase>();
+            bot.TakeDamage(damageAmount, transform.position);
 
-            Instantiate(ResourceLoader.instance.rocketExplosion, transform.position, Quaternion.identity);
-            foreach (BotBase bot in botObjs)
-            {
-                bot.rgbd.AddExplosionForce(force, transform.position, radius);
-            }
-
-            Destroy(gameObject);
+            Explode();
         }
+    }
+
+    private void Explode()
+    {
+        Instantiate(ResourceLoader.instance.rocketExplosion, transform.position, Quaternion.identity);
+        var bots = Physics.SphereCastAll(transform.position, radius, Vector3.up, botLayer);
+        foreach (RaycastHit hit in bots)
+        {
+            var bot = hit.transform.GetComponent<BotBase>();
+            if (bot != null)
+            {
+                bot.TakeDamage(damageAmount, transform.position);
+            }
+        }
+
+        Destroy(gameObject);
     }
 
     public void TurnOnCollider()
     {
         myCollider.enabled = true;
+    }
+
+    private IEnumerator DestroyAfterLifetime()
+    {
+        yield return new WaitForSeconds(lifetime);
+
+        Explode();
     }
 }
