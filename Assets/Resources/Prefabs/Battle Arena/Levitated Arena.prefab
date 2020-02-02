@@ -5450,8 +5450,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8530515472797860540}
   - component: {fileID: 5137834998241283826}
+  - component: {fileID: 1686992300704493953}
   - component: {fileID: 896744152221992565}
-  - component: {fileID: 3198001694585544239}
   m_Layer: 0
   m_Name: ArenaPlatform
   m_TagString: Untagged
@@ -5484,6 +5484,20 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3198001694585544238}
+  m_Mesh: {fileID: -5633407917140853650, guid: 3bddbb2cbd6844ff797df1b331b2babd, type: 3}
+--- !u!64 &1686992300704493953
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3198001694585544238}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 30
   m_Mesh: {fileID: -5633407917140853650, guid: 3bddbb2cbd6844ff797df1b331b2babd, type: 3}
 --- !u!23 &896744152221992565
 MeshRenderer:
@@ -5524,19 +5538,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &3198001694585544239
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3198001694585544238}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 300, y: 64.840706, z: 300}
-  m_Center: {x: 0, y: -6.920353, z: 0}
 --- !u!1 &4201912143114543900
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,11 +4,6 @@ using UnityEngine;
 
 public class WeaponFlamethrower : Weapon
 {
-	private void Awake()
-	{
-		TypeOfWeapon = WeaponType.Flamethrower;
-	}
-
 	// Start is called before the first frame update
 	void Start()
     {
