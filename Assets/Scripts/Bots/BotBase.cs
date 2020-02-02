@@ -23,6 +23,8 @@ public class BotBase: MonoBehaviour
     public float HealthPercentage => CurrentHealth / StartingHealth;
     public float CurrentHealth { get; private set; }
 
+	public Action DamageTaken = delegate { };
+
     public List<Transform> Targets = new List<Transform>();
 
     private Rigidbody rgbd;
@@ -61,6 +63,8 @@ public class BotBase: MonoBehaviour
         CurrentHealth -= damageAmount;
 
         rgbd.AddForceAtPosition((transform.position - contactPoint + Vector3.up) * 5, contactPoint, ForceMode.Impulse);
+
+		DamageTaken?.Invoke();
     }
 
     private void Update()
