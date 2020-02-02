@@ -49,6 +49,8 @@ public class GameManager : Singleton<GameManager>
     {
         roundPhases[currentPhaseIndex].EndPhase();
 
+		FindObjectOfType<DynamicCamera>().ReleaseCamera();
+
         currentPhaseIndex++;
         if (currentPhaseIndex >= roundPhases.Count)
         {
@@ -130,6 +132,7 @@ public class GameManager : Singleton<GameManager>
             ActiveBots.Add(beyblade);
             beyblade.Death += OnBotDeath;
 
+            ArenaLightController.instance.UpdateListofTargets();
             // read through playercontroller and spawn weapons onto it
         }
     }
@@ -146,15 +149,18 @@ public class GameManager : Singleton<GameManager>
             Vector3 spawnPoint = spawnLocation.transform.position;
             Vector3 spawnBounds = spawnLocation.transform.localScale;
             Vector3 randomPosition = new Vector3(spawnPoint.x + Random.value * spawnBounds.x, spawnPoint.y + Random.value * spawnBounds.y, 0);
-            randomPosition = randomPosition - spawnBounds / 2;
+            randomPosition -= spawnBounds / 2;
 
             bot.gameObject.SetActive(true);
         }
+
+        ArenaLightController.instance.UpdateListofTargets();
     }
 
     private void OnBotDeath(BotBase botThatDied)
     {
         ActiveBots.Remove(botThatDied);
+        ArenaLightController.instance.UpdateListofTargets();
         if (ActiveBots.Count < 2)
         {
             EndGame();
