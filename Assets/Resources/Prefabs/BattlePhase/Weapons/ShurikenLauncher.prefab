@@ -50,7 +50,7 @@ MonoBehaviour:
   - 15
   startingDurability: 100
   numShurikensToSpawn: 3
-  projectilePrefabToLaunch: {fileID: 2225425695050665073, guid: 74b808a3345ac0849840ba2a948ae4cf,
+  projectilePrefabToLaunch: {fileID: 4326140320757087303, guid: 74b808a3345ac0849840ba2a948ae4cf,
     type: 3}
   secsToFire: 2
   speed: 8
