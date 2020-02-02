@@ -51,7 +51,7 @@ public class DynamicCamera : MonoBehaviour
 
 		List<KeyValuePair<float, BotBase>> sortedBots = new List<KeyValuePair<float, BotBase>>();
 
-		List<BotBase> potentialBots = new List<BotBase>(Bots);
+		List<BotBase> potentialBots = new List<BotBase>(GameManager.instance.ActiveBots ?? new List<BotBase>());
 
 		foreach(BotBase bot in potentialBots)
 		{
@@ -71,9 +71,11 @@ public class DynamicCamera : MonoBehaviour
 			yield return null;
 		}
 
-		sortedBots = sortedBots.OrderByDescending(x => x.Key).ToList();
+		sortedBots = sortedBots.Where(x => GameManager.instance.ActiveBots.Contains(x.Value)).OrderByDescending(x => x.Key).ToList();
 
-		if (sortedBots.Count > 0 && sortedBots[0].Key > thresholdOfInterest && sortedBots[0].Value != null)
+		float adjustedThreshold = thresholdOfInterest - (0.5f / Mathf.Sqrt(GameManager.instance.ActiveBots.Count));
+
+		if (sortedBots.Count > 0 && sortedBots[0].Key > adjustedThreshold && sortedBots[0].Value != null)
 		{
 			Debug.Log("THRESHOLD MET");
 			FocusOnBot(sortedBots[0].Value);

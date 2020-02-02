@@ -28,9 +28,22 @@ public class BotBase: MonoBehaviour
 
     public float HealthPercentage => CurrentHealth / StartingHealth;
     public float CurrentHealth { get; private set; }
-    public bool IsDead { get; set; }
+
+	private bool isDead = false;
+    public bool IsDead
+	{
+		get { return isDead; }
+		set
+		{ if (!isDead && value)
+			{
+				isDead = true;
+				Death?.Invoke(this);
+			}
+		}
+	}
 
 	public Action ReleaseCam = delegate { };
+	public Action<BotBase> Death = delegate { };
 
     public List<Transform> Targets = new List<Transform>();
 
