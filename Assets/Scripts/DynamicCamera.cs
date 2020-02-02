@@ -26,6 +26,7 @@ public class DynamicCamera : MonoBehaviour
 		Bots = FindObjectsOfType<BotBase>().ToList();
 		rotatingCam = FindObjectOfType<CinemachineVirtualCamera>();
 		rotatingCam.Priority = 10;
+		followingCam.Priority = 5;
     }
 
     // Update is called once per frame
@@ -108,12 +109,12 @@ public class DynamicCamera : MonoBehaviour
 		followingCam.LookAt = botToFocus.transform;
 		followingCam.Priority = 20;
 
-		botToFocus.DamageTaken += ReleaseCamera;
+		botToFocus.ReleaseCam += ReleaseCamera;
 	}
 
 	private void ReleaseCamera()
 	{
-		followingCam.Follow.gameObject.GetComponent<BotBase>().DamageTaken -= ReleaseCamera;
+		followingCam.Follow.gameObject.GetComponent<BotBase>().ReleaseCam -= ReleaseCamera;
 
 		runningRoutine = StartCoroutine(EndFollow());
 		coroutineIsRunning = true;
