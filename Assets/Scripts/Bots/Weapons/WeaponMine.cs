@@ -2,23 +2,63 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponMine : Weapon
+public class WeaponMine : MonoBehaviour
 {
-    public float aliveTime;
+    public float radius;
+    public Collider myCollider;
+    public float damageAmount = 30f;
+    public LayerMask botLayer;
 
-    // Start is called before the first frame update
-    void Start()
+    public float lifetime = 8f;
+
+    void Awake()
     {
-        
+        myCollider.enabled = false;
+        Invoke("TurnOnCollider", 1f);
     }
 
-    // Update is called once per frame
-    void Update()
+    void Start()
     {
-        aliveTime -= Time.deltaTime;
-        if (aliveTime <= 0)
+        StartCoroutine(DestroyAfterLifetime());
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        BotBase bot = collision.gameObject.GetComponent<BotBase>();
+
+        if (bot != null)
         {
-            Destroy(this.gameObject);
+            bot.TakeDamage(damageAmount, transform.position);
+
+            Explode();
         }
+    }
+
+    private void Explode()
+    {
+        Instantiate(ResourceLoader.instance.rocketExplosion, transform.position, Quaternion.identity);
+        var bots = Physics.SphereCastAll(transform.position, radius, Vector3.up, botLayer);
+        foreach (RaycastHit hit in bots)
+        {
+            var bot = hit.transform.GetComponent<BotBase>();
+            if (bot != null)
+            {
+                bot.TakeDamage(damageAmount, transform.position);
+            }
+        }
+
+        Destroy(gameObject);
+    }
+
+    public void TurnOnCollider()
+    {
+        myCollider.enabled = true;
+    }
+
+    private IEnumerator DestroyAfterLifetime()
+    {
+        yield return new WaitForSeconds(lifetime);
+
+        Explode();
     }
 }
