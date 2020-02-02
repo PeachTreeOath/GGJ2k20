@@ -65,14 +65,6 @@ public class ControllerManager : Singleton<ControllerManager>
 
     }
 
-    private void CountdownTimer()
-    {
-        AirConsole.instance.Broadcast(new { counter = countDownValue });
-        countDownValue--;
-        if (countDownValue < 0)
-            CancelInvoke();
-    }
-
     void OnReady(string code)
     {
         //Since people might be coming to the game from the AirConsole store once the game is live, 
@@ -112,7 +104,9 @@ public class ControllerManager : Singleton<ControllerManager>
         pc.playerColor = GetPlayerColor();
         // increases after player joins the level to be used for player colors
 
-        UpdatePlayerData(playerSpawnNumber, pc.playerColor, deviceID, null, null);
+        AirConsole.instance.Message(deviceID,"view:title_view");
+
+        GetPlayerData(playerSpawnNumber, pc.playerColor, deviceID, null, null);
 
         playerSpawnNumber++;
     }
@@ -120,14 +114,33 @@ public class ControllerManager : Singleton<ControllerManager>
     void OnMessage(int from, JToken data)
     {
         //When I get a message, I check if it's from any of the devices stored in my device Id dictionary
-        if (players.ContainsKey(from) && data["action"] != null)
+        if (players.ContainsKey(from) && data["actions"] != null)       
         {
-            //I forward the command to the relevant player script, assigned by device ID
-            players[from].ButtonInput(data["action"].ToString());
+            Debug.Log(data);
+            foreach (var action in data["actions"])
+            {
+                Debug.Log(action["action"].ToString());
+                //I forward the command to the relevant player script, assigned by device ID
+                players[from].ButtonInput(action["action"].ToString());
+            }
         }
-        else if (players.ContainsKey(from) && data["payload"] != null)
+        else if (players.ContainsKey(from) && data["requests"] != null) 
         {
-            PayloadDelivered(data);
+            foreach (var request in data["requests"])
+            {
+                if (request["request"].ToString() == "playerData") {
+                    GetPlayerData(
+                        null,
+                        null,
+                        from,
+                        players[from].WeaponTypeMap.Select(obj => (int)obj.Key).ToArray(),
+                        new int[3] {
+                        Random.Range(0, (int)System.Enum.GetValues(typeof(WeaponType)).Cast<WeaponType>().Max()),
+                        Random.Range(0, (int)System.Enum.GetValues(typeof(WeaponType)).Cast<WeaponType>().Max()),
+                        Random.Range(0, (int)System.Enum.GetValues(typeof(WeaponType)).Cast<WeaponType>().Max())
+                    });
+                }
+            }
         }
     }
 
@@ -164,27 +177,7 @@ public class ControllerManager : Singleton<ControllerManager>
         }
     }
 
-    #region Need to Refactor
-
-    void PayloadDelivered(JToken data)
-    {
-        Debug.Log(data);
-
-        if (data["payload"]["test"] != null)
-        {
-            BeginShopPhase();
-        }
-        else {
-            int upgradeWeapon;
-            int repairedWeapon;
-
-            int.TryParse(data["payload"]["upgradeWeapon"].ToString(), out upgradeWeapon);
-            int.TryParse(data["payload"]["repairedWeapon"].ToString(), out repairedWeapon);
-            Debug.Log(string.Format("New Item: {0} Repair Item {1}", upgradeWeapon.ToString(), repairedWeapon.ToString()));
-        }
-    }
-
-    void UpdatePlayerData(int? playerNumber, Color? playerColor, int deviceId, int[] loadOut, int[] upgrades)
+    private void GetPlayerData(int? playerNumber, Color? playerColor, int deviceId, int[] loadOut, int[] upgrades)
     {
         AirConsole.instance.Message(
             deviceId,
@@ -199,28 +192,5 @@ public class ControllerManager : Singleton<ControllerManager>
                 }
             });
     }
-
-    public void BeginShopPhase()
-    {
-        foreach (KeyValuePair<int, PlayerController> kvp in players) {
-            kvp.Value.AddWeapon(WeaponType.Flamethrower);
-
-            UpdatePlayerData(
-                null,
-                null,
-                kvp.Value.deviceID,
-                kvp.Value.WeaponLevel.Select(obj => (int)obj.Key).ToArray(),
-                new int[2] {
-                    (int)WeaponType.Flamethrower,
-                    (int)WeaponType.Sword
-                });
-        }
-
-        // Testing countdown timer
-        countDownValue = 5;
-        InvokeRepeating("CountdownTimer", 0, 1);
-    }
-
-    #endregion Need to Refactor
 }
 

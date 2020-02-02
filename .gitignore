@@ -1,6 +1,9 @@
 # cause Grehg is on a Mac
 .DS_Store
 
+# cause grehg's rider ayy
+.idea/
+
 /[Ll]ibrary/
 /[Tt]emp/
 /[Oo]bj/

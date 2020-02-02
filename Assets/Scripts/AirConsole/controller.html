@@ -5,204 +5,104 @@
     <script type="text/javascript" src="https://www.airconsole.com/api/airconsole-1.7.0.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
     <style type=text/css>
-        /* the style sheet dictates what our elements (buttons, backgrounds etc.) will look like. */
-
-        body {
-            /*    display: flex;
-                margin: 0;
-                height: 100%;
-                width: 100%;
-                position: absolute;*/
-            font-family: 'Press Start 2P', cursive;
-        }
-
         .view {
             width: 100%;
             height: 100%;
             position: absolute;
             display: none;
-        }
-
-        /* Begin new classes */
-
-        .background {
-           background-image: url(Controller_Background.png);
-           background-size: cover;
-           background-repeat: no-repeat;
-        }
-
-        .playerInfo {
-            width: 50%;
-            height: 50%;
-            margin: auto;
-        }
-
-        .playerMessage {
+            background-image: url(Controller_Background.png);
+            background-size: cover;
+            background-repeat: no-repeat;
             color: white;
+            font-family: "Expansiva";
+			font-weight: 300;
         }
 
-        .shop {
+        .storeTable {
             color: white;
         }
 
         .icon {
-            width: 20%;
+            width: 100px;
             height: 100px;
-
+			padding: 5px;
         }
+
         .iconselected {
-            width: 20%;
-            height: 100px;
-            border: 3px solid white;
+            width: 110px;
+            height: 110px;
+            border: 5px solid yellow;
         }
-            
-        /* End new classes */
-
-        #dead_view, #victory_view {
-            /*background-image: linear-gradient(0deg, #FE811C 0%, #5C0900 100%);*/
-            background: #000;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-        }
-
-        svg {
-            fill: #fff;
-            width: 70vw;
-        }
-
-        .button {
-            background: #3B3B3B;
-            border: solid #1f1f1f 2px;
-            transition: 0.1ms ease-in-out all;
-        }
-
-        .vertical-buttons {
-            width: 25%;
-            height: 100%;
-            /*float: left;*/
-        }
-
-        .horizontal-buttons-container {
-            width: 50%;
-            /*float: left;*/
-        }
-
-        .horizontal-buttons {
-            height: 50%;
-        }
-
-        #left-button {
-            background-image: url("/left_button.png");
-            background-repeat: no-repeat;
-            background-size: cover;
-            background-position: center;
-        }
-
-            #left-button:active {
-                background-image: url("/left_button_pressed.png");
-            }
-
-        #right-button {
-            background-image: url("/right_button.png");
-            background-repeat: no-repeat;
-            background-size: cover;
-            background-position: center;
-        }
-
-        #right-button:active {
-            background-image: url("/right_button_pressed.png");
-        }
-
-        #jump-button {
-            background-image: url("/jump_button.png");
-            background-repeat: no-repeat;
-            background-size: cover;
-            background-position: center;
-        }
-
-            #jump-button:active {
-                background-image: url("/jump_button_pressed.png");
-            }
-
-        #interact-button {
-            background-image: url("/interact_button.png");
-            background-repeat: no-repeat;
-            background-size: cover;
-            background-position: center;
-        }
-
-            #interact-button:active {
-                background-image: url("/interact_button_pressed.png");
-            }
 
         ul.horizontal-list {
-	        list-style: none;
-	    }
-	    ul.horizontal-list li {
-		    display: inline;
-	    }
-        #countdownTimer {
-            color: white;
+            list-style: none;
         }
 
+        ul.horizontal-list li {
+            display: inline;
+        }
+
+		.center {
+			margin: 0;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			-ms-transform: translate(-50%, -50%);
+			transform: translate(-50%, -50%);
+		}
+
+		.look-up-text {
+			font-size: 65px;
+			text-shadow: -2px -2px 0 #86f2ff, 2px -2px 0 #86f2ff, -2px 2px 0 #86f2ff, 2px 2px 0 #86f2ff;
+		}
+
+		td.menu-title {
+			font-size: 20px;
+			text-shadow: -1px -1px 0 #86f2ff, 1px -1px 0 #86f2ff, -1px 1px 0 #86f2ff, 1px 1px 0 #86f2ff;
+		}
+		.red {
+			color: #D15852;
+		}
+
+		@font-face {
+			font-family: "Expansiva";
+			src: url("./Expansiva.otf") format("opentype");
+		}
     </style>
 
     <script type="text/javascript">
 
         var airconsole;
-        var lava_burn_sound = new Audio('lava_burn3.wav');
-        var jump_sound = new Audio('jump.wav');
-        var scream_sound = new Audio('scream3.wav');
-        var hit_sound = new Audio('hit.wav');
-        var throw_sound = new Audio('throw.wav');
         var upgradeWeapon = -1;
         var repairedWeapon = -1;
-
-        var repairItemId = 1
+        var countdownTimer = 0;
+        var timer;
 
         function App() {
             var me = this;
-            jump_sound.volume = .3;
-            lava_burn_sound.volume = .7;
 
             me.airconsole = new AirConsole({ "orientation": "landscape", "synchronize_time": "true" });
-
-            showView("ready_view");
-            // showView("shop_view");
 
             me.airconsole.onMessage = function (from, data) {
                 // Check if the data, we sent, contains view
                 if (data) {
-                    if (data == "view:dead_view") {
-                        showView("dead_view");
+                    if (data == "view:title_view") {
+                        showView("title_view");
+                    }
+                    else if (data.toString().startsWith("view:shop_view")) {
+                        startShopping(data.split(":")[2]);
                     }
                     else if (data == "view:alive_view") {
                         showView("alive_view");
                     }
+                    else if (data == "view:dead_view") {
+                        showView("dead_view");
+                    }
                     else if (data == "view:victory_view") {
                         showView("victory_view");
                     }
-                    else if (data == "sound:lava_burn") {
-                        playSound("lava_burn");
-                    }
-                    else if (data == "sound:jump") {
-                        playSound("jump");
-                    }
-                    else if (data == "sound:scream") {
-                        playSound("scream");
-                    }
-                    else if (data == "sound:hit") {
-                        playSound("hit");
-                    }
-                    else if (data == "sound:throw") {
-                        playSound("throw");
-                    }
-                    else if (data.playerData != null) {
+                    else if (data.playerData) {
                         setPlayerData(data.playerData);
-                    }
-                    else if (data.counter != null) {
-                        updateCountdownTimer(data.counter);
                     }
                 }
             };
@@ -230,16 +130,24 @@
                     }
                 }
             }
-
-
         }
 
         App.prototype.sendMessageToScreen = function (msg) {
-            this.airconsole.message(AirConsole.SCREEN, { "action": msg });
+            this.airconsole.message(AirConsole.SCREEN, msg);
         };
 
-        App.prototype.sendPayloadToScreen = function (obj) {
-            this.airconsole.message(AirConsole.SCREEN, obj);
+        function startShopping(countdownStart) {
+            showView("shop_view");
+            countdownTimer = countdownStart;
+
+            var message = {
+                "requests" : [
+                    { "request": "playerData" }
+                ]
+            };
+
+            window.app.sendMessageToScreen(message);
+            timer = setInterval(updateCountdownTimer, 1000);
         }
 
         function showView(id) {
@@ -258,57 +166,45 @@
             }
         };
 
-        function playSound(id) {
-            if (id == "lava_burn") {
-                lava_burn_sound.play();
-            } else if (id == "jump") {
-                jump_sound.play();
-            } else if (id == "scream") {
-                scream_sound.play();
-            } else if (id == "hit") {
-                hit_sound.play();
-            } else if (id == "throw") {
-                throw_sound.play();
-            }
-        };
-
         function finishShopping() {
-            let jsonData = {};
-            jsonData.payload = {};
-            jsonData.payload.upgradeWeapon = upgradeWeapon.toString();
-            jsonData.payload.repairedWeapon = repairedWeapon.toString();
-            console.log(jsonData);
 
-            window.app.sendPayloadToScreen(jsonData);
+            var buyOption = getWeaponActionById(upgradeWeapon, false);
+            var repairOption = getWeaponActionById(repairedWeapon, true);
+
+            var message = {
+                "actions" : [
+                    { "action": buyOption },
+                    { "action": repairOption }
+                ]
+            };
+
+            window.app.sendMessageToScreen(message);
         }
 
-        function setPlayerData(data)
-        {
-            if (data.loadOut) {
+        function setPlayerData(data) {
+            if (data.loadOut != null) {
                 displayLoadout(data.loadOut);
             }
-            if (data.upgrades) {
+            if (data.upgrades != null) {
                 displayUpgrades(data.upgrades);
             }
-            if (data.playerNumber) {
-                document.getElementById("player").innerHTML = "Player# " + data.playerNumber;
+            if (data.playerNumber != null) {
+                displayPlayerNumber(data);
             }
-            if (data.playerColor) {
-                document.getElementById("player").style.backgroundColor = "#" + data.playerColor;
+            if (data.playerColor != null) {
+                displayPlayerColor(data);
             }
         }
 
-        function displayUpgrades(data)
-        {
+        function displayUpgrades(data) {
             var upgradeList = document.getElementById("upgradeList");
+            upgradeList.innerHTML = "";
             for (var i = 0; i < data.length; i++) {
                 var item = document.createElement("li");
                 var image = document.createElement("img");
                 image.setAttribute("value", data[i]);
                 image.addEventListener("click", function (e) {
-                    upgradeWeapon = e.target.attributes["value"].value;
-                    console.log(upgradeWeapon);
-
+                    upgradeWeapon = parseInt(e.target.attributes["value"].value, 10);
                     var childElements = Array.prototype.slice.call(upgradeList.children);
 
                     [].forEach.call(childElements, function (child) {
@@ -317,18 +213,7 @@
 
                     e.target.className = "iconselected";
                 });
-
-                switch (data[i]) {
-                    case 0:
-                        image.src = "Flamethrower.png";
-                        break;
-                    case 1:
-                        image.src = "knife.jpg";
-                        break;
-                    case 2:
-                        image.src = "nuke.jpg";
-                        break;
-                }
+                image.src = getWeaponImageById(data[i]);
                 image.className += "icon";
                 item.appendChild(image);
                 upgradeList.appendChild(item)
@@ -337,92 +222,127 @@
 
         function displayLoadout(data) {
             var loadoutList = document.getElementById("loadOutList");
+            loadoutList.innerHTML = "";
             for (var i = 0; i < data.length; i++) {
                 var item = document.createElement("li");
                 var image = document.createElement("img");
                 image.setAttribute("value", data[i]);
+				image.setAttribute("class", "icon-img");
                 image.addEventListener("click", function (e) {
-                    repairedWeapon = e.target.attributes["value"].value;
-                    console.log(repairedWeapon);
+                    repairedWeapon = parseInt(e.target.attributes["value"].value, 10);
                 });
-
-                switch (data[i]) {
-                    case 0:
-                        image.src = "Flamethrower.png";
-                        break;
-                    case 1:
-                        image.src = "knife.jpg";
-                        break;
-                    case 2:
-                        image.src = "nuke.jpg";
-                        break;
-                }
-
+                image.src = getWeaponImageById(data[i]);
                 image.className += "icon";
                 item.appendChild(image);
                 loadoutList.appendChild(item)
             }
         }
 
-        function updateCountdownTimer(value) {
-            document.getElementById("countdownTimer").innerHTML = "Next round in " + value + " seconds";
-
-            if (value == 0)
-                finishShopping();
+        function displayPlayerNumber(data) {
+            document.getElementById("player").innerHTML = "Player# " + data.playerNumber;
         }
 
-        function loadShop() {
-            showView("shop_view");
+        function displayPlayerColor(data) {
+            document.getElementById("player").style.backgroundColor = "#" + data.playerColor;
+        }
 
-            let jsonData = {};
-            jsonData.payload = {};
-            jsonData.payload.test = "test";            
+        function getWeaponImageById(id) {
 
-            window.app.sendPayloadToScreen(jsonData);
+            switch (id) {
+                case 0:
+                    return "Flamethrower.png";
+                case 1:
+                    return "sword.png";
+                case 2:
+                    return "cannon.png";
+                case 3:
+                    return "landmine.png";
+                case 4:
+                    return "shuriken.png";
+                //case 5:
+                //    return "glove.jpg";
+            }
+        }
+
+        function getWeaponActionById(id, isRepair) {
+
+            console.log(id);
+
+            switch (id) {
+                case 0:
+                    return isRepair ? "repair_flamethrower" : "buy_flamethrower";
+                case 1:
+                    return isRepair ? "repair_sword" : "buy_sword";
+                case 2:
+                    return isRepair ? "repair_cannon" : "buy_cannon";
+                case 3:
+                    return isRepair ? "repair_landmine" : "buy_landmine";
+                case 4:
+                    return isRepair ? "repair_shuriken" : "buy_shuriken";
+                //case 5:
+                   // return isRepair ? "repair_gloves" : "buy_gloves";
+                default:
+                    return "none";
+            }
+        }
+
+        function updateCountdownTimer() {
+            if (countdownTimer == 0) {
+                clearInterval(timer);
+                finishShopping();
+                return;
+            }
+            countdownTimer--;
+            document.getElementById("countdownTimer").innerHTML = "Next round begins in: " + countdownTimer.toString() + " seconds...";
         }
 
     </script>
-
-
 </head>
 <body onload="window.app = new App()">
-    <div id="shop_view" class="view shop background">
-        <div class="button" onclick="finishShopping()" style="color: white; background-color: blue; padding: 5px;">Test</div>
-        <table>
-            <tr><td class="playerMessage">Upgrades</td></tr>
+    <div id="title_view" class="view">
+        <button onclick="startShopping()">Launch Shop</button>
+        <div>Waiting for Commander to start game...</div>
+        <div id="player"></div>
+    </div>
+    <div id="alive_view" class="view">
+		<div class="center">
+			<span class="look-up-text"><center>Look at Monitor</center></span>
+		</div>
+    </div>
+    <div id="shop_view" class="view">
+        <!-- <div class="button" onclick="finishShopping()" style="color: white; background-color: blue; padding: 5px;">Test</div> -->
+        <table class="storeTable">
             <tr>
-                <td>
-                    <ul class="horizontal-list" id="upgradeList"></ul>
+				<center><td class="menu-title">Upgrades</td></tr></center>
+            <tr>
+				<td>
+					<ul class="horizontal-list" id="upgradeList"></ul>
                 </td>
             </tr>
-            <tr><td class="playerMessage">Loadout</td></tr>
+            <tr>
+				<center><td class="menu-title">Loadout</td></tr></center>
             <tr>
                 <td>
-                    <ul class="horizontal-list" id="loadOutList"></ul>
+                    <center><ul class="horizontal-list" id="loadOutList"></ul></center>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <div id="countdownTimer"></div>
+                    <div id="countdownTimer" class="red">Countdown</div>
                 </td>
             </tr>
         </table>
 
     </div>
-    <div id="ready_view" class="view background">
-        <div class="button" style="background-color: red;" ontouchend="loadShop()">Test - Launch Shop</div>
-        <div class="playerMessage">Waiting for the game to begin...</div>
-        <div id="player" class="playerInfo"></div>
-    </div>
-    <div id="alive_view" class="view">
-
-    </div>
     <div id="victory_view" class="view">
-
+		<div class="center">
+			<span class="look-up-text"><center>Victory!!!!</center></span>
+		</div>
     </div>
     <div id="dead_view" class="view">
-
+		<div class="center">
+			<span class="look-up-text"><center>You Dead!!!!</center></span>
+		</div>
     </div>
-
 </body>
 </html>

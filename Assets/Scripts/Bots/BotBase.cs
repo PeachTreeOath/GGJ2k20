@@ -21,10 +21,12 @@ public class BotBase: MonoBehaviour
     [Header("Meta Attributes")]
     public float PersonalTargetArenaRadius = 8f;
     public float WeaponDurabilityDamageFactor = 0.5f;
+    public LayerMask GroundLayer;
 
     [Header("Knockback Attributes")]
-    public float MaxKnockbackFactor = 4f;
-    public float MinKnockbackFactor = .25f;
+    public float MaxHealthKnockbackMultiplier = 4f;
+    public float MinHealthKnockbackMultiplier = .25f;
+    public float DamageKnockbackFactor = 5f;
 
     public float HealthPercentage => CurrentHealth / StartingHealth;
     public float CurrentHealth { get; private set; }
@@ -80,16 +82,24 @@ public class BotBase: MonoBehaviour
 		CurrentHealth = Mathf.Clamp(CurrentHealth, 0f, StartingHealth);
 	}
 
-    public void TakeDamage(float damageAmount, Vector3 contactPoint)
+    public void TakeDamage(float damageAmount, Vector3 contactPoint, bool doKnockback = true)
     {
-        // not a linear damage mechanic, incoming damage is reduced by current damage taken
-        // resulting in asymptotic behaviour towards 0
+        var rawDamageAmount = damageAmount;
         damageAmount = Mathf.Min(damageAmount, StartingHealth);
         damageAmount *= (HealthPercentage - 0.01f);
         CurrentHealth -= damageAmount;
-        var knockbackMultiplier = Mathf.Lerp(MaxKnockbackFactor, MinKnockbackFactor, HealthPercentage);
 
-        rgbd.AddForceAtPosition((transform.position - contactPoint + Vector3.up) * knockbackMultiplier, contactPoint, ForceMode.Impulse);
+        if (doKnockback)
+        {
+            var healthKnockbackMultiplier = Mathf.Lerp(MaxHealthKnockbackMultiplier, MinHealthKnockbackMultiplier, HealthPercentage);
+            var knockbackVec = (transform.position - contactPoint).normalized;
+            knockbackVec.y = Mathf.Max(knockbackVec.y, .15f);
+            var damageKnockbackFactor = (rawDamageAmount / StartingHealth) * DamageKnockbackFactor;
+            knockbackVec *= damageKnockbackFactor * healthKnockbackMultiplier;
+            Debug.Log($"knocked back {name}: {knockbackVec}, healthFactor: {healthKnockbackMultiplier}, damageFactor: {damageKnockbackFactor}");
+            rgbd.AddForceAtPosition(knockbackVec, contactPoint, ForceMode.Impulse);
+        }
+
         ApplyWeaponDurabilityDamage(damageAmount);
 
 		DamageTaken?.Invoke();
@@ -168,6 +178,8 @@ public class BotBase: MonoBehaviour
 
     private bool IsOnGround()
     {
-        return Physics.Raycast(transform.position, Vector3.up * -1, 1f);
+        var onGround = Physics.Raycast(transform.position, Vector3.up * -1, 1f, GroundLayer);
+        Debug.DrawRay(transform.position, Vector3.down, Color.red, 0.25f, false);
+        return onGround;
     }
 }

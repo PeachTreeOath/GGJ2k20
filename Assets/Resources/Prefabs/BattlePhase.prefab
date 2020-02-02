@@ -45,8 +45,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roundTime: 9.959999
   phaseName: Battle
+  timerText: {fileID: 0}
   timeUntilShrinkStarts: 2
   timeUntilPhaseEndAfterShrink: 2
   startingScale: 10
   endingScale: 2
-  wallAnimators: []
+  wallAnimators:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  playersLeft: {fileID: 0}
