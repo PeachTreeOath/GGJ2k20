@@ -28,6 +28,6 @@ public class ArenaTrackingLight : MonoBehaviour
     public void ResetSelf()
     {
         TurnOff();
-        transform.rotation = Quaternion.Slerp(transform.rotation, BaseRotation, Time.deltaTime * damp);
+        transform.rotation = BaseRotation;
     }
 }
