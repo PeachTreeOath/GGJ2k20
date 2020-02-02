@@ -61,6 +61,7 @@ public class GameManager : Singleton<GameManager>
         Debug.Log("END GAME");
     }
 
+    private Vector3 heightAdjust = new Vector3(0, 3, 0);
 
     // Factory for beyblade spawning
     public void SpawnBeyblades()
@@ -69,13 +70,13 @@ public class GameManager : Singleton<GameManager>
 
         foreach (PlayerController player in ControllerManager.instance.players.Values)
         {
-            Vector3 pos = RandomCircle(center, 5.0f);
+            Vector3 pos = RandomCircle(center, 8.0f) + heightAdjust;
             Quaternion rot = Quaternion.FromToRotation(Vector3.forward, center - pos);
             GameObject bbObj = Instantiate(ResourceLoader.instance.beybladePrefab, pos, rot);
             CalvinBeyblade beyblade = bbObj.GetComponent<CalvinBeyblade>();
-            beyblade.playerName.text = player.nickname;
+            //beyblade.playerName.text = player.nickname;
 
-            // 
+            // read through playercontroller and spawn weapons onto it
         }
     }
 
