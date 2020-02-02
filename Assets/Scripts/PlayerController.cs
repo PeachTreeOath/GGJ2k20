@@ -77,7 +77,7 @@ public class PlayerController : MonoBehaviour
     {
         if (WeaponTypeMap.ContainsKey(weaponType))
         {
-            if (WeaponTypeMap[weaponType].gameObject.activeSelf)
+            if (WeaponTypeMap[weaponType].gameObject.activeInHierarchy)
             {
                 WeaponTypeMap[weaponType].Level = WeaponTypeMap[weaponType].Level + 1;
             }
@@ -85,10 +85,12 @@ public class PlayerController : MonoBehaviour
             {
                 WeaponTypeMap[weaponType].gameObject.SetActive(true);
             }
-        }
 
-        Debug.Log(weaponType.ToString() + " BOUGHT");
-        return Result.Success;
+			Debug.Log(weaponType.ToString() + " BOUGHT");
+			return Result.Success;
+		}
+
+		return Result.Error;
     }
 
     private Result BuyRepair(WeaponType repairType)
