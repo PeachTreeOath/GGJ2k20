@@ -6,7 +6,7 @@ public class WeaponMine : MonoBehaviour
 {
     public float radius;
     public Collider myCollider;
-    public float damageAmount = 30f;
+    public float damageAmount { get; set; }
     public LayerMask botLayer;
 
     public float lifetime = 8f;

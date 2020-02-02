@@ -51,5 +51,5 @@ MonoBehaviour:
   startingDurability: 100
   dropTimeFrequency: 3
   currentCountdownTime: 0
-  minePrefab: {fileID: 2266861900396113646, guid: fb15b747f5772448aa49f01396173886,
+  minePrefab: {fileID: -8296600489215287439, guid: fb15b747f5772448aa49f01396173886,
     type: 3}

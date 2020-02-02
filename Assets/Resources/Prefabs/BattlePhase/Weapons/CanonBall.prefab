@@ -65,10 +65,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vel: 4
   radius: 10
-  myCollider: {fileID: 0}
   botLayer:
     serializedVersion: 2
     m_Bits: 0
+  explosion: {fileID: 198917022394846920, guid: e1b08032bec16ba4eb1ae23cbd572664,
+    type: 3}
   lifetime: 4
 --- !u!114 &5138733549210394774
 MonoBehaviour:

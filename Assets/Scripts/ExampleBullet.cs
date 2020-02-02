@@ -8,6 +8,7 @@ public class ExampleBullet : Projectile
     public float radius;
     private Collider myCollider;
     public LayerMask botLayer;
+    public ParticleSystem explosion;
 
     public float lifetime = 4f;
 
@@ -56,7 +57,7 @@ public class ExampleBullet : Projectile
 
     private void Explode()
     {
-        Instantiate(ResourceLoader.instance.rocketExplosion, transform.position, Quaternion.identity);
+        Instantiate(explosion, transform.position, Quaternion.identity);
         var bots = Physics.SphereCastAll(transform.position, radius, Vector3.up, botLayer);
         foreach (RaycastHit hit in bots)
         {
