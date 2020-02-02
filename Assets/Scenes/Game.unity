@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.054289684, g: 0.04580325, b: 0.03599403, a: 1}
+  m_IndirectSpecularColor: {r: 0.05428963, g: 0.045803443, b: 0.035994094, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -193,6 +193,31 @@ PrefabInstance:
       propertyPath: m_Name
       value: BattlePhase
       objectReference: {fileID: 0}
+    - target: {fileID: 8052040122256104111, guid: 47db14f0670363a448d34403d23f9641,
+        type: 3}
+      propertyPath: wallAnimators.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052040122256104111, guid: 47db14f0670363a448d34403d23f9641,
+        type: 3}
+      propertyPath: wallAnimators.Array.data[0]
+      value: 
+      objectReference: {fileID: 1909103628}
+    - target: {fileID: 8052040122256104111, guid: 47db14f0670363a448d34403d23f9641,
+        type: 3}
+      propertyPath: wallAnimators.Array.data[1]
+      value: 
+      objectReference: {fileID: 1909103627}
+    - target: {fileID: 8052040122256104111, guid: 47db14f0670363a448d34403d23f9641,
+        type: 3}
+      propertyPath: wallAnimators.Array.data[2]
+      value: 
+      objectReference: {fileID: 1909103626}
+    - target: {fileID: 8052040122256104111, guid: 47db14f0670363a448d34403d23f9641,
+        type: 3}
+      propertyPath: wallAnimators.Array.data[3]
+      value: 
+      objectReference: {fileID: 1909103625}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 47db14f0670363a448d34403d23f9641, type: 3}
 --- !u!1 &337492628
@@ -1158,6 +1183,30 @@ PrefabInstance:
 --- !u!4 &1909103624 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5442065634558547015, guid: e20999db256e9465b9071a7c3b9102e3,
+    type: 3}
+  m_PrefabInstance: {fileID: 1909103623}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1909103625 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 1144816730222936235, guid: e20999db256e9465b9071a7c3b9102e3,
+    type: 3}
+  m_PrefabInstance: {fileID: 1909103623}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1909103626 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 1122014751302766657, guid: e20999db256e9465b9071a7c3b9102e3,
+    type: 3}
+  m_PrefabInstance: {fileID: 1909103623}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1909103627 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 4637872328290626150, guid: e20999db256e9465b9071a7c3b9102e3,
+    type: 3}
+  m_PrefabInstance: {fileID: 1909103623}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1909103628 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5702308068872774848, guid: e20999db256e9465b9071a7c3b9102e3,
     type: 3}
   m_PrefabInstance: {fileID: 1909103623}
   m_PrefabAsset: {fileID: 0}

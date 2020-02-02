@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 0
+  startingDurability: 100
 --- !u!1 &8957167937178447458
 GameObject:
   m_ObjectHideFlags: 0
@@ -9357,12 +9358,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 1.327
       objectReference: {fileID: 0}
+    - target: {fileID: 4851866835271966947, guid: c9a0ea422824648b4855ac5968aaa3cc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4997866274311836681, guid: c9a0ea422824648b4855ac5968aaa3cc,
         type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5925904454818424521, guid: c9a0ea422824648b4855ac5968aaa3cc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7141730793239711901, guid: c9a0ea422824648b4855ac5968aaa3cc,
         type: 3}
       propertyPath: m_IsActive
       value: 0

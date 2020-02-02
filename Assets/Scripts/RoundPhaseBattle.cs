@@ -13,6 +13,8 @@ public class RoundPhaseBattle : RoundPhase
 
     public int endingScale;
 
+    public Animator[] wallAnimators;
+
     private float scaleDeltaPerSecond;
 
     private float currentScale;
@@ -59,7 +61,21 @@ public class RoundPhaseBattle : RoundPhase
         GameManager.instance.SpawnBeyblades();
         AirConsole.instance.Broadcast("view:alive_view");
 
-        // todo lower walls in this phase
+        switch(GameManager.instance.currentRound)
+        {
+            case 2:
+                wallAnimators[0].SetTrigger("Next Round");
+                break;
+            case 3:
+                wallAnimators[1].SetTrigger("Next Round");
+                break;
+            case 4:
+                wallAnimators[2].SetTrigger("Next Round");
+                break;
+            case 5:
+                wallAnimators[3].SetTrigger("Next Round");
+                break;
+        }
     }
 
     public override void EndPhase()
