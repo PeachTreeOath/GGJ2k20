@@ -324,7 +324,7 @@ GameObject:
   - component: {fileID: 5667133378299869}
   - component: {fileID: 461375842987400008}
   - component: {fileID: 4701134355009783269}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BotBase
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -365,10 +365,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c85af8c7f29610a4b8541f9c3b134b61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MoveSpeed: 4
-  TurnRateDegPerSecond: 120
+  MoveSpeed: 2
+  TurnRateDegPerSecond: 50
   UpdatePersonalTargetPos: 1
-  PersonalTargetUpdateDelay: 1
+  PersonalTargetUpdateDelay: 7
   StartingHealth: 100
   PersonalTargetArenaRadius: 8
   WeaponDurabilityDamageFactor: 0.5
@@ -378,6 +378,7 @@ MonoBehaviour:
   MaxHealthKnockbackMultiplier: 4
   MinHealthKnockbackMultiplier: 0.25
   DamageKnockbackFactor: 2
+  CurrentHealth: 0
   rgbd: {fileID: 0}
   playerName: {fileID: 7113682404996646102}
   beybodyModel: {fileID: 4879481671921699880}

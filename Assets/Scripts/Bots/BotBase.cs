@@ -12,7 +12,7 @@ public class BotBase: MonoBehaviour
     public float MoveSpeed = 5f;
     public float TurnRateDegPerSecond = 120f;
     public bool UpdatePersonalTargetPos = true;
-    public float PersonalTargetUpdateDelay = 1f;
+    public float PersonalTargetUpdateDelay = 3f;
 
     [Header("Health Attributes")]
     public float StartingHealth = 100f;
@@ -28,7 +28,7 @@ public class BotBase: MonoBehaviour
     public float DamageKnockbackFactor = 5f;
 
     public float HealthPercentage => CurrentHealth / StartingHealth;
-    public float CurrentHealth { get; private set; }
+    public float CurrentHealth;
 
 	private bool isDead = false;
     public bool IsDead
@@ -67,7 +67,7 @@ public class BotBase: MonoBehaviour
         activeWeapons = GetComponentsInChildren<Weapon>().Where(w => w.gameObject.activeSelf).ToList();
     }
 
-    private void Start()
+    private void OnEnable()
     {
         StartCoroutine(UpdatePersonalTarget());
     }
