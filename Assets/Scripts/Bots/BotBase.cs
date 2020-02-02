@@ -19,6 +19,7 @@ public class BotBase: MonoBehaviour
 
     [Header("Meta Attributes")]
     public float PersonalTargetArenaRadius = 8f;
+    public float WeaponDurabilityDamageFactor = 0.5f;
 
     public float HealthPercentage => CurrentHealth / StartingHealth;
     public float CurrentHealth { get; private set; }
@@ -31,12 +32,16 @@ public class BotBase: MonoBehaviour
     public MeshRenderer beybodyModel;
     public List<MeshRenderer> beybladeModels;
 
+    private List<Weapon> activeWeapons;
+
     private void Awake()
     {
         CurrentHealth = StartingHealth;
         Targets.Add(GameObject.Find("ArenaPlatform").transform);
         Targets.Add(PersonalRandomTarget);
         rgbd = GetComponent<Rigidbody>();
+
+        activeWeapons = GetComponentsInChildren<Weapon>().Where(w => w.gameObject.activeSelf).ToList();
     }
 
     private void Start()
@@ -61,6 +66,13 @@ public class BotBase: MonoBehaviour
         CurrentHealth -= damageAmount;
 
         rgbd.AddForceAtPosition((transform.position - contactPoint + Vector3.up) * 5, contactPoint, ForceMode.Impulse);
+
+        var weaponDurabilityPercentage = (damageAmount / StartingHealth);
+        foreach(var weapon in activeWeapons)
+        {
+            weapon.CurrentDurability -= (weapon.startingDurability * weaponDurabilityPercentage * WeaponDurabilityDamageFactor) / activeWeapons.Count;
+            weapon.CurrentDurability = Mathf.Max(weapon.CurrentDurability, 0);
+        }
     }
 
     private void Update()
