@@ -119,13 +119,8 @@ public class PlayerController : MonoBehaviour
 
     private Result BuyRepair(WeaponType repairType)
     {
-        if (cash >= Constants.RepairCost[repairType])
-        {
-            cash -= Constants.RepairCost[repairType];
-            Bot.HealDamage(10f);
-            Debug.Log(repairType.ToString() + " BOUGHT");
-            return Result.Success;
-        }
-        return Result.NotEnoughMoney;
+        Bot.HealDamage(10f);
+        Debug.Log(repairType.ToString() + " BOUGHT");
+        return Result.Success;
     }
 }
