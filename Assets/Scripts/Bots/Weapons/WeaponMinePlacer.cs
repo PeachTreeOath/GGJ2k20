@@ -8,7 +8,7 @@ public class WeaponMinePlacer : Weapon
 
     public float currentCountdownTime;
 
-    public GameObject minePrefab;
+    public WeaponMine minePrefab;
 
     // Start is called before the first frame update
     void Start()
@@ -22,7 +22,8 @@ public class WeaponMinePlacer : Weapon
         currentCountdownTime -= Time.deltaTime;
         if (currentCountdownTime <= 0)
         {
-            GameObject newMine = Instantiate(minePrefab, transform.position, transform.rotation);
+            WeaponMine newMine = Instantiate(minePrefab, transform.position, transform.rotation);
+            newMine.damageAmount = damage;
             currentCountdownTime = dropTimeFrequency;
         }
     }
