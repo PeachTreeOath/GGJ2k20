@@ -26,7 +26,7 @@ public class RoundPhaseBuy : RoundPhase
     public override void BeforePhaseStartPrep()
     {
         GameManager.instance.debugText.text = "ROUND " + GameManager.instance.currentRound + " / " + GameManager.instance.numberOfRounds + "\nbuy phase";
-        AirConsole.instance.Broadcast("view:shop_view");
+        AirConsole.instance.Broadcast("view:shop_view:" + roundTime);
         buyGUI.SetActive(true);
         buyGUI.GetComponentInChildren<TextMeshProUGUI>().enabled = true;
     }
