@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.054289684, g: 0.04580325, b: 0.03599403, a: 1}
+  m_IndirectSpecularColor: {r: 0.05439263, g: 0.04580372, b: 0.03599481, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -221,7 +221,7 @@ PrefabInstance:
     - target: {fileID: 8052040122256104111, guid: 47db14f0670363a448d34403d23f9641,
         type: 3}
       propertyPath: roundTime
-      value: 20
+      value: 40
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 47db14f0670363a448d34403d23f9641, type: 3}
@@ -339,7 +339,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e37d83ebce05ad74683fd3228dde9e7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  browserStartMode: 0
+  browserStartMode: 4
   controllerHtml: {fileID: 4900000, guid: ee95901d305d50547be0d1de73a12b99, type: 3}
   autoScaleCanvas: 1
 --- !u!4 &416013460
@@ -606,7 +606,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mute: 0
-  musicVolume: 0
+  musicVolume: 0.25
 --- !u!1 &971679079
 GameObject:
   m_ObjectHideFlags: 0
