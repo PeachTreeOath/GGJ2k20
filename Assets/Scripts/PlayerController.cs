@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour
             //    return BuyWeapon(WeaponType.BoxGlove);
             case "buy_cannon":
                 return BuyWeapon(WeaponType.Cannon);
-            case "buy_mines":
+            case "buy_landmine":
                 return BuyWeapon(WeaponType.Mines);
             case "buy_shurikens":
                 return BuyWeapon(WeaponType.Shurikens);
