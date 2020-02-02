@@ -46,3 +46,5 @@ MonoBehaviour:
   projectilePrefabToLaunch: {fileID: 2225425695050665073, guid: 74b808a3345ac0849840ba2a948ae4cf,
     type: 3}
   secsToFire: 2
+  numShurikensToSpawn: 3
+  speed: 5

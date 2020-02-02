@@ -7,7 +7,7 @@ public class GenericLauncher : MonoBehaviour
     public GameObject projectilePrefabToLaunch;
     public float secsToFire;
 
-    private float timeSinceFire;
+    protected float timeSinceFire;
 
     void Update()
     {
@@ -19,7 +19,7 @@ public class GenericLauncher : MonoBehaviour
 
             GameObject spawnedObj = Instantiate(projectilePrefabToLaunch, transform.position, projectilePrefabToLaunch.transform.rotation);
 
-            spawnedObj.GetComponent<Projectile>().Fire(transform.forward);
+            spawnedObj.GetComponent<Projectile>().Fire(spawnedObj.transform.forward);
         }
     }
 }
