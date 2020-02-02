@@ -21,6 +21,7 @@ public class ArenaLightController : Singleton<ArenaLightController>
         if (_gameManager.currentPhaseIndex == 1)
         {
             Track(numBotsToTrack);
+            Debug.Log($"Tracking {numBotsToTrack} bots.");
             switch (numBotsToTrack)
             {
                 case 1:

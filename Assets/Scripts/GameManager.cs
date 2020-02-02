@@ -147,10 +147,12 @@ public class GameManager : Singleton<GameManager>
             Vector3 spawnPoint = spawnLocation.transform.position;
             Vector3 spawnBounds = spawnLocation.transform.localScale;
             Vector3 randomPosition = new Vector3(spawnPoint.x + Random.value * spawnBounds.x, spawnPoint.y + Random.value * spawnBounds.y, 0);
-            randomPosition = randomPosition - spawnBounds / 2;
+            randomPosition -= spawnBounds / 2;
 
             bot.gameObject.SetActive(true);
         }
+
+        ArenaLightController.instance.UpdateListofTargets();
     }
 
     private void OnBotDeath(BotBase botThatDied)
