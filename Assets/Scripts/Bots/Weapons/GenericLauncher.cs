@@ -5,7 +5,7 @@ using UnityEngine;
 // WARNING THIS IS TUNED AS A CANNON
 public class GenericLauncher : Weapon
 {
-    public GameObject projectilePrefabToLaunch;
+    public Projectile projectilePrefabToLaunch;
     public float secsToFire;
     public GameObject fireTransformGameObject;
     public float speed;
@@ -23,7 +23,9 @@ public class GenericLauncher : Weapon
             var parentTransform = GetComponentInParent<BotBase>().transform;
             Vector3 fireDirection = Quaternion.AngleAxis(15f, Vector3.up) * parentTransform.forward.GetXZ().normalized;
             Vector3 up = Vector3.up;
-            GameObject spawnedObj = Instantiate(projectilePrefabToLaunch, fireTransformGameObject.transform.position, Quaternion.LookRotation(fireDirection, up));
+            Projectile spawnedObj = Instantiate(projectilePrefabToLaunch, fireTransformGameObject.transform.position, Quaternion.LookRotation(fireDirection, up));
+            spawnedObj.Damage = damage;
+            spawnedObj.IgnoreTransform = MyBot.transform;
             spawnedObj.GetComponent<ExampleBullet>().Fire(spawnedObj.transform.forward * speed);
         }
     }

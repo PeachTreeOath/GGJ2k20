@@ -5,7 +5,7 @@ using UnityEngine;
 public class ShurikenLauncher : Weapon
 {
     public int numShurikensToSpawn;
-    public GameObject projectilePrefabToLaunch;
+    public Projectile projectilePrefabToLaunch;
     public float secsToFire;
 
     protected float timeSinceFire;
@@ -25,7 +25,9 @@ public class ShurikenLauncher : Weapon
             {
                 Quaternion rotation = GetComponentInParent<BotBase>().transform.rotation;
                 rotation *= Quaternion.Euler(0, i * 15, 0);
-                GameObject spawnedObj = Instantiate(projectilePrefabToLaunch, transform.position, rotation);
+                Projectile spawnedObj = Instantiate(projectilePrefabToLaunch, transform.position, rotation);
+                spawnedObj.Damage = damage;
+                spawnedObj.IgnoreTransform = MyBot.transform;
                 spawnedObj.GetComponent<WeaponShuriken>().Fire(spawnedObj.transform.forward * speed);
             }
         }

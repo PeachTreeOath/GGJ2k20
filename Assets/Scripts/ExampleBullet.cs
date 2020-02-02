@@ -11,10 +11,9 @@ public class ExampleBullet : Projectile
 
     public float lifetime = 4f;
 
-    public float Damage { get; set; }
-
     protected override void Awake()
     {
+        base.Awake();
         myCollider.enabled = false;
     }
 
@@ -33,7 +32,7 @@ public class ExampleBullet : Projectile
     {
         BotBase bot = collision.gameObject.GetComponent<BotBase>();
 
-        if (bot != null)
+        if (bot != null && bot.transform == IgnoreTransform)
         {
             bot.TakeDamage(Damage, transform.position);
 

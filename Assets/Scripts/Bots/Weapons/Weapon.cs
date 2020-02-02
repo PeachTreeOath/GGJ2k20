@@ -13,9 +13,12 @@ public class Weapon : MonoBehaviour
 
     public float CurrentDurability { get; set; }
 
+    public BotBase MyBot { get; private set; }
+
     private void Awake()
     {
         CurrentDurability = startingDurability;
+        MyBot = GetComponentInParent<BotBase>();
     }
 
     public virtual void OnHitEnemy(Vector3 contactPoint, BotBase botBase)

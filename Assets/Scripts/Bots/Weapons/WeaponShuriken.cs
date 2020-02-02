@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class WeaponShuriken : Projectile
 {
-    public float Damage { get; set; }
-
     public override void Fire(Vector3 direction)
     {
         body.velocity = direction;
@@ -14,7 +12,7 @@ public class WeaponShuriken : Projectile
     private void OnCollisionEnter(Collision collision)
     {
         var bot = collision.transform.GetComponent<BotBase>();
-        if(bot)
+        if(bot && bot.transform != IgnoreTransform)
         {
             Debug.Log("shuriken hit");
             bot.TakeDamage(Damage, transform.position);
