@@ -19,7 +19,8 @@ public class ShurikenLauncher : GenericLauncher
 
             for (int i = 0; i < numShurikensToSpawn; i++)
             {
-                Quaternion rotation = Quaternion.Euler(0, i * 15, 0);
+                Quaternion rotation = GetComponentInParent<BotBase>().transform.rotation;
+                rotation *= Quaternion.Euler(0, i * 15, 0);
                 GameObject spawnedObj = Instantiate(projectilePrefabToLaunch, transform.position, rotation);
                 spawnedObj.GetComponent<Projectile>().Fire(spawnedObj.transform.forward * speed);
             }
