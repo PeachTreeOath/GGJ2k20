@@ -146,7 +146,16 @@ public class GameManager : Singleton<GameManager>
     public void DespawnBeyblade(GameObject bb)
     {
         beyblades.Remove(bb);
-        Destroy(bb);
+
+		BotBase beyblade = bb.GetComponent<BotBase>();
+		if (ActiveBots.Contains(beyblade))
+		{
+			ActiveBots.Remove(beyblade);
+			beyblade.Death -= OnBotDeath;
+			beyblade.Death?.Invoke(beyblade);
+		}
+
+		Destroy(bb);
         if (currentRound == numberOfRounds)
         {
             AirConsole.instance.Message(1, "view:dead_view"); // todo only send to the player that died
@@ -161,7 +170,15 @@ public class GameManager : Singleton<GameManager>
     {
         foreach (GameObject bb in beyblades)
         {
-            Destroy(bb);
+			BotBase beyblade = bb.GetComponent<BotBase>();
+			if (ActiveBots.Contains(beyblade))
+			{
+				ActiveBots.Remove(beyblade);
+				beyblade.Death -= OnBotDeath;
+				beyblade.Death?.Invoke(beyblade);
+			}
+
+			Destroy(bb);
         }
         beyblades = new List<GameObject>();
     }
