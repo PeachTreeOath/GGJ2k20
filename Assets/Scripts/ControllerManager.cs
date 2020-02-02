@@ -95,7 +95,7 @@ public class ControllerManager : Singleton<ControllerManager>
         pc.nickname = nickname;
         pc.deviceID = deviceID;
         players.Add(deviceID, pc);
-        //newPlayer.GetComponent<SpriteRenderer>().color = GetPlayerColor();
+        pc.playerColor = GetPlayerColor();
         // increases after player joins the level to be used for player colors
         playerSpawnNumber++;
     }
