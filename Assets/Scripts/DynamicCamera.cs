@@ -7,8 +7,6 @@ using Cinemachine;
 [RequireComponent(typeof(Camera))]
 public class DynamicCamera : MonoBehaviour
 {
-	List<BotBase> Bots = new List<BotBase>();
-	//List<CinemachineVirtualCamera> VirtualCams = new List<CinemachineVirtualCamera>();
 	[SerializeField] CinemachineVirtualCamera rotatingCam;
 	[SerializeField] CinemachineVirtualCamera followingCam;
 
@@ -23,8 +21,6 @@ public class DynamicCamera : MonoBehaviour
 	// Start is called before the first frame update
     void Start()
     {
-		Bots = FindObjectsOfType<BotBase>().ToList();
-		rotatingCam = FindObjectOfType<CinemachineVirtualCamera>();
 		rotatingCam.Priority = 10;
 		followingCam.Priority = 5;
     }
@@ -75,20 +71,26 @@ public class DynamicCamera : MonoBehaviour
 
 		float adjustedThreshold = thresholdOfInterest - (0.5f / Mathf.Sqrt(GameManager.instance.ActiveBots.Count));
 
+
+		coroutineIsRunning = false;
+
 		if (sortedBots.Count > 0 && sortedBots[0].Key > adjustedThreshold && sortedBots[0].Value != null)
 		{
 			Debug.Log("THRESHOLD MET");
 			FocusOnBot(sortedBots[0].Value);
 		}
-
-		coroutineIsRunning = false;
+		else if (followingCam.Follow != null)
+		{
+			ReleaseCamera();
+		}
+		
 	}
 
 	private IEnumerator EndFollow()
 	{
 		Debug.Log("RELEASING CAM");
 
-		yield return new WaitForSeconds(2f);
+		yield return new WaitForSeconds(1f);
 
 		followingCam.Priority = 5;
 
@@ -105,20 +107,39 @@ public class DynamicCamera : MonoBehaviour
 
 	private void FocusOnBot(BotBase botToFocus)
 	{
+		if (followingCam.Follow != null)
+		{
+			followingCam.Follow.gameObject.GetComponent<BotBase>().DamageTaken -= ReassessHighlights;
+			followingCam.Follow.gameObject.GetComponent<BotBase>().Death -= ReleaseCamera;
+		}
+
 		followingCam.transform.position = botToFocus.transform.position +
 			(botToFocus.transform.forward * -2f) + (Vector3.up * 2f);
 		followingCam.Follow = botToFocus.transform;
 		followingCam.LookAt = botToFocus.transform;
 		followingCam.Priority = 20;
 
-		botToFocus.ReleaseCam += ReleaseCamera;
+		botToFocus.DamageTaken += ReassessHighlights;
+		botToFocus.Death += ReleaseCamera;
 	}
 
-	private void ReleaseCamera()
+	private void ReleaseCamera(BotBase _ = null)
 	{
-		followingCam.Follow.gameObject.GetComponent<BotBase>().ReleaseCam -= ReleaseCamera;
+		followingCam.Follow.gameObject.GetComponent<BotBase>().DamageTaken -= ReassessHighlights;
+		followingCam.Follow.gameObject.GetComponent<BotBase>().Death -= ReleaseCamera;
+
+		if (coroutineIsRunning)
+		{
+			StopCoroutine(runningRoutine);
+		}
 
 		runningRoutine = StartCoroutine(EndFollow());
+		coroutineIsRunning = true;
+	}
+
+	private void ReassessHighlights()
+	{
+		runningRoutine = StartCoroutine(AssessPotentialHighlights());
 		coroutineIsRunning = true;
 	}
 }

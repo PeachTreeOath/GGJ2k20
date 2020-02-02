@@ -42,7 +42,7 @@ public class BotBase: MonoBehaviour
 		}
 	}
 
-	public Action ReleaseCam = delegate { };
+	public Action DamageTaken = delegate { };
 	public Action<BotBase> Death = delegate { };
 
     public List<Transform> Targets = new List<Transform>();
@@ -92,7 +92,7 @@ public class BotBase: MonoBehaviour
         rgbd.AddForceAtPosition((transform.position - contactPoint + Vector3.up) * knockbackMultiplier, contactPoint, ForceMode.Impulse);
         ApplyWeaponDurabilityDamage(damageAmount);
 
-		ReleaseCam?.Invoke();
+		DamageTaken?.Invoke();
 
 		analyticsBoi.recordDamageDealt(damageAmount);
     }
