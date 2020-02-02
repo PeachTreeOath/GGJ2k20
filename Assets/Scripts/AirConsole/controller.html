@@ -255,7 +255,6 @@
                 var item = document.createElement("li");
                 var image = document.createElement("img");
                 image.setAttribute("value", data[i]);
-				image.setAttribute("class", "icon-img");
                 image.addEventListener("click", function (e) {
                     repairedWeapon = parseInt(e.target.attributes["value"].value, 10);
                 });
