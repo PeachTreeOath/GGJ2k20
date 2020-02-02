@@ -47,7 +47,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TypeOfWeapon: 0
-  damage: 10
+  damageLevels:
+  - 5
+  - 10
+  - 15
   startingDurability: 100
 --- !u!65 &8427490384380538963
 BoxCollider:

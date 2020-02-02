@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // WARNING THIS IS TUNED AS A CANNON
-public class GenericLauncher : MonoBehaviour
+public class GenericLauncher : Weapon
 {
     public GameObject projectilePrefabToLaunch;
     public float secsToFire;

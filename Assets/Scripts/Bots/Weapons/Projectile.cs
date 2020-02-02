@@ -9,7 +9,7 @@ public abstract class Projectile : MonoBehaviour
     protected Rigidbody body;
 
     // Start is called before the first frame update
-    protected virtual void Start()
+    protected virtual void Awake()
     {
         body = GetComponent<Rigidbody>();
     }

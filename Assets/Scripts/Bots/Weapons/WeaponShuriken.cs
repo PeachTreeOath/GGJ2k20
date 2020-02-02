@@ -2,23 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponShuriken : MonoBehaviour
+public class WeaponShuriken : Projectile
 {
-    public Rigidbody rigidbody;
-    public float damage = 5f;
+    public float Damage { get; set; }
 
-    public void Fire(Vector3 direction)
+    public override void Fire(Vector3 direction)
     {
-        rigidbody.velocity = direction;
+        body.velocity = direction;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        var bot = collision.other.GetComponent<BotBase>();
+        var bot = collision.transform.GetComponent<BotBase>();
         if(bot)
         {
             Debug.Log("shuriken hit");
-            bot.TakeDamage(damage, transform.position);
+            bot.TakeDamage(Damage, transform.position);
 
             Destroy(gameObject, 0);
         }
