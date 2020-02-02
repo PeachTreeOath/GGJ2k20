@@ -49,7 +49,7 @@ public class GameManager : Singleton<GameManager>
     {
         roundPhases[currentPhaseIndex].EndPhase();
 
-		FindObjectOfType<DynamicCamera>().ReleaseCamera();
+        FindObjectOfType<DynamicCamera>().ReleaseCamera();
 
         currentPhaseIndex++;
         if (currentPhaseIndex >= roundPhases.Count)
@@ -110,15 +110,15 @@ public class GameManager : Singleton<GameManager>
 
         foreach (PlayerController player in ControllerManager.instance.players.Values)
         {
-            Vector3 pos = RandomCircle(center, 7.0f) + heightAdjust;
+            Vector3 pos = RandomCircle(center, 6.0f) + heightAdjust;
             Quaternion rot = Quaternion.FromToRotation(Vector3.forward, center - pos);
 
             Vector3 spawnPoint = spawnLocation.transform.position;
             Vector3 spawnBounds = spawnLocation.transform.localScale;
-            Vector3 randomPosition = new Vector3(spawnPoint.x + Random.value * spawnBounds.x, spawnPoint.y + Random.value * spawnBounds.y, 0);
+            Vector3 randomPosition = new Vector3(spawnPoint.x + Random.value * spawnBounds.x, 0, spawnPoint.z + Random.value * spawnBounds.z);
             randomPosition = randomPosition - spawnBounds / 2;
 
-            GameObject bbObj = Instantiate(ResourceLoader.instance.beybladePrefab, randomPosition, rot);
+            GameObject bbObj = Instantiate(ResourceLoader.instance.beybladePrefab, pos, rot);
             beyblades.Add(bbObj);
             BotBase beyblade = bbObj.GetComponent<BotBase>();
             beyblade.playerName.text = player.nickname;
@@ -141,17 +141,18 @@ public class GameManager : Singleton<GameManager>
     {
         Vector3 center = transform.position;
 
-        foreach(BotBase bot in ActiveBots)
+        foreach (BotBase bot in ActiveBots)
         {
-            Vector3 pos = RandomCircle(center, 7.0f) + heightAdjust;
+            Vector3 pos = RandomCircle(center, 6.0f) + heightAdjust;
             Quaternion rot = Quaternion.FromToRotation(Vector3.forward, center - pos);
 
             Vector3 spawnPoint = spawnLocation.transform.position;
             Vector3 spawnBounds = spawnLocation.transform.localScale;
-            Vector3 randomPosition = new Vector3(spawnPoint.x + Random.value * spawnBounds.x, spawnPoint.y + Random.value * spawnBounds.y, 0);
+            Vector3 randomPosition = new Vector3(spawnPoint.x + Random.value * spawnBounds.x, 0, spawnPoint.z + Random.value * spawnBounds.z);
             randomPosition -= spawnBounds / 2;
 
             bot.gameObject.SetActive(true);
+            bot.transform.position = pos;
         }
 
         ArenaLightController.instance.UpdateListofTargets();
@@ -172,13 +173,13 @@ public class GameManager : Singleton<GameManager>
         beyblades.Remove(bb);
         HideGameObject(bb);
 
-		BotBase beyblade = bb.GetComponent<BotBase>();
-		if (ActiveBots.Contains(beyblade))
-		{
-			ActiveBots.Remove(beyblade);
-			beyblade.Death -= OnBotDeath;
-			beyblade.Death?.Invoke(beyblade);
-		}
+        BotBase beyblade = bb.GetComponent<BotBase>();
+        if (ActiveBots.Contains(beyblade))
+        {
+            ActiveBots.Remove(beyblade);
+            beyblade.Death -= OnBotDeath;
+            beyblade.Death?.Invoke(beyblade);
+        }
 
         if (currentRound == numberOfRounds)
         {
