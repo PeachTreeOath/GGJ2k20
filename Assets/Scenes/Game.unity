@@ -794,7 +794,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1909103623}
   m_PrefabAsset: {fileID: 0}
---- !u!64 &1044159490
+--- !u!64 &1044159489
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1065,6 +1065,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1044159488, guid: e20999db256e9465b9071a7c3b9102e3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1044159489, guid: e20999db256e9465b9071a7c3b9102e3, type: 3}
       propertyPath: m_LocalPosition.y
       value: 309.9

@@ -4,6 +4,7 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using NDream.AirConsole;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -88,6 +89,7 @@ public class GameManager : Singleton<GameManager>
             }
             foreach (GameObject beyblade in beybladesNoNull)
             {
+                AirConsole.instance.Message(0, "view:victory_view"); // todo only send to the player that won
                 BotBase botBase = beyblade.GetComponent<BotBase>();
                 text += botBase.playerName.text + "\n";
             }
@@ -130,9 +132,13 @@ public class GameManager : Singleton<GameManager>
     {
         beyblades.Remove(bb);
         Destroy(bb);
-        if (beyblades.Count == 1 && currentRound == numberOfRounds)
+        if (currentRound == numberOfRounds)
         {
-            this.EndGame();
+            AirConsole.instance.Message(1, "view:dead_view"); // todo only send to the player that died
+            if (beyblades.Count == 1)
+            {
+                this.EndGame();
+            }
         }
     }
 

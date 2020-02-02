@@ -14,7 +14,8 @@
             background-size: cover;
             background-repeat: no-repeat;
             color: white;
-            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            font-family: "Expansiva";
+			font-weight: 300;
         }
 
         .storeTable {
@@ -36,9 +37,36 @@
             list-style: none;
         }
 
-            ul.horizontal-list li {
-                display: inline;
-            }
+        ul.horizontal-list li {
+            display: inline;
+        }
+
+		.center {
+			margin: 0;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			-ms-transform: translate(-50%, -50%);
+			transform: translate(-50%, -50%);
+		}
+
+		.look-up-text {
+			font-size: 65px;
+			text-shadow: -2px -2px 0 #86f2ff, 2px -2px 0 #86f2ff, -2px 2px 0 #86f2ff, 2px 2px 0 #86f2ff;
+		}
+
+		td.menu-title {
+			font-size: 20px;
+			text-shadow: -1px -1px 0 #86f2ff, 1px -1px 0 #86f2ff, -1px 1px 0 #86f2ff, 1px 1px 0 #86f2ff;
+		}
+		.red {
+			color: #D15852;
+		}
+
+		@font-face {
+			font-family: "Expansiva";
+			src: url("./Expansiva.otf") format("opentype");
+		}
     </style>
 
     <script type="text/javascript">
@@ -224,7 +252,7 @@
                 case 1:
                     return "sword.jpg";
                 case 2:
-                    return "cannon.jpg";
+                    return "cannon.png";
                 case 3:
                     return "landmine.jpg";
                 case 4:
@@ -275,36 +303,44 @@
         <div id="player"></div>
     </div>
     <div id="alive_view" class="view">
-        <h1>Look Up!!!!</h1>
+		<div class="center">
+			<span class="look-up-text"><center>Look at Monitor</center></span>
+		</div>
     </div>
     <div id="shop_view" class="view">
         <div class="button" onclick="finishShopping()" style="color: white; background-color: blue; padding: 5px;">Test</div>
         <table class="storeTable">
-            <tr><td style="color: white;">Upgrades</td></tr>
+            <tr>
+				<center><td class="menu-title">Upgrades</td></tr></center>
             <tr>
                 <td>
-                    <ul class="horizontal-list" id="upgradeList"></ul>
-                </td>
-            </tr>
-            <tr><td style="color: white;">Loadout</td></tr>
-            <tr>
-                <td>
-                    <ul class="horizontal-list" id="loadOutList"></ul>
+                    <center><ul class="horizontal-list" id="upgradeList"></ul></center>
                 </td>
             </tr>
             <tr>
+				<center><td class="menu-title">Loadout</td></tr></center>
+            <tr>
                 <td>
-                    <div id="countdownTimer">Countdown</div>
+                    <center><ul class="horizontal-list" id="loadOutList"></ul></center>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div id="countdownTimer" class="red">Countdown</div>
                 </td>
             </tr>
         </table>
 
     </div>
     <div id="victory_view" class="view">
-        <h1>Victory!!!!</h1>
+		<div class="center">
+			<span class="look-up-text"><center>Victory!!!!</center></span>
+		</div>
     </div>
     <div id="dead_view" class="view">
-        <h1>You Dead!!!!</h1>
+		<div class="center">
+			<span class="look-up-text"><center>You Dead!!!!</center></span>
+		</div>
     </div>
 </body>
 </html>
