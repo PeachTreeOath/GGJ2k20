@@ -369,7 +369,6 @@ MonoBehaviour:
   TurnRateDegPerSecond: 120
   UpdatePersonalTargetPos: 1
   PersonalTargetUpdateDelay: 1
-  PersonalRandomTarget: {fileID: 2847259391863342759}
   StartingHealth: 100
   PersonalTargetArenaRadius: 8
   WeaponDurabilityDamageFactor: 0.5
@@ -379,7 +378,6 @@ MonoBehaviour:
   MaxHealthKnockbackMultiplier: 4
   MinHealthKnockbackMultiplier: 0.25
   DamageKnockbackFactor: 2
-  Targets: []
   rgbd: {fileID: 0}
   playerName: {fileID: 7113682404996646102}
   beybodyModel: {fileID: 4879481671921699880}
@@ -461,6 +459,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Sword
+      objectReference: {fileID: 0}
+    - target: {fileID: 3310406336920384116, guid: 777769b2b4495a945b5bd366075ba747,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8103051715096200730, guid: 777769b2b4495a945b5bd366075ba747,
         type: 3}
@@ -558,6 +561,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: CanonLauncher
       objectReference: {fileID: 0}
+    - target: {fileID: 4637518270658701808, guid: 83cce627468824c928d3576248114b11,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4637518270658701809, guid: 83cce627468824c928d3576248114b11,
         type: 3}
       propertyPath: speed
@@ -637,6 +645,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Mines
+      objectReference: {fileID: 0}
+    - target: {fileID: 4182609989215985042, guid: dadbcb0e3853c874896069f5b70ec45d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7191415774376536126, guid: dadbcb0e3853c874896069f5b70ec45d,
         type: 3}
@@ -768,6 +781,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: FlameThrower
       objectReference: {fileID: 0}
+    - target: {fileID: 8957167936652715744, guid: 7059dd28f2fbe494da7a839842cf378e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7059dd28f2fbe494da7a839842cf378e, type: 3}
 --- !u!4 &4107399974587722849 stripped
@@ -842,6 +860,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ShurikenLauncher
+      objectReference: {fileID: 0}
+    - target: {fileID: 4112953728265925706, guid: 286943e98411c534198f6648ef2386fe,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 286943e98411c534198f6648ef2386fe, type: 3}
@@ -970,21 +993,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 44054a3f7c6a3494ea45f71795e8c49d, type: 3}
---- !u!23 &808642327287006103 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 4971447788471049445, guid: 44054a3f7c6a3494ea45f71795e8c49d,
-    type: 3}
-  m_PrefabInstance: {fileID: 5748561825721376626}
-  m_PrefabAsset: {fileID: 0}
 --- !u!23 &7411848946570461268 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 2961912651398111014, guid: 44054a3f7c6a3494ea45f71795e8c49d,
     type: 3}
   m_PrefabInstance: {fileID: 5748561825721376626}
   m_PrefabAsset: {fileID: 0}
---- !u!23 &3291222025432884849 stripped
+--- !u!23 &808642327287006103 stripped
 MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 7091544864841545987, guid: 44054a3f7c6a3494ea45f71795e8c49d,
+  m_CorrespondingSourceObject: {fileID: 4971447788471049445, guid: 44054a3f7c6a3494ea45f71795e8c49d,
     type: 3}
   m_PrefabInstance: {fileID: 5748561825721376626}
   m_PrefabAsset: {fileID: 0}
@@ -1003,6 +1020,12 @@ Transform:
 --- !u!1 &6596560378895677684 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1462911435385366406, guid: 44054a3f7c6a3494ea45f71795e8c49d,
+    type: 3}
+  m_PrefabInstance: {fileID: 5748561825721376626}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &3291222025432884849 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 7091544864841545987, guid: 44054a3f7c6a3494ea45f71795e8c49d,
     type: 3}
   m_PrefabInstance: {fileID: 5748561825721376626}
   m_PrefabAsset: {fileID: 0}

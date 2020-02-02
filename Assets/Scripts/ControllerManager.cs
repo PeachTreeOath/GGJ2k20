@@ -133,7 +133,7 @@ public class ControllerManager : Singleton<ControllerManager>
                         null,
                         null,
                         from,
-                        players[from].WeaponLevel.Select(obj => (int)obj.Key).ToArray(),
+                        players[from].WeaponTypeMap.Select(obj => (int)obj.Key).ToArray(),
                         new int[3] {
                         Random.Range(0, (int)System.Enum.GetValues(typeof(WeaponType)).Cast<WeaponType>().Max()),
                         Random.Range(0, (int)System.Enum.GetValues(typeof(WeaponType)).Cast<WeaponType>().Max()),
