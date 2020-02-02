@@ -45,11 +45,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31b62b36e92404c148d8467f80170d2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilePrefabToLaunch: {fileID: 7656667162393841781, guid: 32d6b5edef4554fbe8a720b66bbf81af,
+  TypeOfWeapon: 0
+  damageLevels:
+  - 15
+  - 25
+  - 40
+  startingDurability: 100
+  projectilePrefabToLaunch: {fileID: 3133791645189091259, guid: 32d6b5edef4554fbe8a720b66bbf81af,
     type: 3}
-  secsToFire: 1
+  secsToFire: 3
   fireTransformGameObject: {fileID: 5938899169300495071}
-  speed: 1
+  speed: 2.5
 --- !u!1 &5938899169300495071
 GameObject:
   m_ObjectHideFlags: 0

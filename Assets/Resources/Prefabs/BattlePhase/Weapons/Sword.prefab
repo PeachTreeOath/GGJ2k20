@@ -45,7 +45,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TypeOfWeapon: 1
-  damage: 15
+  damageLevels:
+  - 10
+  - 18
+  - 28
   startingDurability: 100
 --- !u!1001 &9065175115997095716
 PrefabInstance:

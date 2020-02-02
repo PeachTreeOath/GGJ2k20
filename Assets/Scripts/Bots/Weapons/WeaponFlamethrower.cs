@@ -4,19 +4,19 @@ using UnityEngine;
 
 public class WeaponFlamethrower : Weapon
 {
-	// Start is called before the first frame update
-	void Start()
-    {
-    }
+    private BotBase myBot;
 
-    // Update is called once per frame
-    void Update()
+    private void Awake()
     {
-        
+        myBot = GetComponentInParent<BotBase>();
     }
 
     public void OnTriggerStay(Collider other)
     {
-        // if older belongs to player GO consistent damage
+        var otherBot = other.GetComponentInParent<BotBase>();
+        if(otherBot != null && otherBot != myBot)
+        {
+            otherBot.TakeDamage(damage * Time.deltaTime, transform.position, false);
+        }
     }
 }

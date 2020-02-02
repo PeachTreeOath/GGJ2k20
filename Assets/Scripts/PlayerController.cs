@@ -12,46 +12,35 @@ public class WeaponUpgradeEventArgs : EventArgs
 
 public class PlayerController : MonoBehaviour
 {
+    public class WeaponStats
+    {
+        public WeaponType Type;
+        public int Level;
+        public float Durability;
+    }
 
     public string nickname = "";
     public int deviceID = -1;
     public Color playerColor;
 
-    private int cash; // Use AddRemoveCash
     public float HP => Bot.HealthPercentage;
 
     public BotBase Bot { get; set; }
 
-    public event EventHandler<WeaponUpgradeEventArgs> WeaponUpgraded;
-
-	//public List<Weapon> WeaponList = new List<Weapon>();
-    public Dictionary<WeaponType, Weapon> WeaponLevel { get; set; } = new Dictionary<WeaponType, Weapon>();
-
-    public void AddRemoveCash(int changedCash)
-    {
-        cash += changedCash;
-
-        // todo Send airconsole messages to update phones
-    }
+    public Dictionary<WeaponType, WeaponStats> WeaponLevel { get; set; } = new Dictionary<WeaponType, WeaponStats>();
 
     // needs reference to what weapons this has
-
     public void AddWeapon(WeaponType weapon)
     {
-        if (WeaponLevel.Keys.Any(x => x == weapon))
+        if (WeaponLevel.ContainsKey(weapon))
         {
             WeaponLevel[weapon].Level += 1;
-            WeaponUpgraded?.Invoke(this, new WeaponUpgradeEventArgs()
-			{
-				Weapon = weapon, Level = WeaponLevel[weapon].Level
-			});
         }
         else
         {
 			// TODO: figure out how to add a weapon component as child of BotBase dynamically
 			// Apparently this means finding the first instance of a child prefab that matches WeaponType
 			GetComponentsInChildren<Weapon>(true).First(x => x.TypeOfWeapon == weapon)?.gameObject.SetActive(true);
-            WeaponUpgraded?.Invoke(this, new WeaponUpgradeEventArgs() { Weapon = weapon, Level = 1 });
         }
     }
 
@@ -122,25 +111,15 @@ public class PlayerController : MonoBehaviour
 
     private Result BuyWeapon(WeaponType weaponType)
     {
-        if (cash >= Constants.WeaponCost[weaponType][WeaponLevel[weaponType].Level + 1])
-        {
-            cash -= Constants.WeaponCost[weaponType][WeaponLevel[weaponType].Level + 1];
-            AddWeapon(weaponType);
-            Debug.Log(weaponType.ToString() + " BOUGHT");
-            return Result.Success;
-        }
-        return Result.NotEnoughMoney;
+        AddWeapon(weaponType);
+        Debug.Log(weaponType.ToString() + " BOUGHT");
+        return Result.Success;
     }
 
     private Result BuyRepair(WeaponType repairType)
     {
-        if (cash >= Constants.RepairCost[repairType])
-        {
-            cash -= Constants.RepairCost[repairType];
-            Bot.HealDamage(10f);
-            Debug.Log(repairType.ToString() + " BOUGHT");
-            return Result.Success;
-        }
-        return Result.NotEnoughMoney;
+        Bot.HealDamage(10f);
+        Debug.Log(repairType.ToString() + " BOUGHT");
+        return Result.Success;
     }
 }

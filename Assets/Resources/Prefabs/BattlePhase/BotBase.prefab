@@ -373,8 +373,12 @@ MonoBehaviour:
   StartingHealth: 100
   PersonalTargetArenaRadius: 8
   WeaponDurabilityDamageFactor: 0.5
-  MaxKnockbackFactor: 4
-  MinKnockbackFactor: 0.25
+  GroundLayer:
+    serializedVersion: 2
+    m_Bits: 1024
+  MaxHealthKnockbackMultiplier: 4
+  MinHealthKnockbackMultiplier: 0.25
+  DamageKnockbackFactor: 2
   Targets: []
   rgbd: {fileID: 0}
   playerName: {fileID: 7113682404996646102}
