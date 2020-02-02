@@ -7,6 +7,7 @@ public class ExampleBullet : Projectile
     public float force;
     public float radius;
     public Collider myCollider;
+    public Rigidbody rigidbody;
 
     void Awake()
     {
@@ -16,7 +17,7 @@ public class ExampleBullet : Projectile
 
     public override void Fire(Vector3 direction)
     {
-        body.velocity = direction;
+        rigidbody.velocity = direction;
     }
 
     private void OnCollisionEnter(Collision collision)

@@ -347,6 +347,7 @@ Transform:
   - {fileID: 8008321588765447056}
   - {fileID: 4107399974587722849}
   - {fileID: 7281920730940958827}
+  - {fileID: 8677232327782125973}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -370,6 +371,8 @@ MonoBehaviour:
   StartingHealth: 100
   PersonalTargetArenaRadius: 8
   WeaponDurabilityDamageFactor: 0.5
+  MaxKnockbackFactor: 4
+  MinKnockbackFactor: 0.25
   Targets: []
   playerName: {fileID: 7113682404996646102}
   beybodyModel: {fileID: 4879481671921699880}
@@ -500,6 +503,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CanonLauncher
+      objectReference: {fileID: 0}
+    - target: {fileID: 4637518270658701808, guid: 83cce627468824c928d3576248114b11,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4637518270658701814, guid: 83cce627468824c928d3576248114b11,
         type: 3}
@@ -713,6 +721,86 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8954273939817286228, guid: 7059dd28f2fbe494da7a839842cf378e,
     type: 3}
   m_PrefabInstance: {fileID: 4990993577244304949}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &5729225597577200128
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 5395079994012906377}
+    m_Modifications:
+    - target: {fileID: 2303492517563599725, guid: 286943e98411c534198f6648ef2386fe,
+        type: 3}
+      propertyPath: speed
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4029020204588028821, guid: 286943e98411c534198f6648ef2386fe,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.206
+      objectReference: {fileID: 0}
+    - target: {fileID: 4029020204588028821, guid: 286943e98411c534198f6648ef2386fe,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4029020204588028821, guid: 286943e98411c534198f6648ef2386fe,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.432
+      objectReference: {fileID: 0}
+    - target: {fileID: 4029020204588028821, guid: 286943e98411c534198f6648ef2386fe,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4029020204588028821, guid: 286943e98411c534198f6648ef2386fe,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4029020204588028821, guid: 286943e98411c534198f6648ef2386fe,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4029020204588028821, guid: 286943e98411c534198f6648ef2386fe,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4029020204588028821, guid: 286943e98411c534198f6648ef2386fe,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4029020204588028821, guid: 286943e98411c534198f6648ef2386fe,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4029020204588028821, guid: 286943e98411c534198f6648ef2386fe,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4029020204588028821, guid: 286943e98411c534198f6648ef2386fe,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4112953728265925706, guid: 286943e98411c534198f6648ef2386fe,
+        type: 3}
+      propertyPath: m_Name
+      value: ShurikenLauncher
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 286943e98411c534198f6648ef2386fe, type: 3}
+--- !u!4 &8677232327782125973 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4029020204588028821, guid: 286943e98411c534198f6648ef2386fe,
+    type: 3}
+  m_PrefabInstance: {fileID: 5729225597577200128}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5748561825721376626
 PrefabInstance:

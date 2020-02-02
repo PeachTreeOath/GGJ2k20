@@ -1,4 +1,5 @@
 using System.Collections;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
@@ -26,6 +27,9 @@ public class BotBase: MonoBehaviour
 
     public float HealthPercentage => CurrentHealth / StartingHealth;
     public float CurrentHealth { get; private set; }
+    public bool IsDead { get; set; }
+
+	public Action DamageTaken = delegate { };
 
     public List<Transform> Targets = new List<Transform>();
 
@@ -71,6 +75,8 @@ public class BotBase: MonoBehaviour
 
         rgbd.AddForceAtPosition((transform.position - contactPoint + Vector3.up) * 5, contactPoint, ForceMode.Impulse);
         ApplyWeaponDurabilityDamage(damageAmount);
+
+		DamageTaken?.Invoke();
     }
 
     private void ApplyWeaponDurabilityDamage(float damageAmount)
@@ -78,7 +84,7 @@ public class BotBase: MonoBehaviour
         var weaponDurabilityPercentage = (damageAmount / StartingHealth);
         foreach (var weapon in activeWeapons)
         {
-            weapon.CurrentDurability -= weapon.startingDurability * weaponDurabilityPercentage * WeaponDurabilityDamageFactor * Random.Range(.85f, 1.15f);
+            weapon.CurrentDurability -= weapon.startingDurability * weaponDurabilityPercentage * WeaponDurabilityDamageFactor * UnityEngine.Random.Range(.85f, 1.15f);
             weapon.CurrentDurability = Mathf.Max(weapon.CurrentDurability, 0);
         }
     }
