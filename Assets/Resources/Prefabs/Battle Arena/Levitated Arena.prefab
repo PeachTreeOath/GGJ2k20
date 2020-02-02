@@ -5452,7 +5452,7 @@ GameObject:
   - component: {fileID: 5137834998241283826}
   - component: {fileID: 1686992300704493953}
   - component: {fileID: 896744152221992565}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ArenaPlatform
   m_TagString: Untagged
   m_Icon: {fileID: 0}

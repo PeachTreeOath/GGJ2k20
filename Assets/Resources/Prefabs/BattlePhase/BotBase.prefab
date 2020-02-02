@@ -369,7 +369,6 @@ MonoBehaviour:
   TurnRateDegPerSecond: 120
   UpdatePersonalTargetPos: 1
   PersonalTargetUpdateDelay: 1
-  PersonalRandomTarget: {fileID: 2847259391863342759}
   StartingHealth: 100
   PersonalTargetArenaRadius: 8
   WeaponDurabilityDamageFactor: 0.5
@@ -379,7 +378,6 @@ MonoBehaviour:
   MaxHealthKnockbackMultiplier: 4
   MinHealthKnockbackMultiplier: 0.25
   DamageKnockbackFactor: 2
-  Targets: []
   rgbd: {fileID: 0}
   playerName: {fileID: 7113682404996646102}
   beybodyModel: {fileID: 4879481671921699880}
@@ -465,7 +463,7 @@ PrefabInstance:
     - target: {fileID: 3310406336920384116, guid: 777769b2b4495a945b5bd366075ba747,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8103051715096200730, guid: 777769b2b4495a945b5bd366075ba747,
         type: 3}
@@ -566,7 +564,7 @@ PrefabInstance:
     - target: {fileID: 4637518270658701808, guid: 83cce627468824c928d3576248114b11,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4637518270658701809, guid: 83cce627468824c928d3576248114b11,
         type: 3}
@@ -651,7 +649,7 @@ PrefabInstance:
     - target: {fileID: 4182609989215985042, guid: dadbcb0e3853c874896069f5b70ec45d,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7191415774376536126, guid: dadbcb0e3853c874896069f5b70ec45d,
         type: 3}
@@ -786,7 +784,7 @@ PrefabInstance:
     - target: {fileID: 8957167936652715744, guid: 7059dd28f2fbe494da7a839842cf378e,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7059dd28f2fbe494da7a839842cf378e, type: 3}
@@ -866,7 +864,7 @@ PrefabInstance:
     - target: {fileID: 4112953728265925706, guid: 286943e98411c534198f6648ef2386fe,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 286943e98411c534198f6648ef2386fe, type: 3}

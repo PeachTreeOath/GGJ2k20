@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
         {
             bot = value;
             WeaponTypeMap.Clear();
-            foreach (Weapon w in GetComponentsInChildren<Weapon>(true))
+            foreach (Weapon w in bot.GetComponentsInChildren<Weapon>(true))
             {
                 w.CurrentDurability = 100f;
                 w.gameObject.SetActive(false);
