@@ -15,6 +15,9 @@ public class BotBase: MonoBehaviour
     [Header("Health Attributes")]
     public float StartingHealth = 100f;
 
+    [Header("Meta Attributes")]
+    public float PersonalTargetArenaRadius = 8f;
+
     public float HealthPercentage => CurrentHealth / StartingHealth;
     public float CurrentHealth { get; private set; }
 
@@ -73,7 +76,7 @@ public class BotBase: MonoBehaviour
             yield return new WaitForSeconds(PersonalTargetUpdateDelay);
             if (UpdatePersonalTargetPos)
             {
-                var newPos = Random.insideUnitCircle * 8f;
+                var newPos = Random.insideUnitCircle * PersonalTargetArenaSize;
                 PersonalRandomTarget.position = new Vector3(newPos.x, 0, newPos.y);
             }
         }
