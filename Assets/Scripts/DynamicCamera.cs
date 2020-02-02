@@ -15,7 +15,7 @@ public class DynamicCamera : MonoBehaviour
 	[SerializeField] Transform centerPoint;
 	[SerializeField] float arenaSize;
 
-	[SerializeField] float thresholdOfInterest = 0.15f;
+	[SerializeField] float thresholdOfInterest = 0.11f;
 
 	Coroutine runningRoutine = null;
 	bool coroutineIsRunning = false;
@@ -85,7 +85,7 @@ public class DynamicCamera : MonoBehaviour
 	{
 		Debug.Log("RELEASING CAM");
 
-		yield return new WaitForSeconds(1.2f);
+		yield return new WaitForSeconds(2f);
 
 		followingCam.Priority = 5;
 

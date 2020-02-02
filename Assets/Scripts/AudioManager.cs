@@ -32,8 +32,8 @@ public class AudioManager : Singleton<AudioManager>
         soundMap = new Dictionary<string, AudioClip>();
         soundMixer = new Dictionary<string, float>
         {
-            { "mimic_murder", .7f  },
-            { "wood", .4f },
+            { "RepairRoyale-intro", .5f  },
+            { "RepairRoyale-loop", .5f },
             { "Game_Over", .7f  },
             { "Gold_Escape", .7f  },
             { "mimic_game_over", .7f },
@@ -74,28 +74,24 @@ public class AudioManager : Singleton<AudioManager>
 
         // Create a temporary reference to the current scene.
         UnityEngine.SceneManagement.Scene currentScene = UnityEngine.SceneManagement.SceneManager.GetActiveScene();
-
+        PlayMusicWithIntro("RepairRoyale-intro", "RepairRoyale-loop");
         // Retrieve the name of this scene.
         string sceneName = currentScene.name;
-        if (sceneName == "TitleScreen")
+        if (sceneName == "Game")
         {
-            PlayMusic("title_screen");
+            PlayMusicWithIntro("RepairRoyale-intro", "RepairRoyale-loop");
         }
         else if (sceneName == "LoadingScene")
         {
-            PlayMusic("title_screen");
-        }
-        else if (sceneName == "Game")
-        {
-            PlayMusic("mimic_murder");
+            //PlayMusic("title_screen");
         }
         else if (sceneName == "GameOverScreen")
         {
-            PlaySound("mimic_game_over");
+            //PlaySound("mimic_game_over");
         }
         else if (sceneName == "VictoryScreen")
         {
-            PlaySound("mimic_victory");
+            //PlaySound("mimic_victory");
         }
     }
 

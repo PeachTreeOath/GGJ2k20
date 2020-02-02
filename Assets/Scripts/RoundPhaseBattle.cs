@@ -7,11 +7,13 @@ public class RoundPhaseBattle : RoundPhase
 
     public float timeUntilPhaseEndAfterShrink;
 
-    public GameObject battlePhasePlatform;
+    // public GameObject battlePhasePlatform;
 
     public int startingScale;
 
     public int endingScale;
+
+    public Animator[] wallAnimators;
 
     private float scaleDeltaPerSecond;
 
@@ -21,7 +23,7 @@ public class RoundPhaseBattle : RoundPhase
     {
         // Setup current scale
         currentScale = startingScale;
-        battlePhasePlatform.transform.localScale = new Vector3(currentScale, currentScale, currentScale);
+        // battlePhasePlatform.transform.localScale = new Vector3(currentScale, currentScale, currentScale);
 
         // Determine scaling rate
         float scaleDeltaPerPhase = (startingScale - endingScale) / GameManager.instance.numberOfRounds;
@@ -41,7 +43,7 @@ public class RoundPhaseBattle : RoundPhase
             if (roundTime - currentRoundTime >= timeUntilShrinkStarts && currentRoundTime > timeUntilPhaseEndAfterShrink)
             {
                 currentScale -= scaleDeltaPerSecond * Time.deltaTime;
-                battlePhasePlatform.transform.localScale = new Vector3(currentScale, currentScale, currentScale);
+                // battlePhasePlatform.transform.localScale = new Vector3(currentScale, currentScale, currentScale);
             }
             if (currentRoundTime < 0)
             {
@@ -59,7 +61,21 @@ public class RoundPhaseBattle : RoundPhase
         GameManager.instance.SpawnBeyblades();
         AirConsole.instance.Broadcast("view:alive_view");
 
-        // todo lower walls in this phase
+        switch(GameManager.instance.currentRound)
+        {
+            case 2:
+                wallAnimators[0].SetTrigger("Next Round");
+                break;
+            case 3:
+                wallAnimators[1].SetTrigger("Next Round");
+                break;
+            case 4:
+                wallAnimators[2].SetTrigger("Next Round");
+                break;
+            case 5:
+                wallAnimators[3].SetTrigger("Next Round");
+                break;
+        }
     }
 
     public override void EndPhase()

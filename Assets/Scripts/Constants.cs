@@ -5,8 +5,11 @@ using UnityEngine;
 public enum WeaponType
 {
 	Flamethrower,
-	Knife,
-	Nuke
+	Sword,
+    Cannon,
+    Mines,
+    BoxGlove,
+    Shurikens
 }
 
 public enum RepairType
@@ -27,23 +30,39 @@ public class Constants : Singleton<Constants>
 {
 	public static readonly Dictionary<WeaponType, Dictionary<int, int>> WeaponCost = new Dictionary<WeaponType, Dictionary<int, int>>()
 	{
+		{ WeaponType.BoxGlove, new Dictionary<int, int>() {
+			{ 1, 10 },
+			{ 2, 20 },
+			{ 3, 30 } } },
+		{ WeaponType.Cannon, new Dictionary<int, int>() {
+			{ 1, 10 },
+			{ 2, 20 },
+			{ 3, 30 } } },
 		{ WeaponType.Flamethrower, new Dictionary<int, int>() {
 			{ 1, 10 },
 			{ 2, 20 },
 			{ 3, 30 } } },
-		{ WeaponType.Knife, new Dictionary<int, int>() {
-			{ 1, 10 },
-			{ 2, 20 },
-			{ 3, 30 } } },
-		{ WeaponType.Nuke, new Dictionary<int, int>() {
-			{ 1, 10 },
-			{ 2, 20 },
-			{ 3, 30 } } }
-	};
+        { WeaponType.Mines, new Dictionary<int, int>() {
+            { 1, 10 },
+            { 2, 20 },
+            { 3, 30 } } },
+        { WeaponType.Shurikens, new Dictionary<int, int>() {
+            { 1, 10 },
+            { 2, 20 },
+            { 3, 30 } } },
+        { WeaponType.Sword, new Dictionary<int, int>() {
+            { 1, 10 },
+            { 2, 20 },
+            { 3, 30 } } }
+    };
 
-	public static readonly Dictionary<RepairType, int> RepairCost = new Dictionary<RepairType, int>()
+	public static readonly Dictionary<WeaponType, int> RepairCost = new Dictionary<WeaponType, int>()
 	{
-		{ RepairType.Shield, 1 },
-		{ RepairType.Body, 1 }
-	};
+		{ WeaponType.BoxGlove, 1 },
+		{ WeaponType.Cannon, 1 },
+        { WeaponType.Flamethrower, 1 },
+        { WeaponType.Mines, 1 },
+        { WeaponType.Shurikens, 1 },
+        { WeaponType.Sword, 1 },
+    };
 }

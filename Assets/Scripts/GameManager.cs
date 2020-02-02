@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -15,7 +16,10 @@ public class GameManager : Singleton<GameManager>
 
     private void Update()
     {
-
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene("Game");
+        }
     }
 
     public void StartGame()
@@ -61,7 +65,7 @@ public class GameManager : Singleton<GameManager>
         Debug.Log("END GAME");
     }
 
-    private Vector3 heightAdjust = new Vector3(0, 3, 0);
+    private Vector3 heightAdjust = new Vector3(0, 30, 0);
 
     // Factory for beyblade spawning
     public void SpawnBeyblades()

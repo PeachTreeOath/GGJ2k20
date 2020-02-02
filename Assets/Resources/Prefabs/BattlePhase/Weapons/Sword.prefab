@@ -44,7 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 005d3c92a17946c4c9638eb45565e63c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TypeOfWeapon: 1
   damage: 0
+  startingDurability: 100
 --- !u!1001 &9065175115997095716
 PrefabInstance:
   m_ObjectHideFlags: 0
