@@ -19,8 +19,8 @@ This game was created at Global Game Jam 2020.
 - [Ryan Fonger](https://github.com/Fangor)
 - [Keenan Thungtrakul](https://github.com/kthungtrakul)
 - [Jason](https://github.com/eightpoundgorilla)
-- [Jeremiah]()
-- [Doug]()
+- [Jeremiah](https://github.com/sketchycode)
+- [Doug](https://github.com/Gendo-CO)
 - [Greg Hilston](https://greghilston.com)
 
 ## Screenshots & Videos

@@ -118,7 +118,7 @@ public class BotBase: MonoBehaviour
     private void Update()
     {
         var turnLimit = TurnRateDegPerSecond * Time.deltaTime;
-        var targetPos = arenaPlatform.position + targetPosition / 2f;
+        var targetPos = arenaPlatform.position + (targetPosition / 2f);
         Debug.DrawLine(targetPos, targetPos + Vector3.up, Color.green, .1f);
 
         transform.forward = Vector3.RotateTowards(
