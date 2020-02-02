@@ -61,7 +61,7 @@ public class GameManager : Singleton<GameManager>
         Debug.Log("END GAME");
     }
 
-    private Vector3 heightAdjust = new Vector3(0, 3, 0);
+    private Vector3 heightAdjust = new Vector3(0, 23, 0);
 
     // Factory for beyblade spawning
     public void SpawnBeyblades()
