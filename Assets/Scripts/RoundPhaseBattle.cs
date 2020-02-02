@@ -66,6 +66,7 @@ public class RoundPhaseBattle : RoundPhase
             if(bots.Count < 2)
             {
                 //Send a message to the player's phone indicating that he/she won the game, then either return to the main menu, reload the scene, or quit.
+                //TODO need a better way of getting the player object.
                 foreach(PlayerController player in FindObjectsOfType<PlayerController>())
                 {
                     if (player.nickname.Equals(bots[0].playerName)) AirConsole.instance.Message(player.deviceID, "view:victory_view");
