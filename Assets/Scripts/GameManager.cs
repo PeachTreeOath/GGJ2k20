@@ -13,10 +13,14 @@ public class GameManager : Singleton<GameManager>
     public int currentPhaseIndex = 0;
     public TextMeshProUGUI debugText;
 
-    private List<GameObject> beyblades = new List<GameObject>();
+    public List<GameObject> beyblades = new List<GameObject>();
 
     public Canvas victoryCanvas;
     public TextMeshProUGUI winnersText;
+
+    public GameObject spawnLocation;
+
+    private bool endedGame = false; // uh poor game loop management, sometimes ends twice :X
 
     private void Update()
     {
@@ -64,27 +68,31 @@ public class GameManager : Singleton<GameManager>
 
     public void EndGame()
     {
-        victoryCanvas.gameObject.SetActive(true);
-        string text = "";
-        List<GameObject> beybladesNoNull = beyblades.Where(item => item != null).ToList();
-        if (beybladesNoNull.Count == 1)
+        if (!endedGame)
         {
-            text = "Winner:\n";
+            endedGame = true;
+            victoryCanvas.gameObject.SetActive(true);
+            string text = "";
+            List<GameObject> beybladesNoNull = beyblades.Where(item => item != null).ToList();
+            if (beybladesNoNull.Count == 1)
+            {
+                text = "Winner:\n";
+            }
+            else if (beybladesNoNull.Count > 1)
+            {
+                text = "Winners:\n";
+            }
+            else
+            {
+                text = "No Winners :(";
+            }
+            foreach (GameObject beyblade in beybladesNoNull)
+            {
+                BotBase botBase = beyblade.GetComponent<BotBase>();
+                text += botBase.playerName.text + "\n";
+            }
+            winnersText.text = text;
         }
-        else if (beybladesNoNull.Count > 1)
-        {
-            text = "Winners:\n";
-        }
-        else
-        {
-            text = "No Winners :(";
-        }
-        foreach (GameObject beyblade in beybladesNoNull)
-        {
-            BotBase botBase = beyblade.GetComponent<BotBase>();
-            text += botBase.playerName.text + "\n";
-        }
-        winnersText.text = text;
     }
 
     private Vector3 heightAdjust = new Vector3(0, 30, 0);
@@ -98,7 +106,13 @@ public class GameManager : Singleton<GameManager>
         {
             Vector3 pos = RandomCircle(center, 7.0f) + heightAdjust;
             Quaternion rot = Quaternion.FromToRotation(Vector3.forward, center - pos);
-            GameObject bbObj = Instantiate(ResourceLoader.instance.beybladePrefab, pos, rot);
+
+            Vector3 spawnPoint = spawnLocation.transform.position;
+            Vector3 spawnBounds = spawnLocation.transform.localScale;
+            Vector3 randomPosition = new Vector3(spawnPoint.x + Random.value * spawnBounds.x, spawnPoint.y + Random.value * spawnBounds.y, 0);
+            randomPosition = randomPosition - spawnBounds / 2;
+
+            GameObject bbObj = Instantiate(ResourceLoader.instance.beybladePrefab, randomPosition, rot);
             beyblades.Add(bbObj);
             BotBase beyblade = bbObj.GetComponent<BotBase>();
             beyblade.playerName.text = player.nickname;
@@ -109,6 +123,16 @@ public class GameManager : Singleton<GameManager>
             }
 
             // read through playercontroller and spawn weapons onto it
+        }
+    }
+
+    public void DespawnBeyblade(GameObject bb)
+    {
+        beyblades.Remove(bb);
+        Destroy(bb);
+        if (beyblades.Count == 1 && currentRound == numberOfRounds)
+        {
+            this.EndGame();
         }
     }
 

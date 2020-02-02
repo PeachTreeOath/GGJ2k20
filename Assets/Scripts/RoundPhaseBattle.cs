@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using NDream.AirConsole;
 using UnityEngine;
+using TMPro;
 
 public class RoundPhaseBattle : RoundPhase
 {
@@ -19,6 +20,7 @@ public class RoundPhaseBattle : RoundPhase
     private float scaleDeltaPerSecond;
 
     private float currentScale;
+    public TextMeshProUGUI playersLeft;
 
     private void Start()
     {
@@ -44,6 +46,7 @@ public class RoundPhaseBattle : RoundPhase
         {
             currentRoundTime -= Time.deltaTime;
             timerText.text = "Time: " + (int) currentRoundTime + "s";
+            playersLeft.text = "Players: " + GameManager.instance.beyblades.Count;
             if (roundTime - currentRoundTime >= timeUntilShrinkStarts && currentRoundTime > timeUntilPhaseEndAfterShrink)
             {
                 currentScale -= scaleDeltaPerSecond * Time.deltaTime;
@@ -79,11 +82,12 @@ public class RoundPhaseBattle : RoundPhase
 
     public override void BeforePhaseStartPrep()
     {
+        playersLeft.gameObject.SetActive(true);
         GameManager.instance.debugText.text = "ROUND " + GameManager.instance.currentRound + " / " + GameManager.instance.numberOfRounds + "\nbattle phase";
         GameManager.instance.SpawnBeyblades();
         AirConsole.instance.Broadcast("view:alive_view");
 
-        switch(GameManager.instance.currentRound)
+        switch (GameManager.instance.currentRound)
         {
             case 2:
                 wallAnimators[0].SetTrigger("Next Round");
@@ -105,6 +109,7 @@ public class RoundPhaseBattle : RoundPhase
         if (GameManager.instance.currentRound != GameManager.instance.numberOfRounds)
         {
             GameManager.instance.DespawnBeyblades();
+            playersLeft.gameObject.SetActive(false);
         }
     }
 }
