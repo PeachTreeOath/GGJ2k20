@@ -58,6 +58,17 @@ public class ControllerManager : Singleton<ControllerManager>
         AirConsole.instance.onDeviceStateChange += OnDeviceStateChange;
     }
 
+    private void Start()
+    {
+        // Testing countdown timer
+        InvokeRepeating("CountdownTimer", 0, 1);
+    }
+
+    private void CountdownTimer()
+    {
+        AirConsole.instance.Broadcast(new { counter = Random.value.ToString() });
+    }
+
     void OnReady(string code)
     {
         //Since people might be coming to the game from the AirConsole store once the game is live, 
@@ -76,7 +87,6 @@ public class ControllerManager : Singleton<ControllerManager>
 
     private void AddNewPlayer(int deviceID)
     {
-
         if (players.ContainsKey(deviceID))
         {
             return;
@@ -97,6 +107,9 @@ public class ControllerManager : Singleton<ControllerManager>
         players.Add(deviceID, pc);
         pc.playerColor = GetPlayerColor();
         // increases after player joins the level to be used for player colors
+
+        InitializeNewPlayerController(playerSpawnNumber, pc.playerColor, deviceID);
+
         playerSpawnNumber++;
     }
 
@@ -109,6 +122,10 @@ public class ControllerManager : Singleton<ControllerManager>
         {
             //I forward the command to the relevant player script, assigned by device ID
             players[from].ButtonInput(data["action"].ToString());
+        }
+        else if (players.ContainsKey(from) && data["payload"] != null)
+        {
+            PayloadDelivered_Shop(data);
         }
     }
     void OnDeviceStateChange(int device, JToken data)
@@ -143,5 +160,26 @@ public class ControllerManager : Singleton<ControllerManager>
             return new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
         }
     }
+
+    #region Need to Refactor
+
+    void PayloadDelivered_Shop(JToken data)
+    {
+        int newItem;
+        int repairItem;
+
+        int.TryParse(data["payload"]["newItem"].ToString(), out newItem);
+        int.TryParse(data["payload"]["repairItem"].ToString(), out repairItem);
+        Debug.Log(string.Format("New Item: {0} Repair Item {1}", newItem.ToString(), repairItem.ToString()));
+    }
+
+    void InitializeNewPlayerController(int playerNumber, Color playerColor, int deviceId)
+    {
+        AirConsole.instance.Message(
+            deviceId,
+            new { playerData = new { playerNumber, playerColor = ColorUtility.ToHtmlStringRGB(playerColor) } });
+    }
+
+    #endregion Need to Refactor
 }
 

@@ -1,260 +1,333 @@
 
 <html>
 <head>
-  <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
-  <script type="text/javascript" src="https://www.airconsole.com/api/airconsole-1.7.0.js"></script>
-  <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
-  <style type=text/css>
-  /* the style sheet dictates what our elements (buttons, backgrounds etc.) will look like. */
-  
-  body {
-/*    display: flex;
-    margin: 0;
-    height: 100%;
-    width: 100%;
-    position: absolute;*/
-    font-family: 'Press Start 2P', cursive;
-  }
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <script type="text/javascript" src="https://www.airconsole.com/api/airconsole-1.7.0.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+    <style type=text/css>
+        /* the style sheet dictates what our elements (buttons, backgrounds etc.) will look like. */
 
-  .view {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    display:none;
-  }
-
-  #dead_view, #victory_view {
-    /*background-image: linear-gradient(0deg, #FE811C 0%, #5C0900 100%);*/
-    background: #000;
-    
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-  }
-
-  svg {
-    fill: #fff;
-    width: 70vw;
-  }
-
-  .button{
-  
-    background: #3B3B3B;
-    border: solid #1f1f1f 2px; 
-    transition: 0.1ms ease-in-out all;
-	
-  }
-
-  .vertical-buttons {
-    width: 25%;
-    height: 100%;
-	/*float: left;*/
-  }
-
-  .horizontal-buttons-container {
-    width: 50%;
-	/*float: left;*/
-  }
-  .horizontal-buttons {
-    height: 50%;
-  }
-
-  #left-button{
-    background-image: url("/left_button.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-  }
-  #left-button:active{
-    background-image: url("/left_button_pressed.png");
-  }
-
-  #right-button{
-    background-image: url("/right_button.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-  }
-  #right-button:active{
-    background-image: url("/right_button_pressed.png");
-  }
-
-  #jump-button{
-    background-image: url("/jump_button.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-  }
-  #jump-button:active {
-    background-image: url("/jump_button_pressed.png");
-  }
-
-  #interact-button{
-    background-image: url("/interact_button.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-  }
-  #interact-button:active{
-    background-image: url("/interact_button_pressed.png");
-  }
-
-  </style>
-  
-  <script type="text/javascript">
-
-    var airconsole;
-	var lava_burn_sound = new Audio('lava_burn3.wav');
-	var jump_sound = new Audio('jump.wav');
-	var scream_sound = new Audio('scream3.wav');
-	var hit_sound = new Audio('hit.wav');
-	var throw_sound = new Audio('throw.wav');
-	
-
-
-    function App() {
-      var me = this;
-	  jump_sound.volume=.3;
-	  lava_burn_sound.volume=.7;
-
-
-      me.airconsole = new AirConsole({"orientation": "landscape", "synchronize_time" : "true"});
-
-	  showView("ready_view");
-
-	  me.airconsole.onMessage = function(from, data) {
-        console.log("onMessage", from, data);
-
-		// Check if the data, we sent, contains view
-	    if (data) {
-		  if (data == "view:dead_view"){
-		    showView("dead_view");
-		  } 
-		  else if (data == "view:alive_view"){
-		  	  showView("alive_view");
-		  }
-      else if (data == "view:victory_view"){
-          showView("victory_view");
-      }
-		  else if (data == "sound:lava_burn"){
-		  	  playSound("lava_burn");
-		  }
-		  else if (data == "sound:jump"){
-		  	  playSound("jump");
-		  }
-		  else if (data == "sound:scream"){
-		  	  playSound("scream");
-		  }
-		  else if (data == "sound:hit"){
-		  	  playSound("hit");
-		  }
-		  else if (data == "sound:throw"){
-		  	  playSound("throw");
-		  }
-		}
-      };
-
-      /*
-       * Here we are adding support for mouse events manually.
-       * --> WE STRONGLY ENCOURAGE YOU TO USE THE AIRCONSOLE CONTROLS LIBRARY
-       * WHICH IS EVEN BETTER (BUT WE DONT WANT TO BLOAT THE CODE HERE).
-       * https://github.com/AirConsole/airconsole-controls/
-       * 
-       * DO NOT USE ONCLICK HANDLERS.
-       * THEY ADD A 200MS DELAY!
-       */
-      if (!("ontouchstart" in document.createElement("div"))) {
-        var elements = document.getElementsByTagName("*");
-        for (var i = 0; i < elements.length; ++i) {
-          var element = elements[i];
-          var ontouchstart = element.getAttribute("ontouchstart");
-          if (ontouchstart) {
-            element.setAttribute("onmousedown", ontouchstart);
-          }
-          var ontouchend = element.getAttribute("ontouchend");
-          if (ontouchend) {
-            element.setAttribute("onmouseup", ontouchend);
-          }
+        body {
+            /*    display: flex;
+                margin: 0;
+                height: 100%;
+                width: 100%;
+                position: absolute;*/
+            font-family: 'Press Start 2P', cursive;
         }
-      }
 
-	  
-    }
+        .view {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            display: none;
+        }
 
-	
+        /* Begin new classes */
 
-    // function jumpButtonImagePressed() {
-    //   // document.getElementById("jump-button").style.backgroundColor = "red";
+        .background {
+           background-image: url(Controller_Background.png);
+           background-size: cover;
+           background-repeat: no-repeat;
+        }
 
-    //   var jumpButtonPressed = document.getElementById("jump-button");
-    //   jumpButtonPressed.id = "jump-button-image-pressed";
-    //   console.log("button pressed");
-    // }
+        .playerInfo {
+            width: 50%;
+            height: 50%;
+            margin: auto;
+        }
 
-    App.prototype.sendMessageToScreen = function(msg) {
-      this.airconsole.message(AirConsole.SCREEN, {"action": msg});
-    };
+        .playerMessage {
+            color: white;
+        }
 
-    function showView(id){
-	  var view = document.getElementById(id);
-	  console.log("Attempting to show view: " + id);
-	  var all_views = document.getElementsByClassName('view');
-      // Hide all containers
-	  for (var i=0; i<all_views.length; i++) {
-	    console.log("all_views[" + i + "]: " + all_views[i].id)
-        all_views[i].style.display = 'none';
-	  }
-  
-	  // Show container
-	  if (view != null){
-	    view.style.display = 'flex';
-	  }
-	};
+        .shop {
+            color: white;
+        }
+            
+        /* End new classes */
 
-	function playSound(id){
-	  if (id == "lava_burn"){
-	  	  lava_burn_sound.play();
-	  } else if (id == "jump"){
-	  	  jump_sound.play();
-	  } else if (id == "scream"){
-	  	  scream_sound.play();
-	  }else if (id == "hit"){
-	  	  hit_sound.play();
-	  }else if (id == "throw"){
-	  	  throw_sound.play();
-	  }
-	};
+        #dead_view, #victory_view {
+            /*background-image: linear-gradient(0deg, #FE811C 0%, #5C0900 100%);*/
+            background: #000;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        svg {
+            fill: #fff;
+            width: 70vw;
+        }
+
+        .button {
+            background: #3B3B3B;
+            border: solid #1f1f1f 2px;
+            transition: 0.1ms ease-in-out all;
+        }
+
+        .vertical-buttons {
+            width: 25%;
+            height: 100%;
+            /*float: left;*/
+        }
+
+        .horizontal-buttons-container {
+            width: 50%;
+            /*float: left;*/
+        }
+
+        .horizontal-buttons {
+            height: 50%;
+        }
+
+        #left-button {
+            background-image: url("/left_button.png");
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+        }
+
+            #left-button:active {
+                background-image: url("/left_button_pressed.png");
+            }
+
+        #right-button {
+            background-image: url("/right_button.png");
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+        }
+
+            #right-button:active {
+                background-image: url("/right_button_pressed.png");
+            }
+
+        #jump-button {
+            background-image: url("/jump_button.png");
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+        }
+
+            #jump-button:active {
+                background-image: url("/jump_button_pressed.png");
+            }
+
+        #interact-button {
+            background-image: url("/interact_button.png");
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+        }
+
+            #interact-button:active {
+                background-image: url("/interact_button_pressed.png");
+            }
+    </style>
+
+    <script type="text/javascript">
+
+        var airconsole;
+        var lava_burn_sound = new Audio('lava_burn3.wav');
+        var jump_sound = new Audio('jump.wav');
+        var scream_sound = new Audio('scream3.wav');
+        var hit_sound = new Audio('hit.wav');
+        var throw_sound = new Audio('throw.wav');
+
+        function App() {
+            var me = this;
+            jump_sound.volume = .3;
+            lava_burn_sound.volume = .7;
 
 
-  </script>
+            me.airconsole = new AirConsole({ "orientation": "landscape", "synchronize_time": "true" });
 
- 
+            // showView("ready_view");
+            showView("shop_view");
+
+            me.airconsole.onMessage = function (from, data) {
+                console.log("onMessage", from, data);
+
+                // Check if the data, we sent, contains view
+                if (data) {
+                    if (data == "view:dead_view") {
+                        showView("dead_view");
+                    }
+                    else if (data == "view:alive_view") {
+                        showView("alive_view");
+                    }
+                    else if (data == "view:victory_view") {
+                        showView("victory_view");
+                    }
+                    else if (data == "sound:lava_burn") {
+                        playSound("lava_burn");
+                    }
+                    else if (data == "sound:jump") {
+                        playSound("jump");
+                    }
+                    else if (data == "sound:scream") {
+                        playSound("scream");
+                    }
+                    else if (data == "sound:hit") {
+                        playSound("hit");
+                    }
+                    else if (data == "sound:throw") {
+                        playSound("throw");
+                    }
+                    else if (data.playerData != null) {
+                        setPlayerData(data.playerData);
+                    }
+                    else if (data.counter != null) {
+                        updateCountdownTimer(data.counter);
+                    }
+                }
+            };
+
+            /*
+             * Here we are adding support for mouse events manually.
+             * --> WE STRONGLY ENCOURAGE YOU TO USE THE AIRCONSOLE CONTROLS LIBRARY
+             * WHICH IS EVEN BETTER (BUT WE DONT WANT TO BLOAT THE CODE HERE).
+             * https://github.com/AirConsole/airconsole-controls/
+             *
+             * DO NOT USE ONCLICK HANDLERS.
+             * THEY ADD A 200MS DELAY!
+             */
+            if (!("ontouchstart" in document.createElement("div"))) {
+                var elements = document.getElementsByTagName("*");
+                for (var i = 0; i < elements.length; ++i) {
+                    var element = elements[i];
+                    var ontouchstart = element.getAttribute("ontouchstart");
+                    if (ontouchstart) {
+                        element.setAttribute("onmousedown", ontouchstart);
+                    }
+                    var ontouchend = element.getAttribute("ontouchend");
+                    if (ontouchend) {
+                        element.setAttribute("onmouseup", ontouchend);
+                    }
+                }
+            }
+
+
+        }
+
+        // function jumpButtonImagePressed() {
+        //   // document.getElementById("jump-button").style.backgroundColor = "red";
+
+        //   var jumpButtonPressed = document.getElementById("jump-button");
+        //   jumpButtonPressed.id = "jump-button-image-pressed";
+        //   console.log("button pressed");
+        // }
+
+        App.prototype.sendMessageToScreen = function (msg) {
+            this.airconsole.message(AirConsole.SCREEN, { "action": msg });
+        };
+
+        App.prototype.sendPayloadToScreen = function (obj) {
+            this.airconsole.message(AirConsole.SCREEN, obj);
+        }
+
+        function showView(id) {
+            var view = document.getElementById(id);
+            console.log("Attempting to show view: " + id);
+            var all_views = document.getElementsByClassName('view');
+            // Hide all containers
+            for (var i = 0; i < all_views.length; i++) {
+                console.log("all_views[" + i + "]: " + all_views[i].id)
+                all_views[i].style.display = 'none';
+            }
+
+            // Show container
+            if (view != null) {
+                view.style.display = 'flex';
+            }
+        };
+
+        function playSound(id) {
+            if (id == "lava_burn") {
+                lava_burn_sound.play();
+            } else if (id == "jump") {
+                jump_sound.play();
+            } else if (id == "scream") {
+                scream_sound.play();
+            } else if (id == "hit") {
+                hit_sound.play();
+            } else if (id == "throw") {
+                throw_sound.play();
+            }
+        };
+
+        function finishShopping() {
+
+            let newWeapon = 1;
+            let repairedWeapon = 1;
+
+            let jsonData = {};
+            jsonData.payload = {};
+            jsonData.payload.newItem = 1;
+            jsonData.payload.repairItem = 1;
+
+            window.app.sendPayloadToScreen(jsonData);
+        }
+
+        function setPlayerData(data) {
+            console.log("PLayer Number: " + data.playerNumber);
+            console.log("PLayer Color: " + data.playerColor);
+
+            document.getElementById("player").innerHTML = "Player# " + data.playerNumber;
+            document.getElementById("player").style.backgroundColor = "#" + data.playerColor;
+        }
+
+        function updateCountdownTimer(value) {
+            document.getElementById("countdownTimer").innerHTML = value;
+        }
+
+    </script>
+
+
 </head>
 <body onload="window.app = new App()">
-  <div id="shop_view" class="view">
+    <div id="shop_view" class="view shop">        
+        <div class="button" style="background-color: red;" ontouchend="finishShopping()">Click Me</div>
+        <!--<div class="button vertical-buttons" id="left-button" ontouchstart="window.app.sendMessageToScreen('left')" ontouchend="window.app.sendMessageToScreen('left-up')"></div>
+        <div class="button vertical-buttons" id="right-button" ontouchstart="window.app.sendMessageToScreen('right')" ontouchend="window.app.sendMessageToScreen('right-up')"></div>
 
-		<div class="button vertical-buttons" id="left-button" ontouchstart="window.app.sendMessageToScreen('left')" ontouchend="window.app.sendMessageToScreen('left-up')"></div>
-		<div class="button vertical-buttons" id="right-button" ontouchstart="window.app.sendMessageToScreen('right')" ontouchend="window.app.sendMessageToScreen('right-up')"></div>
-	  
-		<div class="horizontal-buttons-container">
-  		<div class="button horizontal-buttons" id="interact-button" ontouchstart="window.app.sendMessageToScreen('interact')"></div>
-  		<div class="button horizontal-buttons" id="jump-button" ontouchstart="window.app.sendMessageToScreen('jump')" ontouchend="window.app.sendMessageToScreen('jump-up')"></div>
-		</div>
+        <div class="horizontal-buttons-container">
+            <div class="button horizontal-buttons" id="interact-button" ontouchstart="window.app.sendMessageToScreen('interact')"></div>
+            <div class="button horizontal-buttons" id="jump-button" ontouchstart="window.app.sendMessageToScreen('jump')" ontouchend="window.app.sendMessageToScreen('jump-up')"></div>
+        </div>-->
+        <div>
+            <div>Weapon 1</div>
+            <div>Weapon 2</div>
+            <div>Weapon 3</div>
+        </div>
+        <div>
+            <ul>
+                <li>Loadout 1</li>
+                <li>Loadout 2</li>
+                <li>Loadout 3</li>
+                <li>Loadout 4</li>
+                <li>Loadout 5</li>
+            </ul>
+        </div>
+        <div>
+            <div id="countdownTimer"></div>
+        </div>
+    </div>
 
-  </div>
+    <div id="ready_view" class="view background">
+        <div class="playerMessage">Waiting for the game to begin...</div>
+        <div id="player" class="playerInfo"></div>
+    </div>
+    <div id="alive_view" class="view">
 
-  <div id="ready_view" class="view">
-    <img src="ready.png">
-  </div>
-  <div id="alive_view" class="view">
-    <img src="lookup.png">
-  </div>
-  <div id="victory_view" class="view">
-    <img src="Victory.png">
-  </div>
-  <div id="dead_view" class="view">
-    <img src="YouDied.png">
-  </div>
+    </div>
+    <div id="victory_view" class="view">
+
+    </div>
+    <div id="dead_view" class="view">
+
+    </div>
 
 </body>
 </html>
