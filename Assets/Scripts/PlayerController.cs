@@ -3,26 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum WeaponType
-{
-	Flamethrower,
-	Knife,
-	Nuke
-}
-
-public enum RepairType
-{
-
-}
-
-public enum Result
-{
-	Success,
-	NotEnoughMoney,
-	NotAllowed,
-	Error
-}
-
 public class WeaponUpgradeEventArgs : EventArgs
 {
 	public WeaponType Weapon { get; set; }
@@ -36,11 +16,13 @@ public class PlayerController : MonoBehaviour
     public int deviceID = -1;
 
     private int cash; // Use AddRemoveCash
-    private int hp;
+    public float HP => Bot.HealthPercentage;
+
+	public BotBase Bot { get; set; }
 
 	public event EventHandler<WeaponUpgradeEventArgs> WeaponUpgraded;
 
-	private Dictionary<WeaponType, int> weaponLevel = new Dictionary<WeaponType, int>();
+	public Dictionary<WeaponType, int> WeaponLevel { get; set; } = new Dictionary<WeaponType, int>();
 
     public void AddRemoveCash(int changedCash)
     {
@@ -53,14 +35,14 @@ public class PlayerController : MonoBehaviour
 
 	private void AddWeapon(WeaponType weapon)
 	{
-		if (new List<WeaponType>(weaponLevel.Keys).Contains(weapon))
+		if (new List<WeaponType>(WeaponLevel.Keys).Contains(weapon))
 		{
-			weaponLevel[weapon] += 1;
-			WeaponUpgraded?.Invoke(this, new WeaponUpgradeEventArgs() { Weapon = weapon, Level = weaponLevel[weapon] });
+			WeaponLevel[weapon] += 1;
+			WeaponUpgraded?.Invoke(this, new WeaponUpgradeEventArgs() { Weapon = weapon, Level = WeaponLevel[weapon] });
 		}
 		else
 		{
-			weaponLevel.Add(weapon, 1);
+			WeaponLevel.Add(weapon, 1);
 			WeaponUpgraded?.Invoke(this, new WeaponUpgradeEventArgs() { Weapon = weapon, Level = 1 });
 		}
 	}
@@ -70,14 +52,15 @@ public class PlayerController : MonoBehaviour
         switch (input)
         {
             case "buy_flamethrower":
-                if (cash >= Constants.WeaponCost[WeaponType.Flamethrower][weaponLevel[WeaponType.Flamethrower]])
-                {
-                    cash -= Constants.WeaponCost[WeaponType.Flamethrower][weaponLevel[WeaponType.Flamethrower]];
-					AddWeapon(WeaponType.Flamethrower);
-                    Debug.Log("FLAMETHROWER BOUGHT");
-					return Result.Success;
-                }
-				return Result.NotEnoughMoney;
+                return BuyWeapon(WeaponType.Flamethrower);
+			case "buy_knife":
+				return BuyWeapon(WeaponType.Knife);
+			case "buy_nuke":
+				return BuyWeapon(WeaponType.Nuke);
+			case "repair_shield":
+				return BuyRepair(RepairType.Shield);
+			case "repair_body":
+				return BuyRepair(RepairType.Body);
 			default:
 				return Result.Error;
                 /*
@@ -112,4 +95,28 @@ public class PlayerController : MonoBehaviour
                 */
         }
     }
+
+	private Result BuyWeapon(WeaponType weaponType)
+	{
+		if (cash >= Constants.WeaponCost[weaponType][WeaponLevel[weaponType] + 1])
+		{
+			cash -= Constants.WeaponCost[weaponType][WeaponLevel[weaponType] + 1];
+			AddWeapon(weaponType);
+			Debug.Log(weaponType.ToString() + " BOUGHT");
+			return Result.Success;
+		}
+		return Result.NotEnoughMoney;
+	}
+
+	private Result BuyRepair(RepairType repairType)
+	{
+		if (cash >= Constants.RepairCost[repairType])
+		{
+			cash -= Constants.RepairCost[repairType];
+			Bot.TakeDamage(-10f);
+			Debug.Log(repairType.ToString() + " BOUGHT");
+			return Result.Success;
+		}
+		return Result.NotEnoughMoney;
+	}
 }

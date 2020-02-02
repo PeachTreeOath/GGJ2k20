@@ -42,6 +42,7 @@ public class BotBase: MonoBehaviour
         damageAmount = Mathf.Min(damageAmount, StartingHealth);
         damageAmount *= (HealthPercentage - 0.01f);
         CurrentHealth -= damageAmount;
+		CurrentHealth = Mathf.Clamp(CurrentHealth, 0f, StartingHealth);
     }
 
     private void Update()
