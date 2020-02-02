@@ -84,21 +84,27 @@ public class RoundPhaseBattle : RoundPhase
     {
         playersLeft.gameObject.SetActive(true);
         GameManager.instance.debugText.text = "ROUND " + GameManager.instance.currentRound + " / " + GameManager.instance.numberOfRounds + "\nbattle phase";
-        GameManager.instance.SpawnBeyblades();
         AirConsole.instance.Broadcast("view:alive_view");
 
         switch (GameManager.instance.currentRound)
         {
+            case 1:
+                GameManager.instance.SpawnBeyblades();
+                break;
             case 2:
+                GameManager.instance.ActivateBeyblades();
                 wallAnimators[0].SetTrigger("Next Round");
                 break;
             case 3:
+                GameManager.instance.ActivateBeyblades();
                 wallAnimators[1].SetTrigger("Next Round");
                 break;
             case 4:
+                GameManager.instance.ActivateBeyblades();
                 wallAnimators[2].SetTrigger("Next Round");
                 break;
             case 5:
+                GameManager.instance.ActivateBeyblades();
                 wallAnimators[3].SetTrigger("Next Round");
                 break;
         }
@@ -108,7 +114,7 @@ public class RoundPhaseBattle : RoundPhase
     {
         if (GameManager.instance.currentRound != GameManager.instance.numberOfRounds)
         {
-            GameManager.instance.DespawnBeyblades();
+            GameManager.instance.HideBeyblades();
             playersLeft.gameObject.SetActive(false);
         }
     }

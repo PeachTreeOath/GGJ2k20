@@ -30,6 +30,8 @@ ExportedObj/
 *.svd
 *.pdb
 
+debug.log
+
 # Unity3D generated meta files
 *.pidb.meta
 
