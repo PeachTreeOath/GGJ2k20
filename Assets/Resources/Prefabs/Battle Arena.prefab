@@ -94,6 +94,51 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &6050824315451591048
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3238547124428406499}
+  - component: {fileID: 8317682159958676050}
+  m_Layer: 0
+  m_Name: Fallout
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3238547124428406499
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6050824315451591048}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 50, z: 0}
+  m_LocalScale: {x: 900, y: 0.2, z: 900}
+  m_Children: []
+  m_Father: {fileID: 1701598384963098987}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!64 &8317682159958676050
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6050824315451591048}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &7706888497942822425
 GameObject:
   m_ObjectHideFlags: 0
@@ -124,6 +169,7 @@ Transform:
   - {fileID: 560021526818989983}
   - {fileID: 5991856780999201170}
   - {fileID: 5443890365716887506}
+  - {fileID: 3238547124428406499}
   - {fileID: 5443890365570371843}
   - {fileID: 12060961838868713}
   m_Father: {fileID: 0}
@@ -179,7 +225,7 @@ PrefabInstance:
     - target: {fileID: 5496940132535220014, guid: 925e9f3ee2dd742dab5c3d696e19814f,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5496940132535220014, guid: 925e9f3ee2dd742dab5c3d696e19814f,
         type: 3}
@@ -924,7 +970,7 @@ PrefabInstance:
     - target: {fileID: 7582029623112759972, guid: 5e60ffc8cd7fa46d8b9e3e350d9b2e9b,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7582029623112759972, guid: 5e60ffc8cd7fa46d8b9e3e350d9b2e9b,
         type: 3}
