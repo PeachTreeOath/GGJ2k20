@@ -375,9 +375,9 @@ MonoBehaviour:
   GroundLayer:
     serializedVersion: 2
     m_Bits: 1024
-  MaxHealthKnockbackMultiplier: 4
+  MaxHealthKnockbackMultiplier: 6
   MinHealthKnockbackMultiplier: 0.25
-  DamageKnockbackFactor: 2
+  DamageKnockbackFactor: 7
   CurrentHealth: 0
   rgbd: {fileID: 0}
   playerName: {fileID: 7113682404996646102}
