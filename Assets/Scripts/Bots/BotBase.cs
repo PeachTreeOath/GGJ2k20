@@ -74,7 +74,7 @@ public class BotBase: MonoBehaviour
         CurrentHealth -= damageAmount;
         var knockbackMultiplier = Mathf.Lerp(MaxKnockbackFactor, MinKnockbackFactor, HealthPercentage);
 
-        rgbd.AddForceAtPosition((transform.position - contactPoint + Vector3.up) * 5, contactPoint, ForceMode.Impulse);
+        rgbd.AddForceAtPosition((transform.position - contactPoint + Vector3.up) * knockbackMultiplier, contactPoint, ForceMode.Impulse);
         ApplyWeaponDurabilityDamage(damageAmount);
 
 		DamageTaken?.Invoke();
