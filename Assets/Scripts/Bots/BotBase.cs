@@ -29,7 +29,7 @@ public class BotBase: MonoBehaviour
 
     public List<Transform> Targets = new List<Transform>();
 
-    private Rigidbody rgbd;
+    public Rigidbody rgbd;
 
     public TextMeshProUGUI playerName;
     public MeshRenderer beybodyModel;
@@ -119,6 +119,8 @@ public class BotBase: MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         Weapon weapon = collision.contacts[0].thisCollider.GetComponentInParent<Weapon>();
+        GameObject obj2 = collision.contacts[0].thisCollider.gameObject;
+
         BotBase enemy = collision.collider.GetComponent<BotBase>();
         if(weapon && enemy)
         {
