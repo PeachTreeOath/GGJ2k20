@@ -23,6 +23,6 @@ This game was created at Global Game Jam 2020.
 
 ## Screenshots & Videos
 
-![Start Screen](/Assets/Static/start_screen.png)
-![Buy Menu](/Assets/Static/buy_menu.png)
-![Chaos](/Assets/Static/chaos.gif)
+<center>![Start Screen](/Assets/Static/start_screen.png)</center>
+<center>![Buy Menu](/Assets/Static/buy_menu.png)</center>
+<center>![Chaos](/Assets/Static/chaos.gif)</center>
