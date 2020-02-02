@@ -7,7 +7,7 @@ public class RoundPhaseBattle : RoundPhase
 
     public float timeUntilPhaseEndAfterShrink;
 
-    public GameObject battlePhasePlatform;
+    // public GameObject battlePhasePlatform;
 
     public int startingScale;
 
@@ -23,7 +23,7 @@ public class RoundPhaseBattle : RoundPhase
     {
         // Setup current scale
         currentScale = startingScale;
-        battlePhasePlatform.transform.localScale = new Vector3(currentScale, currentScale, currentScale);
+        // battlePhasePlatform.transform.localScale = new Vector3(currentScale, currentScale, currentScale);
 
         // Determine scaling rate
         float scaleDeltaPerPhase = (startingScale - endingScale) / GameManager.instance.numberOfRounds;
@@ -43,7 +43,7 @@ public class RoundPhaseBattle : RoundPhase
             if (roundTime - currentRoundTime >= timeUntilShrinkStarts && currentRoundTime > timeUntilPhaseEndAfterShrink)
             {
                 currentScale -= scaleDeltaPerSecond * Time.deltaTime;
-                battlePhasePlatform.transform.localScale = new Vector3(currentScale, currentScale, currentScale);
+                // battlePhasePlatform.transform.localScale = new Vector3(currentScale, currentScale, currentScale);
             }
             if (currentRoundTime < 0)
             {
