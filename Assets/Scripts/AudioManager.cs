@@ -85,10 +85,6 @@ public class AudioManager : Singleton<AudioManager>
         {
             PlayMusic("title_screen");
         }
-        else if (sceneName == "Game")
-        {
-            PlayMusic("mimic_murder");
-        }
         else if (sceneName == "GameOverScreen")
         {
             PlaySound("mimic_game_over");
