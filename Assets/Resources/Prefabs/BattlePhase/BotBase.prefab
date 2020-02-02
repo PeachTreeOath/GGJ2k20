@@ -368,7 +368,11 @@ MonoBehaviour:
   PersonalTargetArenaRadius: 8
   Targets: []
   playerName: {fileID: 7113682404996646102}
-  beybladeModel: {fileID: 4879481671921699880}
+  beybodyModel: {fileID: 4879481671921699880}
+  beybladeModels:
+  - {fileID: 7411848946570461268}
+  - {fileID: 808642327287006103}
+  - {fileID: 3291222025432884849}
 --- !u!33 &5534945609271778915
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -620,6 +624,24 @@ Transform:
 --- !u!23 &4879481671921699880 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 896665200018740058, guid: 44054a3f7c6a3494ea45f71795e8c49d,
+    type: 3}
+  m_PrefabInstance: {fileID: 5748561825721376626}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &3291222025432884849 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 7091544864841545987, guid: 44054a3f7c6a3494ea45f71795e8c49d,
+    type: 3}
+  m_PrefabInstance: {fileID: 5748561825721376626}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &7411848946570461268 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2961912651398111014, guid: 44054a3f7c6a3494ea45f71795e8c49d,
+    type: 3}
+  m_PrefabInstance: {fileID: 5748561825721376626}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &808642327287006103 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 4971447788471049445, guid: 44054a3f7c6a3494ea45f71795e8c49d,
     type: 3}
   m_PrefabInstance: {fileID: 5748561825721376626}
   m_PrefabAsset: {fileID: 0}
