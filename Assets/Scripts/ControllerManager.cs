@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using NDream.AirConsole;
 using Newtonsoft.Json.Linq;
-
+using System.Linq;
 
 public class ControllerManager : Singleton<ControllerManager>
 {
@@ -47,6 +47,8 @@ public class ControllerManager : Singleton<ControllerManager>
          new Color(19f/255f, 74f/255f, 117f/255f)    // sea blue
    };
 
+    private int countDownValue;
+
     private int playerSpawnNumber = 0;
 
     protected override void Awake()
@@ -60,13 +62,15 @@ public class ControllerManager : Singleton<ControllerManager>
 
     private void Start()
     {
-        // Testing countdown timer
-        InvokeRepeating("CountdownTimer", 0, 1);
+
     }
 
     private void CountdownTimer()
     {
-        AirConsole.instance.Broadcast(new { counter = Random.value.ToString() });
+        AirConsole.instance.Broadcast(new { counter = countDownValue });
+        countDownValue--;
+        if (countDownValue < 0)
+            CancelInvoke();
     }
 
     void OnReady(string code)
@@ -108,15 +112,13 @@ public class ControllerManager : Singleton<ControllerManager>
         pc.playerColor = GetPlayerColor();
         // increases after player joins the level to be used for player colors
 
-        InitializeNewPlayerController(playerSpawnNumber, pc.playerColor, deviceID);
+        UpdatePlayerData(playerSpawnNumber, pc.playerColor, deviceID, null, null);
 
         playerSpawnNumber++;
     }
 
     void OnMessage(int from, JToken data)
     {
-        Debug.Log("message: " + data);
-
         //When I get a message, I check if it's from any of the devices stored in my device Id dictionary
         if (players.ContainsKey(from) && data["action"] != null)
         {
@@ -125,9 +127,10 @@ public class ControllerManager : Singleton<ControllerManager>
         }
         else if (players.ContainsKey(from) && data["payload"] != null)
         {
-            PayloadDelivered_Shop(data);
+            PayloadDelivered(data);
         }
     }
+
     void OnDeviceStateChange(int device, JToken data)
     {
         if (!players[device].nickname.Equals(AirConsole.instance.GetNickname(device)))
@@ -163,21 +166,60 @@ public class ControllerManager : Singleton<ControllerManager>
 
     #region Need to Refactor
 
-    void PayloadDelivered_Shop(JToken data)
+    void PayloadDelivered(JToken data)
     {
-        int newItem;
-        int repairItem;
+        Debug.Log(data);
 
-        int.TryParse(data["payload"]["newItem"].ToString(), out newItem);
-        int.TryParse(data["payload"]["repairItem"].ToString(), out repairItem);
-        Debug.Log(string.Format("New Item: {0} Repair Item {1}", newItem.ToString(), repairItem.ToString()));
+        if (data["payload"]["test"] != null)
+        {
+            BeginShopPhase();
+        }
+        else {
+            int upgradeWeapon;
+            int repairedWeapon;
+
+            int.TryParse(data["payload"]["upgradeWeapon"].ToString(), out upgradeWeapon);
+            int.TryParse(data["payload"]["repairedWeapon"].ToString(), out repairedWeapon);
+            Debug.Log(string.Format("New Item: {0} Repair Item {1}", upgradeWeapon.ToString(), repairedWeapon.ToString()));
+        }
     }
 
-    void InitializeNewPlayerController(int playerNumber, Color playerColor, int deviceId)
+    void UpdatePlayerData(int? playerNumber, Color? playerColor, int deviceId, int[] loadOut, int[] upgrades)
     {
         AirConsole.instance.Message(
             deviceId,
-            new { playerData = new { playerNumber, playerColor = ColorUtility.ToHtmlStringRGB(playerColor) } });
+            new
+            {
+                playerData = new
+                {
+                    playerNumber = playerNumber.HasValue ? playerNumber.Value : 0,
+                    playerColor = playerColor.HasValue ? ColorUtility.ToHtmlStringRGB(playerColor.Value) : "000000",
+                    loadOut,
+                    upgrades
+                }
+            });
+    }
+
+    public void BeginShopPhase()
+    {
+        foreach (KeyValuePair<int, PlayerController> kvp in players) {
+            kvp.Value.AddWeapon(WeaponType.Flamethrower);
+
+            UpdatePlayerData(
+                null,
+                null,
+                kvp.Value.deviceID,
+                kvp.Value.WeaponLevel.Select(obj => (int)obj.Key).ToArray(),
+                new int[3] {
+                    (int)WeaponType.Flamethrower,
+                    (int)WeaponType.Knife,
+                    (int)WeaponType.Nuke
+                });
+        }
+
+        // Testing countdown timer
+        countDownValue = 5;
+        InvokeRepeating("CountdownTimer", 0, 1);
     }
 
     #endregion Need to Refactor

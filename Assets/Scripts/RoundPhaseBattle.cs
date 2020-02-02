@@ -78,7 +78,7 @@ public class RoundPhaseBattle : RoundPhase
 
     public override void BeforePhaseStartPrep()
     {
-        GameManager.instance.debugText.text = "BATTLE PHASE RD " + GameManager.instance.currentRound;
+        GameManager.instance.debugText.text = "ROUND " + GameManager.instance.currentRound + " / " + GameManager.instance.numberOfRounds + "\nbattle phase";
         GameManager.instance.SpawnBeyblades();
         AirConsole.instance.Broadcast("view:alive_view");
 
