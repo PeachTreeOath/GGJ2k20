@@ -92,17 +92,22 @@ public class DynamicCamera : MonoBehaviour
 
 		yield return new WaitForSeconds(1f);
 
+		ReleaseVCReference();
+	}
+
+	public void CullDeadBots()
+	{
+
+	}
+
+	private void ReleaseVCReference()
+	{
 		followingCam.Priority = 5;
 
 		followingCam.Follow = null;
 		followingCam.LookAt = null;
 
 		coroutineIsRunning = false;
-	}
-
-	public void CullDeadBots()
-	{
-
 	}
 
 	private void FocusOnBot(BotBase botToFocus)
@@ -133,8 +138,9 @@ public class DynamicCamera : MonoBehaviour
 			StopCoroutine(runningRoutine);
 		}
 
-		runningRoutine = StartCoroutine(EndFollow());
-		coroutineIsRunning = true;
+		//runningRoutine = StartCoroutine(EndFollow());
+		//coroutineIsRunning = true;
+		ReleaseVCReference();
 	}
 
 	private void ReassessHighlights()
