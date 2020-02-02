@@ -6,37 +6,50 @@ public class ExampleBullet : Projectile
 {
     public float vel;
     public float radius;
-    public Collider myCollider;
+    private Collider myCollider;
     public LayerMask botLayer;
 
     public float lifetime = 4f;
 
+    private Vector3 moveVelocity;
+
     protected override void Awake()
     {
         base.Awake();
+        myCollider = GetComponent<Collider>();
         myCollider.enabled = false;
     }
 
     protected void Start()
     {
-        Invoke("TurnOnCollider", 1f);
+        Invoke("TurnOnCollider", .51f);
         StartCoroutine(DestroyAfterLifetime());
+    }
+
+    private void Update()
+    {
+        body.velocity = moveVelocity;
     }
 
     public override void Fire(Vector3 direction)
     {
-        body.velocity = direction * vel;
+        moveVelocity = direction * vel;
+        body.velocity = moveVelocity;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        BotBase bot = collision.gameObject.GetComponent<BotBase>();
+        var bot = collision.transform.GetComponent<BotBase>();
 
-        if (bot != null && bot.transform == IgnoreTransform)
+        if (bot && bot.transform != IgnoreTransform)
         {
             Debug.Log("cannon hit");
             bot.TakeDamage(Damage, transform.position);
-
+            Explode();
+        }
+        else
+        {
+            Debug.Log("cannon boom");
             Explode();
         }
     }

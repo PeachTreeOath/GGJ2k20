@@ -40,6 +40,12 @@
             border: 5px solid yellow;
         }
 
+        .iconLoadSelected {
+            width: 90px;
+            height: 90px;
+            border: 2px solid yellow;
+        }
+
         ul.horizontal-list {
             list-style: none;
         }
@@ -263,6 +269,13 @@
                 image.setAttribute("value", data[i]);
                 image.addEventListener("click", function (e) {
                     repairedWeapon = parseInt(e.target.attributes["value"].value, 10);
+                    var childElements = Array.prototype.slice.call(loadoutList.children);
+
+                    [].forEach.call(childElements, function (child) {
+                        child.firstChild.className = "iconLoad";
+                    });
+
+                    e.target.className = "iconLoadSelected";
                 });
                 image.src = getWeaponImageById(data[i]);
                 image.className += "iconLoad";
@@ -290,10 +303,10 @@
                     return "cannon.png";
                 case 3:
                     return "landmine.png";
+                //case 4:
+                    //return "glove.jpg";
                 case 4:
                     return "shuriken.png";
-                //case 5:
-                  //  return "shuriken.png";
             }
         }
 
@@ -361,7 +374,7 @@
                 </td>
             </tr>
             <tr>
-				<center><td class="menu-title">Loadout</td></tr></center>
+				<center><td class="menu-title">Repair</td></tr></center>
             <tr>
                 <td>
 				<ul class="horizontal-list" id="loadOutList"></ul>

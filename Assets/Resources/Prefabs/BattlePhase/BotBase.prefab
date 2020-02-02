@@ -324,7 +324,7 @@ GameObject:
   - component: {fileID: 5667133378299869}
   - component: {fileID: 461375842987400008}
   - component: {fileID: 4701134355009783269}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BotBase
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -375,9 +375,9 @@ MonoBehaviour:
   GroundLayer:
     serializedVersion: 2
     m_Bits: 1024
-  MaxHealthKnockbackMultiplier: 4
+  MaxHealthKnockbackMultiplier: 6
   MinHealthKnockbackMultiplier: 0.25
-  DamageKnockbackFactor: 2
+  DamageKnockbackFactor: 7
   CurrentHealth: 0
   rgbd: {fileID: 0}
   playerName: {fileID: 7113682404996646102}
