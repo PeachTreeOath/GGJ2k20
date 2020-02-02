@@ -43,3 +43,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89394b2456fe56c4f9d9cab92366e375, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TypeOfWeapon: 5
+  damage: 0
+  startingDurability: 100
