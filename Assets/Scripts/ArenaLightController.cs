@@ -20,8 +20,7 @@ public class ArenaLightController : Singleton<ArenaLightController>
         //We only want to track bots during the battle phase, after they have spawned.
         if (_gameManager.currentPhaseIndex == 1)
         {
-            Track(numBotsToTrack);
-            Debug.Log($"Tracking {numBotsToTrack} bots.");
+            Track(numBotsToTrack);            
             switch (numBotsToTrack)
             {
                 case 1:
@@ -53,7 +52,7 @@ public class ArenaLightController : Singleton<ArenaLightController>
 
     private void Track(int numBots)
     {
-        for(int i = numBots - 1 < 0 ? 0 : numBots - 1; i < 0; i--)
+        for(int i = numBots - 1 < 0 ? 0 : numBots - 1; i >= 0; i--)
         {
             spotLights[i].TrackBot(ListofTargets[i]);
         }
@@ -70,6 +69,7 @@ public class ArenaLightController : Singleton<ArenaLightController>
     public void UpdateListofTargets ()
     {
         numBotsToTrack = _gameManager.ActiveBots.Count / 2 < 6 ? _gameManager.ActiveBots.Count / 2 : 6; //Don't track all the bots, just track up to 6 bots.
+        ListofTargets.Clear();
         for(int i = 0; i <= numBotsToTrack; i++)
         {
             ListofTargets.Add(_gameManager.ActiveBots[Random.Range(0, _gameManager.ActiveBots.Count)]);
