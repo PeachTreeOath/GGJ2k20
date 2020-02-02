@@ -44,6 +44,17 @@
         .shop {
             color: white;
         }
+
+        .icon {
+            width: 20%;
+            height: 100px;
+
+        }
+        .iconselected {
+            width: 20%;
+            height: 100px;
+            border: 3px solid white;
+        }
             
         /* End new classes */
 
@@ -99,9 +110,9 @@
             background-position: center;
         }
 
-            #right-button:active {
-                background-image: url("/right_button_pressed.png");
-            }
+        #right-button:active {
+            background-image: url("/right_button_pressed.png");
+        }
 
         #jump-button {
             background-image: url("/jump_button.png");
@@ -124,6 +135,17 @@
             #interact-button:active {
                 background-image: url("/interact_button_pressed.png");
             }
+
+        ul.horizontal-list {
+	        list-style: none;
+	    }
+	    ul.horizontal-list li {
+		    display: inline;
+	    }
+        #countdownTimer {
+            color: white;
+        }
+
     </style>
 
     <script type="text/javascript">
@@ -134,21 +156,22 @@
         var scream_sound = new Audio('scream3.wav');
         var hit_sound = new Audio('hit.wav');
         var throw_sound = new Audio('throw.wav');
+        var upgradeWeapon = -1;
+        var repairedWeapon = -1;
+
+        var repairItemId = 1
 
         function App() {
             var me = this;
             jump_sound.volume = .3;
             lava_burn_sound.volume = .7;
 
-
             me.airconsole = new AirConsole({ "orientation": "landscape", "synchronize_time": "true" });
 
-            // showView("ready_view");
-            showView("shop_view");
+            showView("ready_view");
+            // showView("shop_view");
 
             me.airconsole.onMessage = function (from, data) {
-                console.log("onMessage", from, data);
-
                 // Check if the data, we sent, contains view
                 if (data) {
                     if (data == "view:dead_view") {
@@ -211,14 +234,6 @@
 
         }
 
-        // function jumpButtonImagePressed() {
-        //   // document.getElementById("jump-button").style.backgroundColor = "red";
-
-        //   var jumpButtonPressed = document.getElementById("jump-button");
-        //   jumpButtonPressed.id = "jump-button-image-pressed";
-        //   console.log("button pressed");
-        // }
-
         App.prototype.sendMessageToScreen = function (msg) {
             this.airconsole.message(AirConsole.SCREEN, { "action": msg });
         };
@@ -258,28 +273,112 @@
         };
 
         function finishShopping() {
-
-            let newWeapon = 1;
-            let repairedWeapon = 1;
-
             let jsonData = {};
             jsonData.payload = {};
-            jsonData.payload.newItem = 1;
-            jsonData.payload.repairItem = 1;
+            jsonData.payload.upgradeWeapon = upgradeWeapon.toString();
+            jsonData.payload.repairedWeapon = repairedWeapon.toString();
+            console.log(jsonData);
 
             window.app.sendPayloadToScreen(jsonData);
         }
 
-        function setPlayerData(data) {
-            console.log("PLayer Number: " + data.playerNumber);
-            console.log("PLayer Color: " + data.playerColor);
+        function setPlayerData(data)
+        {
+            if (data.loadOut) {
+                displayLoadout(data.loadOut);
+            }
+            if (data.upgrades) {
+                displayUpgrades(data.upgrades);
+            }
+            if (data.playerNumber) {
+                document.getElementById("player").innerHTML = "Player# " + data.playerNumber;
+            }
+            if (data.playerColor) {
+                document.getElementById("player").style.backgroundColor = "#" + data.playerColor;
+            }
+        }
 
-            document.getElementById("player").innerHTML = "Player# " + data.playerNumber;
-            document.getElementById("player").style.backgroundColor = "#" + data.playerColor;
+        function displayUpgrades(data)
+        {
+            var upgradeList = document.getElementById("upgradeList");
+            for (var i = 0; i < data.length; i++) {
+                var item = document.createElement("li");
+                var image = document.createElement("img");
+                image.setAttribute("value", data[i]);
+                image.addEventListener("click", function (e) {
+                    upgradeWeapon = e.target.attributes["value"].value;
+                    console.log(upgradeWeapon);
+
+                    var childElements = Array.prototype.slice.call(upgradeList.children);
+
+                    [].forEach.call(childElements, function (child) {
+                        child.firstChild.className = "icon";
+                    });
+
+                    e.target.className = "iconselected";
+                });
+
+                switch (data[i]) {
+                    case 0:
+                        image.src = "Flamethrower.png";
+                        break;
+                    case 1:
+                        image.src = "knife.jpg";
+                        break;
+                    case 2:
+                        image.src = "nuke.jpg";
+                        break;
+                }
+                image.className += "icon";
+                item.appendChild(image);
+                upgradeList.appendChild(item)
+            }
+        }
+
+        function displayLoadout(data) {
+            var loadoutList = document.getElementById("loadOutList");
+            for (var i = 0; i < data.length; i++) {
+                var item = document.createElement("li");
+                var image = document.createElement("img");
+                image.setAttribute("value", data[i]);
+                image.addEventListener("click", function (e) {
+                    repairedWeapon = e.target.attributes["value"].value;
+                    console.log(repairedWeapon);
+                });
+
+                switch (data[i]) {
+                    case 0:
+                        image.src = "Flamethrower.png";
+                        break;
+                    case 1:
+                        image.src = "knife.jpg";
+                        break;
+                    case 2:
+                        image.src = "nuke.jpg";
+                        break;
+                }
+
+                image.className += "icon";
+                item.appendChild(image);
+                loadoutList.appendChild(item)
+            }
         }
 
         function updateCountdownTimer(value) {
-            document.getElementById("countdownTimer").innerHTML = value;
+            document.getElementById("countdownTimer").innerHTML = "Next round in " + value + " seconds";
+
+            if (value == 0)
+                finishShopping();
+        }
+
+        function loadShop() {
+            showView("shop_view");
+
+            let jsonData = {};
+            jsonData.payload = {};
+            jsonData.payload.test = "test";            
+
+            window.app.sendPayloadToScreen(jsonData);
         }
 
     </script>
@@ -287,35 +386,31 @@
 
 </head>
 <body onload="window.app = new App()">
-    <div id="shop_view" class="view shop">        
-        <div class="button" style="background-color: red;" ontouchend="finishShopping()">Click Me</div>
-        <!--<div class="button vertical-buttons" id="left-button" ontouchstart="window.app.sendMessageToScreen('left')" ontouchend="window.app.sendMessageToScreen('left-up')"></div>
-        <div class="button vertical-buttons" id="right-button" ontouchstart="window.app.sendMessageToScreen('right')" ontouchend="window.app.sendMessageToScreen('right-up')"></div>
+    <div id="shop_view" class="view shop background">
+        <div class="button" onclick="finishShopping()" style="color: white; background-color: blue; padding: 5px;">Test</div>
+        <table>
+            <tr><td class="playerMessage">Upgrades</td></tr>
+            <tr>
+                <td>
+                    <ul class="horizontal-list" id="upgradeList"></ul>
+                </td>
+            </tr>
+            <tr><td class="playerMessage">Loadout</td></tr>
+            <tr>
+                <td>
+                    <ul class="horizontal-list" id="loadOutList"></ul>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div id="countdownTimer"></div>
+                </td>
+            </tr>
+        </table>
 
-        <div class="horizontal-buttons-container">
-            <div class="button horizontal-buttons" id="interact-button" ontouchstart="window.app.sendMessageToScreen('interact')"></div>
-            <div class="button horizontal-buttons" id="jump-button" ontouchstart="window.app.sendMessageToScreen('jump')" ontouchend="window.app.sendMessageToScreen('jump-up')"></div>
-        </div>-->
-        <div>
-            <div>Weapon 1</div>
-            <div>Weapon 2</div>
-            <div>Weapon 3</div>
-        </div>
-        <div>
-            <ul>
-                <li>Loadout 1</li>
-                <li>Loadout 2</li>
-                <li>Loadout 3</li>
-                <li>Loadout 4</li>
-                <li>Loadout 5</li>
-            </ul>
-        </div>
-        <div>
-            <div id="countdownTimer"></div>
-        </div>
     </div>
-
     <div id="ready_view" class="view background">
+        <div class="button" style="background-color: red;" ontouchend="loadShop()">Test - Launch Shop</div>
         <div class="playerMessage">Waiting for the game to begin...</div>
         <div id="player" class="playerInfo"></div>
     </div>
