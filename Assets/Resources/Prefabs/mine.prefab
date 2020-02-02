@@ -71,6 +71,13 @@ MonoBehaviour:
   aliveTime: 5
   explosion: {fileID: 198175801688348628, guid: 25c7aa9ad705fe143a4d71c1c8deb7d4,
     type: 3}
+  radius: 10
+  myCollider: {fileID: 0}
+  damageAmount: 30
+  botLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  lifetime: 4
 --- !u!1 &3369110760454127338
 GameObject:
   m_ObjectHideFlags: 0

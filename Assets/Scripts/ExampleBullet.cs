@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ExampleBullet : Projectile
 {
-    public float force;
+    public float vel;
     public float radius;
     public Collider myCollider;
     public Rigidbody rigidbody;
@@ -27,7 +27,7 @@ public class ExampleBullet : Projectile
 
     public override void Fire(Vector3 direction)
     {
-        rigidbody.velocity = direction;
+        rigidbody.velocity = direction * vel;
     }
 
     private void OnCollisionEnter(Collision collision)
