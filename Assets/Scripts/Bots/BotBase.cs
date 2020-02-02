@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -89,7 +90,7 @@ public class BotBase: MonoBehaviour
             yield return new WaitForSeconds(PersonalTargetUpdateDelay);
             if (UpdatePersonalTargetPos)
             {
-                var newPos = Random.insideUnitCircle * PersonalTargetArenaRadius;
+                var newPos = UnityEngine.Random.insideUnitCircle * PersonalTargetArenaRadius;
                 PersonalRandomTarget.position = new Vector3(newPos.x, 0, newPos.y);
             }
         }
