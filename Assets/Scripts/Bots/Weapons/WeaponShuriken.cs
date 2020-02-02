@@ -2,17 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponShuriken : ExampleBullet
+public class WeaponShuriken : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public Rigidbody rigidbody;
 
-    // Update is called once per frame
-    void Update()
+    public void Fire(Vector3 direction)
     {
-        
+        rigidbody.velocity = direction;
     }
 }

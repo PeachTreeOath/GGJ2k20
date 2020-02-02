@@ -2,6 +2,7 @@ using System.Collections;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using NDream.AirConsole;
 using TMPro;
 using UnityEngine;
 
@@ -33,7 +34,7 @@ public class BotBase: MonoBehaviour
 
     public List<Transform> Targets = new List<Transform>();
 
-    private Rigidbody rgbd;
+    public Rigidbody rgbd;
 
     public TextMeshProUGUI playerName;
     public MeshRenderer beybodyModel;
@@ -73,7 +74,7 @@ public class BotBase: MonoBehaviour
         CurrentHealth -= damageAmount;
         var knockbackMultiplier = Mathf.Lerp(MaxKnockbackFactor, MinKnockbackFactor, HealthPercentage);
 
-        rgbd.AddForceAtPosition((transform.position - contactPoint + Vector3.up) * 5, contactPoint, ForceMode.Impulse);
+        rgbd.AddForceAtPosition((transform.position - contactPoint + Vector3.up) * knockbackMultiplier, contactPoint, ForceMode.Impulse);
         ApplyWeaponDurabilityDamage(damageAmount);
 
 		ReleaseCam?.Invoke();
@@ -109,6 +110,20 @@ public class BotBase: MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter(Collider collision)
+    {
+        if (collision.gameObject.name == "Fallout")
+        {
+            IsDead = true;
+            //TODO Need a better way of getting the player object. I propose linking a PlayerController to each bot. - KT
+            foreach (PlayerController player in FindObjectsOfType<PlayerController>())
+            {
+                if (player.nickname.Equals(playerName)) AirConsole.instance.Message(player.deviceID, "view:dead_view");
+                Destroy(gameObject);
+            }
+        }
+    }
+
     private IEnumerator UpdatePersonalTarget()
     {
         while (true)
@@ -125,6 +140,8 @@ public class BotBase: MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         Weapon weapon = collision.contacts[0].thisCollider.GetComponentInParent<Weapon>();
+        GameObject obj2 = collision.contacts[0].thisCollider.gameObject;
+
         BotBase enemy = collision.collider.GetComponent<BotBase>();
         if(weapon && enemy)
         {

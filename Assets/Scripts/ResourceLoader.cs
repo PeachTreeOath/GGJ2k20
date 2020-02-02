@@ -19,6 +19,6 @@ public class ResourceLoader : Singleton<ResourceLoader>
     {
         playerPrefab = Resources.Load<GameObject>("Prefabs/Player");
         beybladePrefab = Resources.Load<GameObject>("Prefabs/BattlePhase/BotBase");
-        rocketExplosion = Resources.Load<GameObject>("Prefabs/BattlePhase/RocketExplosion");
+        rocketExplosion = Resources.Load<GameObject>("Prefabs/BattlePhase/Explosion");
     }
 }

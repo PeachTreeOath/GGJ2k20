@@ -74,12 +74,12 @@ public class AudioManager : Singleton<AudioManager>
 
         // Create a temporary reference to the current scene.
         UnityEngine.SceneManagement.Scene currentScene = UnityEngine.SceneManagement.SceneManager.GetActiveScene();
-        PlayMusicWithIntro("RepairRoyale-intro", "RepairRoyale-loop");
+        //PlayMusicWithIntro("RepairRoyale-intro", "RepairRoyale-loop");
         // Retrieve the name of this scene.
         string sceneName = currentScene.name;
         if (sceneName == "Game")
         {
-            PlayMusicWithIntro("RepairRoyale-intro", "RepairRoyale-loop");
+            //PlayMusicWithIntro("RepairRoyale-intro", "RepairRoyale-loop");
         }
         else if (sceneName == "LoadingScene")
         {
