@@ -210,10 +210,9 @@ public class ControllerManager : Singleton<ControllerManager>
                 null,
                 kvp.Value.deviceID,
                 kvp.Value.WeaponLevel.Select(obj => (int)obj.Key).ToArray(),
-                new int[3] {
+                new int[2] {
                     (int)WeaponType.Flamethrower,
-                    (int)WeaponType.Knife,
-                    (int)WeaponType.Nuke
+                    (int)WeaponType.Sword
                 });
         }
 
