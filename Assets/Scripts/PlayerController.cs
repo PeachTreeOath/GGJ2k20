@@ -50,9 +50,9 @@ public class PlayerController : MonoBehaviour
             //    return BuyWeapon(WeaponType.BoxGlove);
             case "buy_cannon":
                 return BuyWeapon(WeaponType.Cannon);
-            case "buy_mines":
+            case "buy_landmine":
                 return BuyWeapon(WeaponType.Mines);
-            case "buy_shurikens":
+            case "buy_shuriken":
                 return BuyWeapon(WeaponType.Shurikens);
 
             case "repair_flamethrower":
@@ -77,7 +77,7 @@ public class PlayerController : MonoBehaviour
     {
         if (WeaponTypeMap.ContainsKey(weaponType))
         {
-            if (WeaponTypeMap[weaponType].gameObject.activeSelf)
+            if (WeaponTypeMap[weaponType].gameObject.activeInHierarchy)
             {
                 WeaponTypeMap[weaponType].Level = WeaponTypeMap[weaponType].Level + 1;
             }
@@ -85,10 +85,12 @@ public class PlayerController : MonoBehaviour
             {
                 WeaponTypeMap[weaponType].gameObject.SetActive(true);
             }
-        }
 
-        Debug.Log(weaponType.ToString() + " BOUGHT");
-        return Result.Success;
+			Debug.Log(weaponType.ToString() + " BOUGHT");
+			return Result.Success;
+		}
+
+		return Result.Error;
     }
 
     private Result BuyRepair(WeaponType repairType)

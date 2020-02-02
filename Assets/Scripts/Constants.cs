@@ -8,7 +8,7 @@ public enum WeaponType
 	Sword,
     Cannon,
     Mines,
-    BoxGlove,
+    //BoxGlove,
     Shurikens
 }
 
@@ -30,10 +30,10 @@ public class Constants : Singleton<Constants>
 {
 	public static readonly Dictionary<WeaponType, Dictionary<int, int>> WeaponCost = new Dictionary<WeaponType, Dictionary<int, int>>()
 	{
-		{ WeaponType.BoxGlove, new Dictionary<int, int>() {
-			{ 1, 10 },
-			{ 2, 20 },
-			{ 3, 30 } } },
+		//{ WeaponType.BoxGlove, new Dictionary<int, int>() {
+		//	{ 1, 10 },
+		//	{ 2, 20 },
+		//	{ 3, 30 } } },
 		{ WeaponType.Cannon, new Dictionary<int, int>() {
 			{ 1, 10 },
 			{ 2, 20 },
@@ -58,7 +58,7 @@ public class Constants : Singleton<Constants>
 
 	public static readonly Dictionary<WeaponType, int> RepairCost = new Dictionary<WeaponType, int>()
 	{
-		{ WeaponType.BoxGlove, 1 },
+		//{ WeaponType.BoxGlove, 1 },
 		{ WeaponType.Cannon, 1 },
         { WeaponType.Flamethrower, 1 },
         { WeaponType.Mines, 1 },
