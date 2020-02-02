@@ -15,20 +15,23 @@ public class ShurikenLauncher : Weapon
     // Start is called before the first frame update
     void Update()
     {
-        timeSinceFire += Time.deltaTime;
-
-        if (timeSinceFire > secsToFire)
+        if (this.isActiveAndEnabled)
         {
-            timeSinceFire -= secsToFire;
+            timeSinceFire += Time.deltaTime;
 
-            for (int i = 0; i < numShurikensToSpawn; i++)
+            if (timeSinceFire > secsToFire)
             {
-                Quaternion rotation = GetComponentInParent<BotBase>().transform.rotation;
-                rotation *= Quaternion.Euler(0, i * 15, 0);
-                Projectile spawnedObj = Instantiate(projectilePrefabToLaunch, transform.position, rotation);
-                spawnedObj.Damage = damage;
-                spawnedObj.IgnoreTransform = MyBot.transform;
-                spawnedObj.GetComponent<WeaponShuriken>().Fire(spawnedObj.transform.forward * speed);
+                timeSinceFire -= secsToFire;
+
+                for (int i = 0; i < numShurikensToSpawn; i++)
+                {
+                    Quaternion rotation = GetComponentInParent<BotBase>().transform.rotation;
+                    rotation *= Quaternion.Euler(0, i * 15, 0);
+                    Projectile spawnedObj = Instantiate(projectilePrefabToLaunch, transform.position, rotation);
+                    spawnedObj.Damage = damage;
+                    spawnedObj.IgnoreTransform = MyBot.transform;
+                    spawnedObj.GetComponent<WeaponShuriken>().Fire(spawnedObj.transform.forward * speed);
+                }
             }
         }
     }

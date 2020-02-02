@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31b62b36e92404c148d8467f80170d2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TypeOfWeapon: 0
+  TypeOfWeapon: 2
   damageLevels:
   - 15
   - 25
@@ -55,7 +55,7 @@ MonoBehaviour:
     type: 3}
   secsToFire: 3
   fireTransformGameObject: {fileID: 5938899169300495071}
-  speed: 2.5
+  speed: 2
 --- !u!1 &5938899169300495071
 GameObject:
   m_ObjectHideFlags: 0
@@ -160,7 +160,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 5212a4945a552c84685d71400eec630b, type: 2}
+      objectReference: {fileID: 2100000, guid: bb2cda22861824c908515dea9863c963, type: 2}
     - target: {fileID: 1037219692518572069, guid: c9a0ea422824648b4855ac5968aaa3cc,
         type: 3}
       propertyPath: m_Name
@@ -170,7 +170,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 5212a4945a552c84685d71400eec630b, type: 2}
+      objectReference: {fileID: 2100000, guid: bb2cda22861824c908515dea9863c963, type: 2}
     - target: {fileID: 3025747639791810966, guid: c9a0ea422824648b4855ac5968aaa3cc,
         type: 3}
       propertyPath: m_Materials.Array.data[0]

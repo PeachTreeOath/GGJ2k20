@@ -64,6 +64,34 @@
 			color: #D15852;
 		}
 
+		.titleContainer
+		{
+			position: relative;
+			height: 100%;
+			width: 100%;
+		}
+
+		.titleTopDiv,
+		.titleBottomDiv {
+			position: fixed;
+			left: 0;
+			right: 0;
+		}
+
+		.titleTopDiv
+		{
+			top: 0;
+			font-size: 40px;
+			height: 80%;
+			text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+		}
+
+		.titleBottomDiv
+		{
+			bottom: 0;
+			height: 20%;
+		}
+
 		@font-face {
 			font-family: "Expansiva";
 			src: url("./Expansiva.otf") format("opentype");
@@ -227,7 +255,6 @@
                 var item = document.createElement("li");
                 var image = document.createElement("img");
                 image.setAttribute("value", data[i]);
-				image.setAttribute("class", "icon-img");
                 image.addEventListener("click", function (e) {
                     repairedWeapon = parseInt(e.target.attributes["value"].value, 10);
                 });
@@ -239,11 +266,11 @@
         }
 
         function displayPlayerNumber(data) {
-            document.getElementById("player").innerHTML = "Player# " + data.playerNumber;
+            document.getElementById("playerNumber").innerHTML = "Player #" + data.playerNumber;
         }
 
         function displayPlayerColor(data) {
-            document.getElementById("player").style.backgroundColor = "#" + data.playerColor;
+            document.getElementById("playerColor").style.backgroundColor = "#" + data.playerColor;
         }
 
         function getWeaponImageById(id) {
@@ -300,9 +327,12 @@
 </head>
 <body onload="window.app = new App()">
     <div id="title_view" class="view">
-        <button onclick="startShopping()">Launch Shop</button>
-        <div>Waiting for Commander to start game...</div>
-        <div id="player"></div>
+		<div class="titleContainer">
+			<!-- <button onclick="startShopping()">Launch Shop</button> -->
+			<div id="playerColor" class="titleTopDiv"><center><p>Hello <span id="playerNumber"></span><p>
+			This is your color - remember it!</center></div><p>
+			<div class="titleBottomDiv"><center><p>Waiting for Commander to start game...</center></div>
+		</div>
     </div>
     <div id="alive_view" class="view">
 		<div class="center">
@@ -311,7 +341,12 @@
     </div>
     <div id="shop_view" class="view">
         <!-- <div class="button" onclick="finishShopping()" style="color: white; background-color: blue; padding: 5px;">Test</div> -->
-        <table class="storeTable">
+        <center><div class="player-color">
+			<script type="text/javascript">
+			document.write(jsPlayerNumber)
+			</script>
+		</div></center>
+		<table class="storeTable">
             <tr>
 				<center><td class="menu-title">Upgrades</td></tr></center>
             <tr>
