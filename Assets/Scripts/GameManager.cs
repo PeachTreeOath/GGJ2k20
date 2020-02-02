@@ -130,6 +130,7 @@ public class GameManager : Singleton<GameManager>
 			ActiveBots.Add(beyblade);
 			beyblade.Death += OnBotDeath;
 
+            ArenaLightController.instance.UpdateListofTargets();
             // read through playercontroller and spawn weapons onto it
         }
     }
@@ -137,6 +138,7 @@ public class GameManager : Singleton<GameManager>
 	private void OnBotDeath(BotBase botThatDied)
 	{
 		ActiveBots.Remove(botThatDied);
+        ArenaLightController.instance.UpdateListofTargets();
 		if (ActiveBots.Count < 2)
 		{
 			EndGame();
