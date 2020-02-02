@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 
 public class BotBase: MonoBehaviour
@@ -24,6 +25,10 @@ public class BotBase: MonoBehaviour
     public List<Transform> Targets = new List<Transform>();
 
     private Rigidbody rgbd;
+
+    public TextMeshProUGUI playerName;
+    public MeshRenderer beybodyModel;
+    public List<MeshRenderer> beybladeModels;
 
     private void Awake()
     {

@@ -8,6 +8,6 @@ public class CalvinBeyblade : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Rotate(Vector3.forward, 10000 * Time.deltaTime);
+        transform.Rotate(Vector3.forward, 250 * Time.deltaTime);
     }
 }
